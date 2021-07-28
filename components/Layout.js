@@ -14,6 +14,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
     minHeight: "100vh",
   },
+  drawer: {
+    width: 240,
+  },
 });
 
 export default function Layout({ children }) {

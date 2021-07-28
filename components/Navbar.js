@@ -8,8 +8,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Link from "../src/Link";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import NavDrawer from "./NavDrawer";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -18,23 +17,21 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  drawer: {
+    width: 240,
+  },
 }));
 
 export default function Navbar() {
   const classes = useStyles();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  // Fix this on click event
+  const toggleDrawer = (open) => (event) => {
+    setDrawer(open);
   };
 
   return (
     <div>
+      <NavDrawer toggleDrawer={toggleDrawer} />
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -43,27 +40,10 @@ export default function Navbar() {
             color="inherit"
             aria-label="menu"
             aria-haspopup="true"
-            onClick={handleClick}
+            onClick={toggleDrawer}
           >
             <MenuIcon />
           </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <Link href="/">
-              <MenuItem onClick={handleClose}>Home</MenuItem>
-            </Link>
-            <Link href="/tournaments">
-              <MenuItem onClick={handleClose}>Tournaments</MenuItem>
-            </Link>
-            <Link href="/sign-in">
-              <MenuItem onClick={handleClose}>Sign In</MenuItem>
-            </Link>
-          </Menu>
           <Typography variant="h6" className={classes.title}>
             MASA D21
           </Typography>
