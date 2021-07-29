@@ -59,8 +59,8 @@ const NavDrawer = () => {
           {itemsList.map((item, index) => {
             const { text, icon, url } = item;
             return (
-              <Link href={url}>
-                <ListItem button key={text} onClick={() => setOpen(false)}>
+              <Link href={url} key={text}>
+                <ListItem button onClick={() => setOpen(false)}>
                   {icon && <ListItemIcon>{icon}</ListItemIcon>}
                   <ListItemText primary={text} />
                 </ListItem>

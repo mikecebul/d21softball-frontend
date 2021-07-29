@@ -6,10 +6,12 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.11.2",
     "clsx": "latest",
+    "moment": "^2.29.1",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-moment": "^1.1.1"
   },
   "scripts": {
     "dev": "next",

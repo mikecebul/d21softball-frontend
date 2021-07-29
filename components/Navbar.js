@@ -32,7 +32,7 @@ export default function Navbar() {
             <Button
               aria-label="Sign Up Button"
               variant="contained"
-              color="inherit"
+              color="default"
             >
               SIGN UP
             </Button>
