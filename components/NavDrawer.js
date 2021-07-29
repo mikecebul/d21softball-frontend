@@ -1,49 +1,70 @@
 import React from "react";
 import { useState } from "react";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import HomeIcon from "@material-ui/icons/Home";
-import SportsBaseballIcon from "@material-ui/icons/SportsBaseball";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import SportsBaseballOutlinedIcon from "@material-ui/icons/SportsBaseballOutlined";
+import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Link from "../src/Link";
+
+const useStyles = makeStyles((theme) => ({
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 const NavDrawer = () => {
-  const [openDrawer, setOpenDrawer] = useState(true);
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   const itemsList = [
     {
       text: "Home",
-      icon: <HomeIcon />,
+      icon: <HomeOutlinedIcon />,
+      url: "/",
     },
     {
       text: "Tournaments",
-      icon: <SportsBaseballIcon />,
+      icon: <SportsBaseballOutlinedIcon />,
+      url: "/tournaments",
     },
     {
       text: "Login",
-      icon: <LockOpenIcon />,
+      icon: <LockOpenOutlinedIcon />,
+      url: "/login",
     },
   ];
 
   return (
     <>
-      <Drawer onClose={() => setOpenDrawer(false)} open={openDrawer}>
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="menu"
+        aria-haspopup="true"
+        onClick={() => setOpen(true)}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Drawer open={open} onClose={() => setOpen(false)}>
         <List>
           {itemsList.map((item, index) => {
-            const { text, icon } = item;
+            const { text, icon, url } = item;
             return (
-              <ListItem button key={text}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText primary={text} />
-              </ListItem>
+              <Link href={url}>
+                <ListItem button key={text} onClick={() => setOpen(false)}>
+                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
             );
           })}
         </List>
