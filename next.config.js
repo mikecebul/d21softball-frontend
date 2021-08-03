@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ["localhost", "143.244.165.104"],
+    domains: ["localhost", "api.mikecebul.cloud"],
   },
   reactStrictMode: true,
 };
