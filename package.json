@@ -8,6 +8,7 @@
     "clsx": "latest",
     "moment": "^2.29.1",
     "next": "latest",
+    "postcss": "^8.3.6",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { API_URL } from "../utils/urls";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,6 +37,30 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  async function handleLogin(event) {
+    event.preventDefault()
+    const loginInfo = {
+      identifier: email,
+      password: password
+    }
+
+    const login = await fetch(`${API_URL}/auth/local`, {
+      method: "POST",
+      headers: {
+        "Accept": 'application/json',
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(loginInfo)
+    })
+
+    const loginResponse = await login.json()
+
+    console.log(loginResponse)
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -57,6 +82,8 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={e => setEmail(e.target.value)}
+            value={email}
           />
           <TextField
             variant="outlined"
@@ -68,6 +95,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -79,6 +108,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => handleLogin(e)}
           >
             Login
           </Button>

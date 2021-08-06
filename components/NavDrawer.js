@@ -12,6 +12,7 @@ import SportsBaseballOutlinedIcon from "@material-ui/icons/SportsBaseballOutline
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Link from "../src/Link";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,11 @@ const NavDrawer = () => {
       text: "Tournaments",
       icon: <SportsBaseballOutlinedIcon />,
       url: "/tournaments",
+    },
+    {
+      text: "About",
+      icon: <InfoOutlinedIcon />,
+      url: "/about",
     },
     {
       text: "Login",
