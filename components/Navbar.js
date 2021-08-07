@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import { React, useState, useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
 
   return (
     <div>
@@ -28,15 +29,23 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             MASA D21
           </Typography>
-          <Link href="/signup">
-            <Button
-              aria-label="Sign Up Button"
-              variant="contained"
-              color="default"
-            >
-              SIGN UP
-            </Button>
-          </Link>
+          {user ? (
+            <Link href="/account">
+              <Button aria-label="Account" variant="contained" color="default">
+                Account
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/signup">
+              <Button
+                aria-label="Sign Up Button"
+                variant="contained"
+                color="default"
+              >
+                SIGN UP
+              </Button>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
     </div>

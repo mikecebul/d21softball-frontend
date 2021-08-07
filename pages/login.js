@@ -1,4 +1,4 @@
-import { React, useState} from "react";
+import { React, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -37,28 +37,28 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleLogin(event) {
-    event.preventDefault()
+    event.preventDefault();
     const loginInfo = {
       identifier: email,
-      password: password
-    }
+      password: password,
+    };
 
     const login = await fetch(`${API_URL}/auth/local`, {
       method: "POST",
       headers: {
-        "Accept": 'application/json',
-        'Content-type': 'application/json'
+        Accept: "application/json",
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(loginInfo)
-    })
+      body: JSON.stringify(loginInfo),
+    });
 
-    const loginResponse = await login.json()
+    const loginResponse = await login.json();
 
-    console.log(loginResponse)
+    console.log(loginResponse);
   }
 
   return (
@@ -82,7 +82,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
           <TextField
@@ -95,7 +95,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
           <FormControlLabel
