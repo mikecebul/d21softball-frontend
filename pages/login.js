@@ -1,4 +1,6 @@
-import { React, useState } from "react";
+import { React, useContext, useState } from "react";
+import AuthContext from "../context/AuthContext";
+import Head from "next/head";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -39,31 +41,15 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loginUser } = useContext(AuthContext);
 
-  async function handleLogin(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const loginInfo = {
-      identifier: email,
-      password: password,
-    };
-
-    const login = await fetch(`${API_URL}/auth/local`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(loginInfo),
-    });
-
-    const loginResponse = await login.json();
-
-    console.log(loginResponse);
+    loginUser(email, password);
   }
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -108,7 +94,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e) => handleLogin(e)}
+            onClick={(e) => handleSubmit(e)}
           >
             Login
           </Button>

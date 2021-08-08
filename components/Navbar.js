@@ -29,6 +29,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             MASA D21
           </Typography>
+          {/* stopped video at  1:02:24 "using magic authenication to the frontend*/}
           {user ? (
             <Link href="/account">
               <Button aria-label="Account" variant="contained" color="default">
