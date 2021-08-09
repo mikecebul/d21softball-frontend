@@ -3,18 +3,17 @@ import AuthContext from "../context/AuthContext";
 import Head from "next/head";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { API_URL } from "../utils/urls";
+import { red } from "@material-ui/core/colors";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  err: {
+    paddingTop: 2,
+  },
 }));
 
 export default function Login() {
@@ -41,7 +43,7 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, error } = useContext(AuthContext);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -110,6 +112,13 @@ export default function Login() {
               </Link>
             </Grid>
           </Grid>
+          {error && (
+            <Box pt={2}>
+              <Typography align="center" variant="subtitle2" color="error">
+                {error}
+              </Typography>
+            </Box>
+          )}
         </form>
       </div>
     </Container>

@@ -17,7 +17,9 @@ export default function Account() {
       </div>
     );
   }
-
+  if (user) {
+    // getUser(token);
+  }
   return (
     <div>
       <Head>
@@ -44,26 +46,3 @@ export default function Account() {
     </div>
   );
 }
-// export async function getServerSideProps() {
-//   const loginInfo = {
-//     identifier: "test@test.com",
-//     password: "pass123",
-//   };
-
-//   const login = await fetch(`${API_URL}/auth/local`, {
-//     method: "POST",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-type": "application/json",
-//     },
-//     body: JSON.stringify(loginInfo),
-//   });
-
-//   const loginResponse = await login.json();
-
-//   return {
-//     props: {
-//       authData: loginResponse,
-//     },
-//   };
-// }
