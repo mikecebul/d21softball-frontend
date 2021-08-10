@@ -14,24 +14,30 @@ export const AuthProvider = (props) => {
   // Login User ---------------------
   const loginUser = async (email, password) => {
     axios
-      .post(`${API_URL}/auth/local`, {
-        identifier: email,
-        password: password,
-      })
+      .post(
+        `${API_URL}/auth/local`,
+        {
+          identifier: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         // Handle success.
         console.log("Well done!");
         console.log("User profile", response.data.user);
         console.log("User token", response.data.jwt);
         setUser(response.data.user);
-        setToken(response.data.jwt);
+        // setToken(response.data.jwt);
         setError(null);
         router.push("/account");
       })
       .catch((err) => {
         // Handle error.
         console.log("An error occurred:", err.response);
-        setError(err.response.data.data[0].messages[0].message);
+        // setError(err.response.data.data[0].messages[0].message);
       });
   };
 
