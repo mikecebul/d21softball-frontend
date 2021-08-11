@@ -1,5 +1,5 @@
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "localhost:1337";
+  process.env.NEXT_PUBLIC_API_URL || "https://api.mikecebul.cloud";
 
 /**
  * Given an image return the Url
