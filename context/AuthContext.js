@@ -53,7 +53,7 @@ export const AuthProvider = (props) => {
         .then((response) => {
           // Handle success.
           console.log("Data: ", response.data);
-          setUser(response.data.user);
+          setUser(response.data);
         })
         .catch((err) => {
           // Handle error.
