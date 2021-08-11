@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { API_URL } from "../utils/urls";
@@ -7,7 +7,6 @@ const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
   const router = useRouter();
 
@@ -28,16 +27,14 @@ export const AuthProvider = (props) => {
         // Handle success.
         console.log("Well done!");
         console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
         setUser(response.data.user);
-        // setToken(response.data.jwt);
         setError(null);
         router.push("/account");
       })
       .catch((err) => {
         // Handle error.
         console.log("An error occurred:", err.response);
-        // setError(err.response.data.data[0].messages[0].message);
+        setError(err.response.data.data[0].messages[0].message);
       });
   };
 
@@ -49,27 +46,23 @@ export const AuthProvider = (props) => {
   };
 
   // Request User Data -----------------
-  const getUser = async () => {
-    axios
-      .get(`${API_URL}/users/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        // Handle success.
-        console.log("Data: ", response.data);
-      })
-      .catch((err) => {
-        // Handle error.
-        console.log("An error occurred:", err.response);
-      });
-  };
+  useEffect(() => {
+    const getUser = async () => {
+      axios
+        .get(`${API_URL}/users/me`, {})
+        .then((response) => {
+          // Handle success.
+          console.log("Data: ", response.data);
+        })
+        .catch((err) => {
+          // Handle error.
+          console.log("An error occurred:", err.response);
+        });
+    };
+  }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, error, loginUser, logoutUser, getUser }}
-    >
+    <AuthContext.Provider value={{ user, error, loginUser, logoutUser }}>
       {props.children}
     </AuthContext.Provider>
   );

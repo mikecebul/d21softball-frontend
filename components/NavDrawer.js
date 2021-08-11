@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import { React, useContext, useState } from "react";
+import AuthContext from "../context/AuthContext";
+
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -10,9 +10,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import SportsBaseballOutlinedIcon from "@material-ui/icons/SportsBaseballOutlined";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Link from "../src/Link";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const NavDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const { user, logoutUser } = useContext(AuthContext);
 
   const itemsList = [
     {
@@ -62,17 +64,58 @@ const NavDrawer = () => {
       </IconButton>
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List>
-          {itemsList.map((item, index) => {
-            const { text, icon, url } = item;
-            return (
-              <Link href={url} key={text}>
-                <ListItem button onClick={() => setOpen(false)}>
-                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                  <ListItemText primary={text} />
-                </ListItem>
-              </Link>
-            );
-          })}
+          {/* Home */}
+          <Link href="/">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <HomeOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+          </Link>
+          {/* Tournaments */}
+          <Link href="/tournaments">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <SportsBaseballOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Tournaments" />
+            </ListItem>
+          </Link>
+          {/* About */}
+          <Link href="/about">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <InfoOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="About" />
+            </ListItem>
+          </Link>
+          {!user ? (
+            <Link href="/login">
+              <ListItem button onClick={() => setOpen(false)}>
+                <ListItemIcon>
+                  <InfoOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Login" />
+              </ListItem>
+            </Link>
+          ) : (
+            <Link href="/">
+              <ListItem
+                button
+                onClick={() => {
+                  setOpen(false);
+                  logoutUser();
+                }}
+              >
+                <ListItemIcon>
+                  <LockOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItem>
+            </Link>
+          )}
         </List>
       </Drawer>
     </>
