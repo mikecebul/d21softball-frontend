@@ -49,7 +49,7 @@ export const AuthProvider = (props) => {
   useEffect(() => {
     const getUser = async () => {
       axios
-        .get(`${API_URL}/users/me`, {})
+        .get(`${API_URL}/users/me`, {withCredentials: true})
         .then((response) => {
           // Handle success.
           console.log("Data: ", response.data);
