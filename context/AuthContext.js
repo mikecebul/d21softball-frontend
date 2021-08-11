@@ -40,16 +40,25 @@ export const AuthProvider = (props) => {
 
   // Logout User ----------------------
   const logoutUser = async () => {
-    router.push("/");
-    setUser(null);
-    setToken(null);
+    axios
+      .post(`${API_URL}/logout`, { withCredentials: true })
+      .then((response) => {
+        // Handle success.
+        console.log("Data: ", response.data);
+        router.push("/");
+        setUser(null);
+      })
+      .catch((err) => {
+        // Handle error.
+        console.log("An error occurred:", err.response);
+      });
   };
 
   // Request User Data -----------------
   useEffect(() => {
     const getUser = async () => {
-      const reponse = await axios
-        .get(`${API_URL}/users/me`, {withCredentials: true})
+      axios
+        .get(`${API_URL}/users/me`, { withCredentials: true })
         .then((response) => {
           // Handle success.
           console.log("Data: ", response.data);
@@ -60,7 +69,7 @@ export const AuthProvider = (props) => {
           console.log("An error occurred:", err.response);
         });
     };
-    getUser()
+    getUser();
   }, []);
 
   return (
