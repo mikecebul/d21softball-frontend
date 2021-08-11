@@ -50,9 +50,15 @@ export const AuthProvider = (props) => {
     const getUser = async () => {
       const reponse = await axios
         .get(`${API_URL}/users/me`, {withCredentials: true})
-          const result = reponse.data
-          console.log("Data: ", result);
-          setUser(result.user);
+        .then((response) => {
+          // Handle success.
+          console.log("Data: ", response.data);
+          setUser(response.data.user);
+        })
+        .catch((err) => {
+          // Handle error.
+          console.log("An error occurred:", err.response);
+        });
     };
     getUser()
   }, []);
