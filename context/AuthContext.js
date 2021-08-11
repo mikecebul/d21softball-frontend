@@ -54,6 +54,7 @@ export const AuthProvider = (props) => {
           console.log("Data: ", result);
           setUser(result.user);
     };
+    getUser()
   }, []);
 
   return (
