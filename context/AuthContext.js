@@ -50,6 +50,7 @@ export const AuthProvider = (props) => {
         console.log("Data: ", response.data);
         setUser(null);
         router.push("/");
+        console.log(user);
       })
       .catch((err) => {
         // Handle error.
