@@ -27,29 +27,6 @@ const NavDrawer = () => {
   const [open, setOpen] = useState(false);
   const { user, logoutUser } = useContext(AuthContext);
 
-  const itemsList = [
-    {
-      text: "Home",
-      icon: <HomeOutlinedIcon />,
-      url: "/",
-    },
-    {
-      text: "Tournaments",
-      icon: <SportsBaseballOutlinedIcon />,
-      url: "/tournaments",
-    },
-    {
-      text: "About",
-      icon: <InfoOutlinedIcon />,
-      url: "/about",
-    },
-    {
-      text: "Login",
-      icon: <LockOpenOutlinedIcon />,
-      url: "/login",
-    },
-  ];
-
   return (
     <>
       <IconButton
@@ -95,7 +72,7 @@ const NavDrawer = () => {
             <Link href="/login">
               <ListItem button onClick={() => setOpen(false)}>
                 <ListItemIcon>
-                  <InfoOutlinedIcon />
+                  <LockOpenOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText primary="Login" />
               </ListItem>
