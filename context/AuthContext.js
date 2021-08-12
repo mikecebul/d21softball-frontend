@@ -45,8 +45,8 @@ export const AuthProvider = (props) => {
       .then((response) => {
         // Handle success.
         console.log("Data: ", response.data);
-        router.push("/");
         setUser(null);
+        router.push("/");
       })
       .catch((err) => {
         // Handle error.
