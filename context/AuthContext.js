@@ -41,9 +41,8 @@ export const AuthProvider = (props) => {
   // Logout User ----------------------
   const logoutUser = async () => {
     axios
-      .get(`${API_URL}/logout`, {
+      .post(`${API_URL}/logout`, {
         withCredentials: true,
-        data: {},
       })
       .then((response) => {
         // Handle success.
