@@ -47,7 +47,7 @@ export const AuthProvider = (props) => {
       .then((response) => {
         // Handle success.
         console.log("Data: ", response.data);
-        setUser(null);
+        setUser({});
         router.push("/");
         console.log(user);
       })
@@ -76,7 +76,7 @@ export const AuthProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, error, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, setUser, error, loginUser, logoutUser }}>
       {props.children}
     </AuthContext.Provider>
   );
