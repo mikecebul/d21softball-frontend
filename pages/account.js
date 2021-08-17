@@ -1,5 +1,6 @@
 import { React, useContext } from "react";
 import axios from "axios";
+import { API_URL } from "../utils/urls";
 import Head from "next/head";
 import AuthContext from "../context/AuthContext";
 import Typography from "@material-ui/core/Typography";
