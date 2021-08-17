@@ -40,21 +40,23 @@ export const AuthProvider = (props) => {
 
   // Logout User ----------------------
   const logoutUser = async () => {
-    axios
+    const logout = await axios
       .post(`${API_URL}/logout`, {
         withCredentials: true,
       })
       .then((response) => {
         // Handle success.
         console.log("Data: ", response.data);
-        setUser({});
+        setUser(null);
         router.push("/");
         console.log(user);
-      })
+    })
       .catch((err) => {
         // Handle error.
         console.log("An error occurred:", err.response);
       });
+
+      return logout;
   };
 
   // Request User Data -----------------
@@ -76,7 +78,7 @@ export const AuthProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, error, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, setUser, error, loginUser }}>
       {props.children}
     </AuthContext.Provider>
   );

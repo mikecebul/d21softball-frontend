@@ -25,7 +25,27 @@ const useStyles = makeStyles((theme) => ({
 const NavDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+
+    // Logout User ----------------------
+    const logoutUser = async () => {
+      axios
+        .post(`${API_URL}/logout`, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          // Handle success.
+          console.log("Data: ", response.data);
+          setUser(null);
+          router.push("/");
+          console.log(user);
+      })
+        .catch((err) => {
+          // Handle error.
+          console.log("An error occurred:", err.response);
+        });
+    };
+  
 
   return (
     <>
