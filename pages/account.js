@@ -1,4 +1,5 @@
 import { React, useContext } from "react";
+import axios from "axios";
 import Head from "next/head";
 import AuthContext from "../context/AuthContext";
 import Typography from "@material-ui/core/Typography";
