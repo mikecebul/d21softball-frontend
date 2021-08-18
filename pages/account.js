@@ -38,7 +38,9 @@ export default function Account() {
           aria-label="logout"
           variant="contained"
           color="default"
-          onClick={logoutUser}
+          onClick={
+            logoutUser();
+          }
         >
           Logout
         </Button>
