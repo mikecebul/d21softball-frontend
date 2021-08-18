@@ -49,8 +49,10 @@ export const AuthProvider = (props) => {
         console.log("Data: ", response.data);
         setUser(null);
         .then(() => {
-          router.push("/");
-          console.log(user);
+          return router.push("/");
+        })
+        .then(() => {
+          return console.log(user);
         })
     })
       .catch((err) => {
