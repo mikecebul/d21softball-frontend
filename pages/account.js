@@ -10,27 +10,7 @@ export default function Account() {
   // console.log(authData.authData)
   // const user = authData.authData.user
 
-  const { user, setUser } = useContext(AuthContext);
-  
-  // Logout User ----------------------
-  const logoutUser = async () => {
-    axios
-      .post(`${API_URL}/logout`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        // Handle success.
-        console.log("Data: ", response.data);
-        setUser(null);
-        router.push("/");
-        console.log(user);
-    })
-      .catch((err) => {
-        // Handle error.
-        console.log("An error occurred:", err.response);
-      });
-  };
-  
+  const { user, logoutUser } = useContext(AuthContext);
 
   if (!user) {
     return (
@@ -40,31 +20,30 @@ export default function Account() {
     );
   }
   if (user) {
-    // getUser(token);
-  }
-  return (
-    <div>
-      <Head>
-        <title>Account Page</title>
-        <meta
-          name="description"
-          content="The Account page to view you MASA D21 activity"
-        />
-      </Head>
-      <Typography variant="h1" align="center">
-        Account
-      </Typography>
-      <Typography variant="h6" align="center">
-        {user.email}
-      </Typography>
-      <Button
-        aria-label="logout"
-        variant="contained"
-        color="default"
-        onClick={logoutUser}
-      >
-        Logout
-      </Button>
-    </div>
-  );
+    return (
+      <div>
+        <Head>
+          <title>Account Page</title>
+          <meta
+            name="description"
+            content="The Account page to view you MASA D21 activity"
+          />
+        </Head>
+        <Typography variant="h1" align="center">
+          Account
+        </Typography>
+        <Typography variant="h6" align="center">
+          {user.email}
+        </Typography>
+        <Button
+          aria-label="logout"
+          variant="contained"
+          color="default"
+          onClick={logoutUser}
+        >
+          Logout
+        </Button>
+      </div>
+    );
+   }
 }

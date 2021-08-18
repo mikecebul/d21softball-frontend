@@ -1,7 +1,5 @@
 import { React, useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import axios from "axios";
-import { API_URL } from "../utils/urls";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -27,28 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const NavDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
-
-    // Logout User ----------------------
-    const logoutUser = async () => {
-      axios
-        .post(`${API_URL}/logout`, {
-          withCredentials: true,
-        })
-        .then((response) => {
-          // Handle success.
-          console.log("Data: ", response.data);
-          setUser(null);
-          router.push("/");
-          console.log(user);
-      })
-        .catch((err) => {
-          // Handle error.
-          console.log("An error occurred:", err.response);
-        });
-    };
-  
-
+  const { user, logoutUser } = useContext(AuthContext);
   return (
     <>
       <IconButton
