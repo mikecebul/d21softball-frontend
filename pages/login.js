@@ -74,7 +74,8 @@ export default function Login() {
       )
       .then((response) => {
         // Handle success.
-        dispatch({ type: "LOGIN", user: response.data.user });
+        console.log("Login Response:", response);
+        dispatch({ type: "LOGIN", user: response.data });
         router.push("/account");
       })
       .catch((err) => {
