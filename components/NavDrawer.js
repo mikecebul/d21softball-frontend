@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
+import axios from "axios";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -85,7 +86,7 @@ const NavDrawer = () => {
               <ListItemText primary="About" />
             </ListItem>
           </Link>
-          {!user ? (
+          {!user.isAuthenticated ? (
             <Link href="/login">
               <ListItem button onClick={() => setOpen(false)}>
                 <ListItemIcon>
