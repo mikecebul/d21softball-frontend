@@ -26,10 +26,9 @@ export const CurrentUserProvider = ({ children }) => {
         .get(`${API_URL}/users/me`, { withCredentials: true })
         .then((response) => {
           // Handle success.
-          console.log("Data: ", response.data);
-          setUser(response.data);
+          console.log("Data: ", response);
           if (user.id) {
-            dispatch({ type: "LOGIN", user });
+            dispatch({ type: "LOGIN", user: response.data });
             return;
           }
         })
