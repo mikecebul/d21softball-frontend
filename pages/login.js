@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
+import { API_URL } from "../utils/urls";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";

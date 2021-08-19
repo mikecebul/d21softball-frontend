@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
+import { API_URL } from "../utils/urls";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";

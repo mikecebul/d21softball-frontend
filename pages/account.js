@@ -1,6 +1,7 @@
 import React from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import Head from "next/head";
+import { API_URL } from "../utils/urls";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
