@@ -91,7 +91,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -126,7 +126,6 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e) => handleSubmit(e)}
           >
             Login
           </Button>
