@@ -27,7 +27,7 @@ export const CurrentUserProvider = ({ children }) => {
         .then((response) => {
           // Handle success.
           console.log("Data: ", response);
-          if (user.id) {
+          if (response.data.id) {
             dispatch({ type: "LOGIN", user: response.data });
             return;
           }
