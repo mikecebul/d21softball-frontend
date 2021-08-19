@@ -114,8 +114,8 @@ export default function Login() {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
-            value={email}
+            autoComplete="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
