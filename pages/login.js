@@ -55,7 +55,7 @@ export default function Login() {
     if (currentUser.isAuthenticated) {
       router.push("/");
     }
-  }, [currentUser]);
+  }, []);
 
   // Handle login Submit
   const handleSubmit = async (e) => {
