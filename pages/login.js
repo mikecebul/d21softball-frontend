@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { API_URL } from "../utils/urls";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const router = useRouter();
 
   const dispatch = useDispatchCurrentUser();
   const currentUser = useCurrentUser();

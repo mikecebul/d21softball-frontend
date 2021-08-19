@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { API_URL } from "../utils/urls";
+import { useRouter } from "next/router";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -26,9 +27,11 @@ const useStyles = makeStyles((theme) => ({
 
 const NavDrawer = () => {
   const classes = useStyles();
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatchCurrentUser();
   const user = useCurrentUser();
+  const router = useRouter();
 
   // Logout User ----------------------
   const handleLogout = async () => {
