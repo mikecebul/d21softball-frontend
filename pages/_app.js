@@ -5,7 +5,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import Layout from "../components/Layout";
-import { AuthProvider } from "../context/AuthContext";
+import { CurrentUserProvider } from "../context/CurrentUser";
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -20,7 +20,7 @@ export default function MyApp(props) {
 
   return (
     <React.Fragment>
-      <AuthProvider>
+      <CurrentUserProvider>
         <Head>
           <title>My page</title>
           <meta
@@ -35,7 +35,7 @@ export default function MyApp(props) {
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
-      </AuthProvider>
+      </CurrentUserProvider>
     </React.Fragment>
   );
 }

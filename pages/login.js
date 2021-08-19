@@ -1,6 +1,7 @@
-import { React, useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
-import Head from "next/head";
+import { useEffect, useRef, useState } from "react";
+import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
+import axios from "axios";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -12,7 +13,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { red } from "@material-ui/core/colors";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,14 +41,46 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { loginUser, error } = useContext(AuthContext);
+  const dispatch = useDispatchCurrentUser();
+  const currentUser = useCurrentUser();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const history = useHistory();
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    loginUser(email, password);
-  }
+  // Check if user is already logged in
+  useEffect(() => {
+    if (currentUser.isAuthenticated) {
+      history.push("/");
+    }
+  }, [currentUser]);
+
+  // Handle login Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMsg(null);
+    axios
+      .post(
+        `${API_URL}/auth/local`,
+        {
+          identifier: emailRef.current.value,
+          password: passwordRef.current.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        // Handle success.
+        dispatch({ type: "LOGIN", user: response.data.user });
+        router.push("/account");
+      })
+      .catch((err) => {
+        // Handle error.
+        console.log("An error occurred:", err.response);
+        setErrorMsg(err.response.data.data[0].messages[0].message);
+      });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,8 +102,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            ref={emailRef}
           />
           <TextField
             variant="outlined"
@@ -83,8 +114,7 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            ref={passwordRef}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -112,10 +142,10 @@ export default function Login() {
               </Link>
             </Grid>
           </Grid>
-          {error && (
+          {errorMsg && (
             <Box pt={2}>
               <Typography align="center" variant="subtitle2" color="error">
-                {error}
+                {errorMsg}
               </Typography>
             </Box>
           )}

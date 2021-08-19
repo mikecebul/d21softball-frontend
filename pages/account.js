@@ -1,15 +1,29 @@
-import { React, useContext } from "react";
+import React from "react";
+import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import Head from "next/head";
-import AuthContext from "../context/AuthContext";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 export default function Account() {
-  // console.log(authData.authData)
-  // const user = authData.authData.user
+  const dispatch = useDispatchCurrentUser();
+  const user = useCurrentUser();
 
-  const { user, logoutUser } = useContext(AuthContext);
+  // Logout User ----------------------
+  const handleLogout = async () => {
+    axios
+      .post(`${API_URL}/logout`, { withCredentials: true })
+      .then((response) => {
+        // Handle success.
+        console.log("Data: ", response.data);
+        dispatch({ type: "LOGOUT" });
+        router.push("/");
+      })
+      .catch((err) => {
+        // Handle error.
+        console.log("An error occurred:", err.response);
+      });
+  };
 
   if (!user) {
     return (
@@ -38,13 +52,11 @@ export default function Account() {
           aria-label="logout"
           variant="contained"
           color="default"
-          onClick={() => {
-            logoutUser();
-          }}
+          onClick={handleLogout}
         >
           Logout
         </Button>
       </div>
     );
-   }
+  }
 }

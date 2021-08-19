@@ -1,5 +1,5 @@
-import { React, useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
+import React, { useState } from "react";
+import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -25,7 +25,25 @@ const useStyles = makeStyles((theme) => ({
 const NavDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { user, logoutUser } = useContext(AuthContext);
+  const dispatch = useDispatchCurrentUser();
+  const user = useCurrentUser();
+
+  // Logout User ----------------------
+  const handleLogout = async () => {
+    axios
+      .post(`${API_URL}/logout`, { withCredentials: true })
+      .then((response) => {
+        // Handle success.
+        console.log("Data: ", response.data);
+        dispatch({ type: "LOGOUT" });
+        router.push("/");
+      })
+      .catch((err) => {
+        // Handle error.
+        console.log("An error occurred:", err.response);
+      });
+  };
+
   return (
     <>
       <IconButton
@@ -82,7 +100,7 @@ const NavDrawer = () => {
                 button
                 onClick={() => {
                   setOpen(false);
-                  logoutUser();
+                  handleLogout();
                 }}
               >
                 <ListItemIcon>

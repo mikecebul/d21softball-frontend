@@ -1,5 +1,5 @@
-import { React, useState, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import React from "react";
+import { useCurrentUser } from "../context/CurrentUser";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
-  const { user } = useContext(AuthContext);
+  const user = useCurrentUser();
 
   return (
     <div>
@@ -29,8 +29,7 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             MASA D21
           </Typography>
-          {/* stopped video at  1:02:24 "using magic authenication to the frontend*/}
-          {user ? (
+          {user.isAuthenticated ? (
             <Link href="/account">
               <Button aria-label="Account" variant="contained" color="default">
                 Account
