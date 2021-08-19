@@ -1,7 +1,9 @@
 import React from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import Head from "next/head";
+import axios from "axios";
 import { API_URL } from "../utils/urls";
+import { useRouter } from "next/router";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -9,6 +11,7 @@ import Button from "@material-ui/core/Button";
 export default function Account() {
   const dispatch = useDispatchCurrentUser();
   const user = useCurrentUser();
+  const router = useRouter();
 
   // Logout User ----------------------
   const handleLogout = async () => {
