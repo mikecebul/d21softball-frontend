@@ -45,7 +45,6 @@ export default function Login() {
   const currentUser = useCurrentUser();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const history = useHistory();
   const [errorMsg, setErrorMsg] = useState(null);
 
   // Check if user is already logged in
