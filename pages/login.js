@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { API_URL } from "../utils/urls";
@@ -44,8 +44,8 @@ export default function Login() {
 
   const dispatch = useDispatchCurrentUser();
   const currentUser = useCurrentUser();
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
 
   // Check if user is already logged in
@@ -63,8 +63,8 @@ export default function Login() {
       .post(
         `${API_URL}/auth/local`,
         {
-          identifier: emailRef.current.value,
-          password: passwordRef.current.value,
+          identifier: email,
+          password: password,
         },
         {
           withCredentials: true,
@@ -102,7 +102,8 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            ref={emailRef}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -114,7 +115,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            ref={passwordRef}
+            value={email}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -126,6 +128,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => handleSubmit(e)}
           >
             Login
           </Button>
