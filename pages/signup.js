@@ -64,7 +64,6 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg(null);
-    console.log(firstName, lastName, email, password);
     axios
       .post(
         `${API_URL}/auth/local/register`,
@@ -72,7 +71,7 @@ export default function SignUp() {
           firstName: firstName,
           lastName: lastName,
           username: email,
-          identifier: email,
+          email: email,
           password: password,
         },
         {
