@@ -66,7 +66,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg(null);
-    if (!passwordRegex.text(password)) {
+    if (!passwordRegex.test(password)) {
       setErrorMsg("Password must contain at least 8 characters");
     }
     if (!errorMsg) {
