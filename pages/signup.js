@@ -64,6 +64,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg(null);
+    console.log(firstName, lastName, email, password);
     axios
       .post(
         `${API_URL}/auth/local/register`,
@@ -87,7 +88,7 @@ export default function SignUp() {
       .catch((err) => {
         // Handle error.
         console.log("An error occurred:", err.response);
-        // setErrorMsg(err.response.data.data[0].messages[0].message);
+        setErrorMsg(err.response.data.data[0].messages[0].message);
       });
   };
 
