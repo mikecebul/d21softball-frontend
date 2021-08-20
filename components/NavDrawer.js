@@ -36,7 +36,7 @@ const NavDrawer = () => {
   // Logout User ----------------------
   const handleLogout = async () => {
     axios
-      .post(`${API_URL}/logout`, { withCredentials: true })
+      .post(`${API_URL}/logout`, {}, { withCredentials: true })
       .then((response) => {
         // Handle success.
         console.log("Data: ", response.data);

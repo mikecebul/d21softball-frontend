@@ -53,7 +53,7 @@ export default function Login() {
   // Check if user is already logged in
   useEffect(() => {
     if (currentUser.isAuthenticated) {
-      router.push("/");
+      router.push("/account");
     }
   }, []);
 

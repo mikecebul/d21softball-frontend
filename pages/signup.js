@@ -1,4 +1,9 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { API_URL } from "../utils/urls";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,19 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,10 +36,60 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  err: {
+    paddingTop: 2,
+  },
 }));
 
 export default function SignUp() {
   const classes = useStyles();
+  const router = useRouter();
+
+  const dispatch = useDispatchCurrentUser();
+  const currentUser = useCurrentUser();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  // Check if user is already logged in
+  useEffect(() => {
+    if (currentUser.isAuthenticated) {
+      router.push("/account");
+    }
+  }, []);
+
+  // Handle login Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMsg(null);
+    axios
+      .post(
+        `${API_URL}/auth/local/register`,
+        {
+          firstName: firstName,
+          lastName: lastName,
+          username: email,
+          identifier: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        // Handle success.
+        console.log("Login Response:", response);
+        dispatch({ type: "LOGIN", user: response.data.user });
+        router.push("/account");
+      })
+      .catch((err) => {
+        // Handle error.
+        console.log("An error occurred:", err.response);
+        // setErrorMsg(err.response.data.data[0].messages[0].message);
+      });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,6 +113,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -81,6 +126,8 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,6 +139,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -104,14 +153,16 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive updates via email."
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             type="submit"
@@ -119,6 +170,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => handleSubmit(e)}
           >
             Sign Up
           </Button>
@@ -129,6 +181,13 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
+          {errorMsg && (
+            <Box pt={2}>
+              <Typography align="center" variant="subtitle2" color="error">
+                {errorMsg}
+              </Typography>
+            </Box>
+          )}
         </form>
       </div>
     </Container>
