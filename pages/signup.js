@@ -101,11 +101,11 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} Validate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
+                autoComplete="first-name"
                 name="firstName"
                 variant="outlined"
                 required
@@ -113,6 +113,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                error={firstName === ""}
+                helperText="required"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -125,7 +127,9 @@ export default function SignUp() {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
-                autoComplete="lname"
+                autoComplete="last-name"
+                error={lastName === ""}
+                helperText="required"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -139,6 +143,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                error={email === ""}
+                helperText="required"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -153,6 +159,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                error={password === ""}
+                helperText="required"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
