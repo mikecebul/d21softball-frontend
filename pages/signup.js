@@ -60,7 +60,7 @@ export default function SignUp() {
     }
   }, []);
 
-  // Handle login Submit
+  // Handle register Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg(null);
@@ -91,6 +91,8 @@ export default function SignUp() {
       });
   };
 
+  const passwordRegex = new RegExp("^(?=.{8,})");
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -114,7 +116,6 @@ export default function SignUp() {
                 label="First Name"
                 autoFocus
                 error={firstName === ""}
-                helperText="required"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -129,7 +130,6 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="last-name"
                 error={lastName === ""}
-                helperText="required"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -144,7 +144,6 @@ export default function SignUp() {
                 name="email"
                 autoComplete="email"
                 error={email === ""}
-                helperText="required"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -159,8 +158,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                error={password === ""}
-                helperText="required"
+                error={!passwordRegex.test(password)}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
