@@ -20,13 +20,30 @@ import { twoDecimals } from "../../utils/format";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    margin: theme.spacing(10),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+      marginLeft: theme.spacing(5),
+      marginRight: theme.spacing(5),
+    },
+    [theme.breakpoints.up('md')]: {
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+      marginLeft: theme.spacing(10),
+      marginRight: theme.spacing(10),
+    },
+    [theme.breakpoints.up('lg')]: {
+      marginTop: theme.spacing(10),
+      marginBottom: theme.spacing(10),
+      marginLeft: theme.spacing(30),
+      marginRight: theme.spacing(30),
+    },
     height: "100%",
     display: "flex",
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "20%", // "56.25%", 16:9
   },
   cardContent: {
     flexGrow: 1,
