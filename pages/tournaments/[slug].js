@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "../../src/Link";
+import Markdown from 'markdown-to-jsx';
 
 
 import Moment from "react-moment";
@@ -67,7 +68,7 @@ const Tournament = ({ tournament }) => {
             </Moment>
           </Typography>
           <Box mt={4}>
-            <Typography variant="span">{tournament.content}</Typography>
+            <Markdown>{tournament.content}</Markdown>
         </Box>
         </CardContent>
         <CardActions>
