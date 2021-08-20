@@ -60,38 +60,43 @@ export default function SignUp() {
     }
   }, []);
 
+  const passwordRegex = new RegExp("^(?=.{8,})");
+
   // Handle register Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg(null);
-    axios
-      .post(
-        `${API_URL}/auth/local/register`,
-        {
-          firstName: firstName,
-          lastName: lastName,
-          username: email,
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        // Handle success.
-        console.log("Login Response:", response);
-        dispatch({ type: "LOGIN", user: response.data.user });
-        router.push("/account");
-      })
-      .catch((err) => {
-        // Handle error.
-        console.log("An error occurred:", err.response);
-        setErrorMsg(err.response.data.data[0].messages[0].message);
-      });
+    if (!passwordRegex.text(password)) {
+      setErrorMsg("Password must contain at least 8 characters");
+    }
+    if (!errorMsg) {
+      axios
+        .post(
+          `${API_URL}/auth/local/register`,
+          {
+            firstName: firstName,
+            lastName: lastName,
+            username: email,
+            email: email,
+            password: password,
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          // Handle success.
+          console.log("Login Response:", response);
+          dispatch({ type: "LOGIN", user: response.data.user });
+          router.push("/account");
+        })
+        .catch((err) => {
+          // Handle error.
+          console.log("An error occurred:", err.response);
+          setErrorMsg(err.response.data.data[0].messages[0].message);
+        });
+    }
   };
-
-  const passwordRegex = new RegExp("^(?=.{8,})");
 
   return (
     <Container component="main" maxWidth="xs">
