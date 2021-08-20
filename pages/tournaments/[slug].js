@@ -1,10 +1,41 @@
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "../../src/Link";
+
+
+import Moment from "react-moment";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
+import Box from '@material-ui/core/Box';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    margin: theme.spacing(10),
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    paddingTop: "56.25%", // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+}));
+
 const Tournament = ({ tournament }) => {
+  
+  const classes = useStyles();
+
   return (
     <div>
       <Head>
@@ -13,16 +44,40 @@ const Tournament = ({ tournament }) => {
           <meta name="description" content="add {tournament.meta_description}" />
         )}
       </Head>
-      <h3>{tournament.name}</h3>
-      <Image
+      {/* <Image
         src={fromImageToUrl(tournament.image)}
         alt="tournament Image"
         width={1920}
         height={1080}
-      />
-      <p>${twoDecimals(tournament.price)}</p>
-
-      <p>{tournament.content}</p>
+      /> */}
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.cardMedia}
+          image={fromImageToUrl(tournament.image)}
+          title={tournament.meta_title}
+        />
+        <CardContent className={classes.cardContent}>
+          <Typography gutterBottom variant="h5" component="h2">
+            {tournament.name}
+          </Typography>
+          <Typography>{tournament.class}</Typography>
+          <Typography variant="subtitle2">
+            <Moment format="MMMM Do YYYY">
+              {tournament.date_from}
+            </Moment>
+          </Typography>
+          <Box mt={4}>
+            <Typography variant="span">{tournament.content}</Typography>
+        </Box>
+        </CardContent>
+        <CardActions>
+          <Link href={`/tournaments/${tournament.slug}`}>
+            <Button size="small" color="primary">
+              View
+            </Button>
+          </Link>
+        </CardActions>
+      </Card>
     </div>
   );
 };
