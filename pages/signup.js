@@ -62,40 +62,63 @@ export default function SignUp() {
 
   const passwordRegex = new RegExp("^(?=.{8,})");
 
+  const validate = () => {
+    return new Promise((resolve, reject) => {
+      setErrorMsg(null);
+      if (!firstName) {
+        setErrorMsg("Please provide a first name.");
+        resolve({ isValid: false });
+      } else if (!lastName) {
+        setErrorMsg("Please provide a last name.");
+        resolve({ isValid: false });
+      } else if (!email) {
+        setErrorMsg("Please provide your email.");
+        resolve({ isValid: false });
+      } else if (!password) {
+        setErrorMsg("Please provide your password.");
+        resolve({ isValid: false });
+      } else if (!passwordRegex.test(password)) {
+        setErrorMsg("Password must be at least 8 characters.");
+        resolve({ isValid: false });
+      } else {
+        resolve({ isValid: true });
+      }
+    });
+  };
+
   // Handle register Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg(null);
-    if (!passwordRegex.test(password)) {
-      setErrorMsg("Password must contain at least 8 characters");
-    }
-    if (!errorMsg) {
-      axios
-        .post(
-          `${API_URL}/auth/local/register`,
-          {
-            firstName: firstName,
-            lastName: lastName,
-            username: email,
-            email: email,
-            password: password,
-          },
-          {
-            withCredentials: true,
-          }
-        )
-        .then((response) => {
-          // Handle success.
-          console.log("Login Response:", response);
-          dispatch({ type: "LOGIN", user: response.data.user });
-          router.push("/account");
-        })
-        .catch((err) => {
-          // Handle error.
-          console.log("An error occurred:", err.response);
-          setErrorMsg(err.response.data.data[0].messages[0].message);
-        });
-    }
+    validate().then((response) => {
+      // console.log(response.isValid);
+      if (response.isValid) {
+        axios
+          .post(
+            `${API_URL}/auth/local/register`,
+            {
+              firstName: firstName,
+              lastName: lastName,
+              username: email,
+              email: email,
+              password: password,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            // Handle success.
+            console.log("Login Response:", response);
+            dispatch({ type: "LOGIN", user: response.data.user });
+            router.push("/account");
+          })
+          .catch((err) => {
+            // Handle error.
+            console.log("An error occurred:", err.response);
+            setErrorMsg(err.response.data.data[0].messages[0].message);
+          });
+      }
+    });
   };
 
   return (
