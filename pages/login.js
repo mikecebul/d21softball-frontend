@@ -57,6 +57,19 @@ export default function Login() {
     }
   }, []);
 
+  // Vallidate email exists
+  const validate = () => {
+    return new Promise((resolve, reject) => {
+      setErrorMsg(null);
+      if (!email) {
+        setErrorMsg("Please provide your email.");
+        resolve({ isValid: false });
+      } else {
+        resolve({ isValid: true });
+      }
+    });
+  };
+
   // Handle login Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,6 +96,32 @@ export default function Login() {
         console.log("An error occurred:", err.response);
         setErrorMsg(err.response.data.data[0].messages[0].message);
       });
+  };
+
+  // Handle forgot password
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    validate().then((response) => {
+      if (response.isValid) {
+        console.log(email);
+        axios
+          .post(
+            `${API_URL}/auth/forgot-password`,
+            {
+              email: email, // user's email
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            console.log("Your user received an email");
+          })
+          .catch((error) => {
+            console.log("An error occurred:", error.response);
+          });
+      }
+    });
   };
 
   return (
@@ -137,7 +176,11 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link
+                href="#"
+                variant="body2"
+                onClick={(e) => handleForgotPassword(e)}
+              >
                 Forgot password?
               </Link>
             </Grid>
