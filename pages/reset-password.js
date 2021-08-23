@@ -95,7 +95,7 @@ export default function Login() {
           .catch((err) => {
             // Handle error.
             console.log("An error occurred:", err.response);
-            setErrorMsg({ reset: err.response.data.data[0].messages[0].message });
+            setErrorMsg({ reset: err.response.data.data[0]?.messages[0].message || "Time limit expired from 'forgot password' email." });
           });
       }
     })
