@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -51,7 +51,7 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState();
 
   // Check if user is already logged in
   useEffect(() => {
@@ -64,21 +64,26 @@ export default function SignUp() {
 
   const validate = () => {
     return new Promise((resolve, reject) => {
-      setErrorMsg(null);
+      setErrorMsg({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+      });
       if (!firstName) {
-        setErrorMsg("Please provide a first name.");
+        setErrorMsg({ firstName: "Please provide a first name." });
         resolve({ isValid: false });
       } else if (!lastName) {
-        setErrorMsg("Please provide a last name.");
+        setErrorMsg({ lastName: "Please provide a last name." });
         resolve({ isValid: false });
       } else if (!email) {
-        setErrorMsg("Please provide your email.");
+        setErrorMsg({ email: "Please provide your email." });
         resolve({ isValid: false });
       } else if (!password) {
-        setErrorMsg("Please provide your password.");
+        setErrorMsg({ password: "Please provide your password." });
         resolve({ isValid: false });
       } else if (!passwordRegex.test(password)) {
-        setErrorMsg("Password must be at least 8 characters.");
+        setErrorMsg({ password: "Password must be at least 8 characters." });
         resolve({ isValid: false });
       } else {
         resolve({ isValid: true });
@@ -90,7 +95,6 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     validate().then((response) => {
-      // console.log(response.isValid);
       if (response.isValid) {
         axios
           .post(
@@ -115,7 +119,7 @@ export default function SignUp() {
           .catch((err) => {
             // Handle error.
             console.log("An error occurred:", err.response);
-            setErrorMsg(err.response.data.data[0].messages[0].message);
+            setErrorMsg({ register: err.response.data.data[0].messages[0].message });
           });
       }
     });
@@ -143,7 +147,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                error={firstName === ""}
+                error={Boolean(errorMsg?.firstName)}
+                helperText={errorMsg?.firstName}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -157,7 +162,8 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="last-name"
-                error={lastName === ""}
+                error={Boolean(errorMsg?.lastName)}
+                helperText={errorMsg?.lastName}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -171,7 +177,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                error={email === ""}
+                error={Boolean(errorMsg?.email)}
+                helperText={errorMsg?.email}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -186,17 +193,12 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                error={!passwordRegex.test(password)}
+                error={Boolean(errorMsg?.password)}
+                helperText={errorMsg?.password}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive updates via email."
-              />
-            </Grid> */}
           </Grid>
           <Button
             type="submit"
@@ -218,7 +220,7 @@ export default function SignUp() {
           {errorMsg && (
             <Box pt={2}>
               <Typography align="center" variant="subtitle2" color="error">
-                {errorMsg}
+                {errorMsg.register}
               </Typography>
             </Box>
           )}

@@ -48,7 +48,7 @@ export default function Login() {
   const currentUser = useCurrentUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState();
 
   // Check if user is already logged in
   useEffect(() => {
@@ -57,12 +57,33 @@ export default function Login() {
     }
   }, []);
 
-  // Vallidate email exists
-  const validate = () => {
+  // Validate email exists
+  const validateEmail = () => {
     return new Promise((resolve, reject) => {
-      setErrorMsg(null);
+      setErrorMsg({
+        email: '',
+        password: '',
+      });
       if (!email) {
-        setErrorMsg("Please provide your email.");
+        setErrorMsg({ email: "Please provide your email." });
+        resolve({ isValid: false });
+      } else {
+        resolve({ isValid: true });
+      }
+    });
+  };
+  // Validate Login
+  const validateLogin = () => {
+    return new Promise((resolve, reject) => {
+      setErrorMsg({
+        email: '',
+        password: '',
+      });
+      if (!email) {
+        setErrorMsg({ email: "Please provide your email." });
+        resolve({ isValid: false });
+      } else if (!password) {
+        setErrorMsg({ password: "Please provide your password." });
         resolve({ isValid: false });
       } else {
         resolve({ isValid: true });
@@ -73,35 +94,38 @@ export default function Login() {
   // Handle login Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg(null);
-    axios
-      .post(
-        `${API_URL}/auth/local`,
-        {
-          identifier: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        // Handle success.
-        console.log("Login Response:", response);
-        dispatch({ type: "LOGIN", user: response.data.user });
-        router.push("/account");
-      })
-      .catch((err) => {
-        // Handle error.
-        console.log("An error occurred:", err.response);
-        setErrorMsg(err.response.data.data[0].messages[0].message);
-      });
+    validateLogin().then((response) => {
+      if (response.isValid) {
+        axios
+          .post(
+            `${API_URL}/auth/local`,
+            {
+              identifier: email,
+              password: password,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            // Handle success.
+            console.log("Login Response:", response);
+            dispatch({ type: "LOGIN", user: response.data.user });
+            router.push("/account");
+          })
+          .catch((err) => {
+            // Handle error.
+            console.log("An error occurred:", err.response);
+            setErrorMsg({ login: err.response.data.data[0].messages[0].message });
+          });
+      }
+    })
   };
 
   // Handle forgot password
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    validate().then((response) => {
+    validateEmail().then((response) => {
       if (response.isValid) {
         console.log(email);
         axios
@@ -117,8 +141,9 @@ export default function Login() {
           .then((response) => {
             console.log("Your user received an email");
           })
-          .catch((error) => {
-            console.log("An error occurred:", error.response);
+          .catch((err) => {
+            console.log("An error occurred:", err.response);
+            setErrorMsg({ login: err.response.data.data[0]?.messages[0].message || "Unable to email this address. Contact support." });
           });
       }
     });
@@ -144,6 +169,8 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            error={Boolean(errorMsg?.email)}
+            helperText={errorMsg?.email}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -157,6 +184,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="password"
+            error={Boolean(errorMsg?.password)}
+            helperText={errorMsg?.password}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -189,7 +218,7 @@ export default function Login() {
           {errorMsg && (
             <Box pt={2}>
               <Typography align="center" variant="subtitle2" color="error">
-                {errorMsg}
+                {errorMsg?.login}
               </Typography>
             </Box>
           )}
