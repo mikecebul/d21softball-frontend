@@ -138,6 +138,7 @@ export default function Login() {
           )
           .then((response) => {
             console.log("Your user received an email");
+            setErrorMsg({ login: "Check you inbox (might be in spam folder) for an email from us." });
           })
           .catch((err) => {
             console.log("An error occurred:", err.response);
