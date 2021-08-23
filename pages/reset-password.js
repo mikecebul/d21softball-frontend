@@ -3,6 +3,7 @@ import { useCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { API_URL } from "../utils/urls";
+import Link from '../src/Link'
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -136,6 +137,11 @@ export default function Login() {
           >
             Submit Password
           </Button>
+            <Box display="flex" justifyContent="flex-end">
+              <Link href="/login" variant="body2">
+                {"Return to login"}
+              </Link>
+          </Box>
           {errorMsg && (
             <Box pt={2}>
               <Typography align="center" variant="subtitle2" color="error">
