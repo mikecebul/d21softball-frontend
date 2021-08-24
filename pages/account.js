@@ -93,8 +93,8 @@ export default function Account() {
               <Box key={order.id}>
                 <Typography variant="subtitle1" align="center">
                   {new Date(order.created_at).toLocaleDateString("en-EN")} |{" "}
-                  {order.tournament?.name || order.camp.name} | ${order.total} |{" "}
-                  {order.status}
+                  {order.tournament?.name || order.camp?.name} | ${order.total}{" "}
+                  | {order.status}
                 </Typography>
               </Box>
             ))}
