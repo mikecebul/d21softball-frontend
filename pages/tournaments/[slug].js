@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
+import BuyButton from "../../components/BuyButton";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -89,10 +90,10 @@ const Tournament = ({ tournament }) => {
         </Box>
         </CardContent>
         <CardActions>
+        <Typography>{twoDecimals(tournament.price)}</Typography>
           <Link href={`/tournaments/${tournament.slug}`}>
-            <Button size="small" color="primary">
-              View
-            </Button>
+            <BuyButton variant="contained" tournament={tournament}>
+            </BuyButton>
           </Link>
         </CardActions>
       </Card>

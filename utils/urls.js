@@ -1,6 +1,8 @@
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
 
+export const STRIPE_PK = process.env.STRIPE_PK || "pk_test_51JRqZfK6osQEiLfg5lTb51JBXylk2BQZ1Swy3uetaUD4HfQv8OzwjSnwxABPTkQLQ9Rn13Ek5eWXvl3lRveaG8mA00ox6GHFWv"
+
 /**
  * Given an image return the Url
  * Works for local and deployed strapis

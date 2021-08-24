@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.11.2",
+    "@stripe/stripe-js": "^1.17.1",
     "axios": "^0.21.1",
     "clsx": "latest",
     "markdown-to-jsx": "^7.1.3",
