@@ -8,34 +8,39 @@ import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-
+import Divider from "@material-ui/core/Divider";
 
 // fetch orders ----------------------
 const useOrders = (user) => {
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchOrders = async () => {
-      if(user.isAuthenticated) {
-        try {
-          const resp = await axios.get(`${API_URL}/orders`, { withCredentials: true })
-          setOrders(resp.data)
-          console.log(resp.data)
-        } catch (err) {
-            setOrders([])
-            console.log("An error occurred:", err);
-        }
+      if (user.isAuthenticated) {
+        setLoading(true);
+        await axios
+          .get(`${API_URL}/orders`, { withCredentials: true })
+          .then((resp) => {
+            setOrders(resp.data);
+            console.log(resp.data);
+          })
+          .catch((err) => {
+            setOrders([]);
+          });
+        setLoading(false);
       }
-    }
-    fetchOrders()
-  }, [user])
-}
+    };
+    fetchOrders();
+  }, [user]);
+  return { orders, loading };
+};
 
 export default function Account() {
   const dispatch = useDispatchCurrentUser();
   const user = useCurrentUser();
   const router = useRouter();
 
-  const orders = useOrders(user)
+  const { orders, loading } = useOrders(user);
 
   // Logout User ----------------------
   const handleLogout = async () => {
@@ -74,19 +79,25 @@ export default function Account() {
           <Typography variant="h6" align="center">
             {user.email}
           </Typography>
+          <Divider variant="middle" />
           <Typography variant="h6" align="center">
             Your Orders
           </Typography>
-          {/* {orders && orders.map((order) => (
-            <Box key={order.id}>
-              <Typography variant="subtitle1" align="center">
-                {order.tournament.name} ${order.total} {order.status}
-              </Typography>
-            </Box>
-          ))} */}
-          <Typography variant="h6" align="center">
-            {console.log('rendered orders:', orders)}
-          </Typography>
+          {loading && (
+            <Typography variant="body1" align="center">
+              Loading your orders...
+            </Typography>
+          )}
+          {orders &&
+            orders.map((order) => (
+              <Box key={order.id}>
+                <Typography variant="subtitle1" align="center">
+                  {new Date(order.created_at).toLocaleDateString("en-EN")} |{" "}
+                  {order.tournament?.name || order.camp.name} | ${order.total} |{" "}
+                  {order.status}
+                </Typography>
+              </Box>
+            ))}
           <Button
             aria-label="logout"
             variant="contained"
