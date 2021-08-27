@@ -90,7 +90,7 @@ const Tournament = ({ tournament }) => {
         </Box>
         </CardContent>
         <CardActions>
-        <Typography>{twoDecimals(tournament.price)}</Typography>
+        <Typography>${twoDecimals(tournament.price)}</Typography>
           <Link href={`/tournaments/${tournament.slug}`}>
             <BuyButton variant="contained" tournament={tournament}>
             </BuyButton>

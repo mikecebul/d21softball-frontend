@@ -98,14 +98,16 @@ export default function Account() {
                 </Typography>
               </Box>
             ))}
-          <Button
-            aria-label="logout"
-            variant="contained"
-            color="default"
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+          <Box display="flex" justifyContent="center">
+            <Button
+              aria-label="logout"
+              variant="contained"
+              color="default"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </Box>
         </div>
       )}
     </>

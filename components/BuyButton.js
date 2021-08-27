@@ -36,11 +36,11 @@ export default function BuyButton({ tournament }) {
 
   return (
     <>
-      {!user &&
+      {!user.isAuthenticated &&
         <Button variant="contained" onClick={redirectToLogin}>Login to Register</Button>
       }
-      {user &&
-        <Button variant="contained" onClick={handleBuy}>Register</Button>
+      {user.isAuthenticated &&
+        <Button variant="contained" color="primary" onClick={handleBuy}>Register</Button>
       }
     </>
   )
