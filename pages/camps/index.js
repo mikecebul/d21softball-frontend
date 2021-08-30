@@ -73,7 +73,6 @@ const camps = ({ camps }) => {
           <Grid container spacing={4} justifyContent="center">
             {sortedcamps.map((camp) => (
               <Grid item key={camp.name} xs={12} sm={6} md={4}>
-                {console.log("Camp", camp)}
                 <Card className={classes.card}>
                   <CardActionArea>
                     <Link color="textPrimary" href={`/camps/${camp.slug}`}>
