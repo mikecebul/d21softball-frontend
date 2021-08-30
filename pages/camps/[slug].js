@@ -103,7 +103,7 @@ export async function getStaticProps({ params: { slug } }) {
 export async function getStaticPaths() {
   //Retrieve all the possible paths
   const camps_res = await fetch(`${API_URL}/camps/`);
-  const { camps } = await camps_res.json();
+  const camps = await camps_res.json();
 
   //Return them to NextJS context
   return {
