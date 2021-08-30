@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const camp = ({ camp }) => {
+const Camp = ({ camp }) => {
   const classes = useStyles();
 
   return (
@@ -114,4 +114,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default camp;
+export default Camp;
