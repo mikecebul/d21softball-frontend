@@ -17,6 +17,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import EmojiEventsOutlinedIcon from "@material-ui/icons/EmojiEventsOutlined";
 import Link from "../src/Link";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,9 +77,18 @@ const NavDrawer = () => {
           <Link href="/tournaments">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
-                <SportsBaseballOutlinedIcon />
+                <EmojiEventsOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Tournaments" />
+            </ListItem>
+          </Link>
+          {/* Camps */}
+          <Link href="/camps">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <SportsBaseballOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Camps" />
             </ListItem>
           </Link>
           {/* About */}

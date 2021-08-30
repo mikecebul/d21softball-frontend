@@ -20,7 +20,10 @@ import { twoDecimals } from "../../utils/format";
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(4, 0, 2),
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -39,14 +42,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tournaments = ({ tournaments }) => {
+const camps = ({ camps }) => {
   const classes = useStyles();
 
-  // Sorted Tournaments from earliest to latest
-  const sortedTournaments = tournaments.sort((a, b) =>
+  // Sorted camps from earliest to latest
+  const sortedcamps = camps.sort((a, b) =>
     a.date_from > b.date_from ? 1 : -1
   );
-
   return (
     <React.Fragment>
       <main>
@@ -60,16 +62,8 @@ const Tournaments = ({ tournaments }) => {
               color="textPrimary"
               gutterBottom
             >
-              <Moment format="YYYY">{sortedTournaments[0].date_from}</Moment>{" "}
-              Tournaments
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph
-            >
-              All tourneys are fast pitch
+              <Moment format="YYYY">{sortedcamps[0].date_from}</Moment> Training
+              Camps
             </Typography>
           </Container>
         </div>
@@ -77,38 +71,33 @@ const Tournaments = ({ tournaments }) => {
           {/* End hero unit */}
 
           <Grid container spacing={4} justifyContent="center">
-            {sortedTournaments.map((tournament) => (
-              <Grid item key={tournament.name} xs={12} sm={6} md={4}>
+            {sortedcamps.map((camp) => (
+              <Grid item key={camp.name} xs={12} sm={6} md={4}>
+                {console.log("Camp", camp)}
                 <Card className={classes.card}>
                   <CardActionArea>
-                    <Link
-                      color="textPrimary"
-                      href={`/tournaments/${tournament.slug}`}
-                    >
+                    <Link color="textPrimary" href={`/camps/${camp.slug}`}>
                       <CardMedia
                         className={classes.cardMedia}
-                        image={fromImageToUrl(tournament.image)}
-                        title={tournament.meta_title}
+                        image={fromImageToUrl(camp.image)}
+                        title={camp.meta_title}
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
-                          {tournament.name}
+                          {camp.name}
                         </Typography>
-                        <Typography>{tournament.class}</Typography>
                         <Typography variant="subtitle2">
                           <Moment format="MMMM Do YYYY">
-                            {tournament.date_from}
+                            {camp.date_from}
                           </Moment>
                           {" - "}
-                          <Moment format="MMMM Do YYYY">
-                            {tournament.date_to}
-                          </Moment>
+                          <Moment format="MMMM Do YYYY">{camp.date_to}</Moment>
                         </Typography>
                       </CardContent>
                     </Link>
                   </CardActionArea>
                   <CardActions>
-                    <Link href={`/tournaments/${tournament.slug}`}>
+                    <Link href={`/camps/${camp.slug}`}>
                       <Button size="small" color="primary">
                         View
                       </Button>
@@ -125,14 +114,14 @@ const Tournaments = ({ tournaments }) => {
 };
 
 export async function getStaticProps() {
-  const tournament_res = await fetch(`${API_URL}/tournaments/`);
-  const tournaments = await tournament_res.json();
+  const camp_res = await fetch(`${API_URL}/camps/`);
+  const camps = await camp_res.json();
 
   return {
     props: {
-      tournaments,
+      camps,
     },
   };
 }
 
-export default Tournaments;
+export default camps;

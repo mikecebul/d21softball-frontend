@@ -19,3 +19,4 @@ yarn-error.log*
 
 # Next.js
 /.next
+next.config.js

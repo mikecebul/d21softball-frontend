@@ -17,6 +17,11 @@ const theme = createTheme({
       default: "#fff",
     },
   },
+  props: {
+    MuiLink: {
+      underline: "none",
+    },
+  },
 });
 
 export default theme;

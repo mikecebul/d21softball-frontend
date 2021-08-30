@@ -59,8 +59,8 @@ export default function Login() {
   const validateEmail = () => {
     return new Promise((resolve, reject) => {
       setErrorMsg({
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       });
       if (!email) {
         setErrorMsg({ email: "Please provide your email." });
@@ -74,8 +74,8 @@ export default function Login() {
   const validateLogin = () => {
     return new Promise((resolve, reject) => {
       setErrorMsg({
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       });
       if (!email) {
         setErrorMsg({ email: "Please provide your email." });
@@ -107,17 +107,19 @@ export default function Login() {
           )
           .then((response) => {
             // Handle success.
-            console.log("Login Response:", response);
+            // console.log("Login Response:", response);
             dispatch({ type: "LOGIN", user: response.data.user });
             router.push("/account");
           })
           .catch((err) => {
             // Handle error.
             console.log("An error occurred:", err.response);
-            setErrorMsg({ login: err.response.data.data[0].messages[0].message });
+            setErrorMsg({
+              login: err.response.data.data[0].messages[0].message,
+            });
           });
       }
-    })
+    });
   };
 
   // Handle forgot password
@@ -142,7 +144,11 @@ export default function Login() {
           })
           .catch((err) => {
             console.log("An error occurred:", err.response);
-            setErrorMsg({ login: err.response.data.data[0]?.messages[0].message || "Unable to email this address. Contact support." });
+            setErrorMsg({
+              login:
+                err.response.data.data[0]?.messages[0].message ||
+                "Unable to email this address. Contact support.",
+            });
           });
       }
     });

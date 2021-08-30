@@ -38,51 +38,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tournament = ({ tournament }) => {
+const camp = ({ camp }) => {
   const classes = useStyles();
 
   return (
     <div>
       <Head>
-        {tournament.meta_title && <title>{tournament.meta_title}</title>}
-        {tournament.meta_description && (
-          <meta
-            name="description"
-            content="add {tournament.meta_description}"
-          />
+        {camp.meta_title && <title>{camp.meta_title}</title>}
+        {camp.meta_description && (
+          <meta name="description" content="add {camp.meta_description}" />
         )}
       </Head>
       {/* <Image
-        src={fromImageToUrl(tournament.image)}
-        alt="tournament Image"
+        src={fromImageToUrl(camp.image)}
+        alt="camp Image"
         width={1920}
         height={1080}
       /> */}
+
       <Container maxWidth="md">
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
-            image={fromImageToUrl(tournament.image)}
-            title={tournament.meta_title}
+            image={fromImageToUrl(camp.image)}
+            title={camp.meta_title}
           />
           <CardContent className={classes.cardContent}>
             <Typography gutterBottom variant="h5" component="h2">
-              {tournament.name}
+              {camp.name}
             </Typography>
-            <Typography>{tournament.class}</Typography>
+            <Typography>{camp.class}</Typography>
             <Typography variant="subtitle2">
-              <Moment format="MMMM Do YYYY">{tournament.date_from}</Moment>
+              <Moment format="MMMM Do YYYY">{camp.date_from}</Moment>
             </Typography>
             <Box mt={4}>
-              <Markdown>{tournament.content}</Markdown>
+              <Markdown>{camp.content}</Markdown>
             </Box>
           </CardContent>
           <CardActions>
-            <Link href={`/tournaments/${tournament.slug}`}>
-              <BuyButton tournament={tournament}></BuyButton>
+            <Link href={`/camps/${camp.slug}`}>
+              <BuyButton variant="contained" camp={camp}></BuyButton>
             </Link>
             <Typography variant="h6" className={classes.price}>
-              ${twoDecimals(tournament.price)}
+              ${twoDecimals(camp.price)}
             </Typography>
           </CardActions>
         </Card>
@@ -92,28 +90,28 @@ const Tournament = ({ tournament }) => {
 };
 
 export async function getStaticProps({ params: { slug } }) {
-  const tournament_res = await fetch(`${API_URL}/tournaments/?slug=${slug}`);
-  const found = await tournament_res.json();
+  const camp_res = await fetch(`${API_URL}/camps/?slug=${slug}`);
+  const found = await camp_res.json();
 
   return {
     props: {
-      tournament: found[0], //Because the API reponse for filters is an array
+      camp: found[0], //Because the API reponse for filters is an array
     },
   };
 }
 
 export async function getStaticPaths() {
   //Retrieve all the possible paths
-  const tournaments_res = await fetch(`${API_URL}/tournaments/`);
-  const tournaments = await tournaments_res.json();
+  const camps_res = await fetch(`${API_URL}/camps/`);
+  const camps = await camps_res.json();
 
   //Return them to NextJS context
   return {
-    paths: tournaments.map((tournament) => ({
-      params: { slug: String(tournament.slug) },
+    paths: camps.map((camp) => ({
+      params: { slug: String(camp.slug) },
     })),
     fallback: false, //Tells to nextjs to show a 404 if a param is not matched
   };
 }
 
-export default Tournament;
+export default camp;

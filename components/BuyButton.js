@@ -1,47 +1,68 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { useCurrentUser } from "../context/CurrentUser";
-import Head from "next/head";
 import axios from "axios";
-import router, { useRouter } from "next/router";
 import Button from "@material-ui/core/Button";
-import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PK, API_URL } from "../utils/urls";
+import Link from "../src/Link";
 
-const stripePromise = loadStripe("pk_test_51JRqZfK6osQEiLfg5lTb51JBXylk2BQZ1Swy3uetaUD4HfQv8OzwjSnwxABPTkQLQ9Rn13Ek5eWXvl3lRveaG8mA00ox6GHFWv")
+import { makeStyles } from "@material-ui/core/styles";
 
-export default function BuyButton({ tournament }) {
+const stripePromise = loadStripe(STRIPE_PK);
 
-  const user = useCurrentUser()
-  const router = useRouter()
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
-  const redirectToLogin = () => {
-    router.push('/login')
-  }
+export default function BuyButton({ tournament, camp }) {
+  const classes = useStyles();
+  const user = useCurrentUser();
 
   const handleBuy = async (e) => {
-    const stripe = await stripePromise
-    e.preventDefault()
+    const stripe = await stripePromise;
+    e.preventDefault();
     await axios
-      .post(`${API_URL}/orders`, {tournament}, { withCredentials: true })
+      .post(
+        `${API_URL}/orders`,
+        { tournament, camp },
+        { withCredentials: true }
+      )
       .then((resp) => {
-        const session = resp.data
+        console.log("handle buy respone:", resp.data);
+        const session = resp.data;
         const result = stripe.redirectToCheckout({
-          sessionId: session.id
-        })
+          sessionId: session.id,
+        });
       })
       .catch((err) => {
-        console.log('handleBuy errors:', err)
-      })
-    }
+        console.log("handleBuy errors:", err);
+      });
+  };
 
   return (
     <>
-      {!user.isAuthenticated &&
-        <Button variant="contained" onClick={redirectToLogin}>Login to Register</Button>
-      }
-      {user.isAuthenticated &&
-        <Button variant="contained" color="primary" onClick={handleBuy}>Register</Button>
-      }
+      {!user.isAuthenticated && (
+        <Button
+          className={classes.button}
+          variant="contained"
+          component={Link}
+          href="/login"
+        >
+          Login to Register
+        </Button>
+      )}
+      {user.isAuthenticated && (
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={handleBuy}
+        >
+          Register
+        </Button>
+      )}
     </>
-  )
+  );
 }

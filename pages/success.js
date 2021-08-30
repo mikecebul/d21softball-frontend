@@ -34,12 +34,13 @@ const useOrder = (session_id) => {
           { withCredentials: true }
         )
         .then((resp) => {
+          // console.log("fetchOrder complete:", resp);
           setOrder(resp.data);
           setLoading(false);
         })
         .catch((err) => {
           setOrder(null);
-          console.log("fetchOrder Error:", err);
+          // console.log("fetchOrder Error:", err);
         });
       setLoading(false);
     };
@@ -54,10 +55,11 @@ export default function Success() {
 
   const router = useRouter();
   const { session_id } = router.query;
+  // console.log("Session ID:", session_id);
 
   const { order, loading } = useOrder(session_id);
 
-  console.log(order);
+  console.log("Order:", order);
 
   return (
     <div>
