@@ -65,7 +65,7 @@ const NavDrawer = () => {
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List>
           {/* Home */}
-          <Link href="/">
+          <Link href="/" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
                 <HomeOutlinedIcon />
@@ -74,7 +74,7 @@ const NavDrawer = () => {
             </ListItem>
           </Link>
           {/* Tournaments */}
-          <Link href="/tournaments">
+          <Link href="/tournaments" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
                 <EmojiEventsOutlinedIcon />
@@ -83,7 +83,7 @@ const NavDrawer = () => {
             </ListItem>
           </Link>
           {/* Camps */}
-          <Link href="/camps">
+          <Link href="/camps" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
                 <SportsBaseballOutlinedIcon />
@@ -92,7 +92,7 @@ const NavDrawer = () => {
             </ListItem>
           </Link>
           {/* About */}
-          <Link href="/about">
+          <Link href="/about" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
                 <InfoOutlinedIcon />
@@ -101,7 +101,7 @@ const NavDrawer = () => {
             </ListItem>
           </Link>
           {!user.isAuthenticated ? (
-            <Link href="/login">
+            <Link href="/login" color="inherit">
               <ListItem button onClick={() => setOpen(false)}>
                 <ListItemIcon>
                   <LockOpenOutlinedIcon />
@@ -110,7 +110,7 @@ const NavDrawer = () => {
               </ListItem>
             </Link>
           ) : (
-            <Link href="/">
+            <Link href="/" color="inherit">
               <ListItem
                 button
                 onClick={() => {

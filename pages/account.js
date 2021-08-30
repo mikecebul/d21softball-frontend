@@ -143,7 +143,7 @@ export default function Account() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box display="flex" justifyContent="center" mt={5}>
+            <Box display="flex" justifyContent="center" mt={5} mb={5}>
               <Button
                 aria-label="logout"
                 variant="contained"
