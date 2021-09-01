@@ -1,67 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import Head from "next/head";
 import axios from "axios";
 import { API_URL } from "../utils/urls";
 import { useRouter } from "next/router";
+import OrderTable from "../components/OrderTable";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import {
-  Container,
-  Paper,
-  Table,
-  TableBody,
-  TableContainer,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 600,
-  },
-  paper: {
-    marginTop: theme.spacing(4),
+  buttons: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
   },
 }));
-
-// fetch orders ----------------------
-const useOrders = (user) => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (user.isAuthenticated) {
-        setLoading(true);
-        await axios
-          .get(`${API_URL}/orders`, { withCredentials: true })
-          .then((resp) => {
-            setOrders(resp.data);
-            // console.log(resp.data);
-          })
-          .catch((err) => {
-            setOrders([]);
-          });
-        setLoading(false);
-      }
-    };
-    fetchOrders();
-  }, [user]);
-  return { orders, loading };
-};
 
 export default function Account() {
   const classes = useStyles();
   const dispatch = useDispatchCurrentUser();
   const user = useCurrentUser();
   const router = useRouter();
+  const [tab, setTab] = useState("Edit Profile");
 
-  const { orders, loading } = useOrders(user);
+  // Edit Profile
+  const handleTabSelection = () => {
+    if (tab === "View Orders") {
+      setTab("Edit Profile");
+    }
+    if (tab === "Edit Profile") {
+      setTab("View Orders");
+    }
+  };
 
   // Logout User ----------------------
   const handleLogout = async () => {
@@ -95,55 +71,34 @@ export default function Account() {
             />
           </Head>
           <Container maxWidth="md">
-            <Typography variant="h1" align="center">
+            <Typography variant="h2" align="center">
               Account
             </Typography>
             <Typography variant="h6" align="center">
               {user.email}
             </Typography>
             <Divider variant="middle" />
-            <Typography variant="h6" align="center">
-              Your Orders
-            </Typography>
-            {loading && (
-              <Typography variant="body1" align="center">
-                Loading your orders...
-              </Typography>
-            )}
-            <TableContainer component={Paper} className={classes.paper}>
-              <Table className={classes.table}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Total</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>ID</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orders &&
-                    orders.map((order) => (
-                      <TableRow key={order.id}>
-                        <TableCell component="th" scope="row">
-                          {new Date(order.created_at).toLocaleDateString(
-                            "en-EN"
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          {order.tournament?.id
-                            ? order.tournament?.name
-                            : order.camp?.name}
-                        </TableCell>
-                        <TableCell>${order.total}</TableCell>
-                        <TableCell>{order.status}</TableCell>
-                        <TableCell>{order.id}</TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Box display="flex" justifyContent="center" mt={5} mb={5}>
+
+            {/* Display Orders || Edit Pofile */}
+            {tab !== "View Orders" && <OrderTable />}
+            {tab !== "Edit Profile" && <></>}
+
+            {/* Display Account Action Buttons */}
+            <Box
+              display="flex"
+              justifyContent="center"
+              mt={5}
+              mb={5}
+              className={classes.buttons}
+            >
+              <Button
+                aria-label="Edit Profile"
+                variant="contained"
+                color="primary"
+                onClick={handleTabSelection}
+              >
+                {tab}
+              </Button>
               <Button
                 aria-label="logout"
                 variant="contained"
