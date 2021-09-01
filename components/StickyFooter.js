@@ -13,7 +13,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import PhoneOutlinedIcon from "@material-ui/icons/PhoneOutlined";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,15 +36,19 @@ export default function StickyFooter() {
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6}>
             <Box borderBottom={1}>
-              <Typography variant="h6">District Commissioner</Typography>
+              <Typography variant="h6">
+                District Commissioner - Scott Kelly
+              </Typography>
             </Box>
             <List dense>
-              <ListItem>
-                <ListItemIcon>
-                  <PersonOutlineIcon />
-                </ListItemIcon>
-                <ListItemText primary="Scott Kelly" />
-              </ListItem>
+              <Link href="mailto:scott@masad21.org" color="inherit">
+                <ListItem button>
+                  <ListItemIcon>
+                    <EmailOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="scott@masad21.org" />
+                </ListItem>
+              </Link>
               <Link href="tel:123-547-1144" color="inherit">
                 <ListItem button>
                   <ListItemIcon>
@@ -71,12 +75,22 @@ export default function StickyFooter() {
               <Typography variant="h6">Links</Typography>
             </Box>
             <List dense>
-              <Link href="https://www.usasoftballmi.org/" color="inherit">
+              <Link
+                href="https://www.usasoftballmi.org/"
+                rel="noopener"
+                target="_blank"
+                color="inherit"
+              >
                 <ListItem button>
                   <ListItemText primary="MASA Home" />
                 </ListItem>
               </Link>
-              <Link href="https://basesrecoverycenter.org/wp/" color="inherit">
+              <Link
+                href="https://basesrecoverycenter.org/wp/"
+                rel="noopener"
+                target="_blank"
+                color="inherit"
+              >
                 <ListItem button>
                   <ListItemText primary="BASES Home" />
                 </ListItem>

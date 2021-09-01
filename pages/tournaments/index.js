@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import Divider from "@material-ui/core/Divider";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
+  },
+  divider: {
+    marginBottom: theme.spacing(1),
   },
 }));
 
@@ -91,17 +95,14 @@ const Tournaments = ({ tournaments }) => {
                         title={tournament.meta_title}
                       />
                       <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h5" component="h3">
                           {tournament.name}
                         </Typography>
+                        <Divider className={classes.divider} />
                         <Typography>{tournament.class}</Typography>
                         <Typography variant="subtitle2">
-                          <Moment format="MMMM Do YYYY">
+                          <Moment format="MMMM D, YYYY">
                             {tournament.date_from}
-                          </Moment>
-                          {" - "}
-                          <Moment format="MMMM Do YYYY">
-                            {tournament.date_to}
                           </Moment>
                         </Typography>
                       </CardContent>

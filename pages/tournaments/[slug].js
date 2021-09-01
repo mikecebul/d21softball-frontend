@@ -70,8 +70,11 @@ const Tournament = ({ tournament }) => {
               {tournament.name}
             </Typography>
             <Typography>{tournament.class}</Typography>
+            <Typography>{tournament.location}</Typography>
             <Typography variant="subtitle2">
-              <Moment format="MMMM Do YYYY">{tournament.date_from}</Moment>
+              <Moment format="MMMM D, YYYY">{tournament.date_from}</Moment>
+              {" - "}
+              <Moment format="MMMM D, YYYY">{tournament.date_to}</Moment>
             </Typography>
             <Box mt={4}>
               <Markdown>{tournament.content}</Markdown>

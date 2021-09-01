@@ -67,9 +67,11 @@ const Camp = ({ camp }) => {
             <Typography gutterBottom variant="h5" component="h2">
               {camp.name}
             </Typography>
-            <Typography>{camp.class}</Typography>
+            <Typography variant="subtitle2">{camp.location}</Typography>
             <Typography variant="subtitle2">
-              <Moment format="MMMM Do YYYY">{camp.date_from}</Moment>
+              <Moment format="MMMM D, YYYY">{camp.date_from}</Moment>
+              {" - "}
+              <Moment format="MMMM D, YYYY">{camp.date_to}</Moment>
             </Typography>
             <Box mt={4}>
               <Markdown>{camp.content}</Markdown>

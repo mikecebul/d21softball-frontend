@@ -86,11 +86,12 @@ const camps = ({ camps }) => {
                           {camp.name}
                         </Typography>
                         <Typography variant="subtitle2">
-                          <Moment format="MMMM Do YYYY">
+                          {camp.location}
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          <Moment format="MMMM D, YYYY">
                             {camp.date_from}
                           </Moment>
-                          {" - "}
-                          <Moment format="MMMM Do YYYY">{camp.date_to}</Moment>
                         </Typography>
                       </CardContent>
                     </Link>
