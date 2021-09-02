@@ -85,6 +85,7 @@ export default function Account() {
             {tab !== "Edit Profile" && <EditProfile />}
 
             {/* Display Account Action Buttons */}
+            <Divider variant="middle" />
             <Box
               display="flex"
               justifyContent="center"
@@ -95,7 +96,7 @@ export default function Account() {
               <Button
                 aria-label="Edit Profile"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleTabSelection}
               >
                 {tab}

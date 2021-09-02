@@ -9,7 +9,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Link from "../src/Link";
-import { Container, Menu, MenuItem } from "@material-ui/core";
+import {
+  Container,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
+
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -18,21 +27,80 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  logo: {
+    "& span, & svg": {
+      fontSize: "2rem",
+    },
+  },
 }));
 
 export default function Navbar() {
   const classes = useStyles();
   const user = useCurrentUser();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("lg"));
 
   return (
     <div>
       <AppBar position="static">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Toolbar>
-            <NavDrawer />
-            <Typography variant="h6" className={classes.title}>
-              MASA D21
-            </Typography>
+            {matches ? (
+              <Box display="flex" flexGrow={1} alignItems="center">
+                <List>
+                  <Link href="/" color="inherit">
+                    <ListItem button>
+                      <ListItemText
+                        className={classes.logo}
+                        primary="MASA D21"
+                      />
+                    </ListItem>
+                  </Link>
+                </List>
+                <List>
+                  <ListItem>
+                    <ListItemText />
+                  </ListItem>
+                </List>
+                <List>
+                  <Link href="/tournaments" color="inherit">
+                    <ListItem button>
+                      <ListItemText
+                        // className={classes.logo}
+                        primary="Tournaments"
+                      />
+                    </ListItem>
+                  </Link>
+                </List>
+                <List>
+                  <Link href="/camps" color="inherit">
+                    <ListItem button>
+                      <ListItemText
+                        // className={classes.logo}
+                        primary="Training Camps"
+                      />
+                    </ListItem>
+                  </Link>
+                </List>
+                <List>
+                  <Link href="/about" color="inherit">
+                    <ListItem button>
+                      <ListItemText
+                        // className={classes.logo}
+                        primary="About"
+                      />
+                    </ListItem>
+                  </Link>
+                </List>
+              </Box>
+            ) : (
+              <>
+                <NavDrawer />
+                <Typography variant="h6" className={classes.title}>
+                  MASA D21
+                </Typography>
+              </>
+            )}
             {user.isAuthenticated ? (
               // Simple Menu
               <AccountMenu />

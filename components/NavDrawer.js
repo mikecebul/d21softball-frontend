@@ -88,7 +88,7 @@ const NavDrawer = () => {
               <ListItemIcon>
                 <SportsBaseballOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Camps" />
+              <ListItemText primary="Training Camps" />
             </ListItem>
           </Link>
           {/* About */}

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -63,10 +63,10 @@ export default function SignUp() {
   const validate = () => {
     return new Promise((resolve, reject) => {
       setErrorMsg({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
       });
       if (!firstName) {
         setErrorMsg({ firstName: "Please provide a first name." });
@@ -117,7 +117,9 @@ export default function SignUp() {
           .catch((err) => {
             // Handle error.
             console.log("An error occurred:", err.response);
-            setErrorMsg({ register: err.response.data.data[0].messages[0].message });
+            setErrorMsg({
+              register: err.response.data.data[0].messages[0].message,
+            });
           });
       }
     });

@@ -10,7 +10,6 @@ const reducer = (state, action) => {
     case "LOGIN":
       return { ...action.user, isAuthenticated: true };
     case "UPDATE":
-      console.log("reducer:", action.firstName);
       return {
         ...state,
         firstName: action.firstName,

@@ -3,7 +3,7 @@ import { useCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { API_URL } from "../utils/urls";
-import Link from '../src/Link'
+import Link from "../src/Link";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -57,7 +57,7 @@ export default function Login() {
   const validate = () => {
     return new Promise((resolve, reject) => {
       setErrorMsg({
-        password: '',
+        password: "",
       });
       if (!password) {
         setErrorMsg({ password: "Please provide your password." });
@@ -96,11 +96,13 @@ export default function Login() {
           .catch((err) => {
             // Handle error.
             console.log("An error occurred:", err.response);
-            setErrorMsg({ reset: "Time limit expired from 'forgot password' email." });
+            setErrorMsg({
+              reset: "Time limit expired from 'forgot password' email.",
+            });
           });
       }
-    })
-  }
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -137,10 +139,10 @@ export default function Login() {
           >
             Submit Password
           </Button>
-            <Box display="flex" justifyContent="flex-end">
-              <Link href="/login" variant="body2">
-                {"Return to login"}
-              </Link>
+          <Box display="flex" justifyContent="flex-end">
+            <Link href="/login" variant="body2">
+              {"Return to login"}
+            </Link>
           </Box>
           {errorMsg && (
             <Box pt={2}>

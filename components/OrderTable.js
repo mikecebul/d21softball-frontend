@@ -5,6 +5,7 @@ import { API_URL } from "../utils/urls";
 
 import Typography from "@material-ui/core/Typography";
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   },
   head: {
     backgroundColor: theme.palette.common.black,
@@ -58,6 +60,7 @@ export default function OrderTable() {
   };
 
   const { orders, loading } = useOrders(user);
+  console.log(orders);
   return (
     <>
       {loading && (
@@ -81,7 +84,13 @@ export default function OrderTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders &&
+              {orders.length < 1 ? (
+                <Box pl={2}>
+                  <Typography variant="h6">
+                    You have no orders to display
+                  </Typography>
+                </Box>
+              ) : (
                 orders.map((order) => (
                   <TableRow key={order.id}>
                     <TableCell component="th" scope="row">
@@ -96,7 +105,8 @@ export default function OrderTable() {
                     <TableCell>{order.id}</TableCell>
                     <TableCell>{order.status}</TableCell>
                   </TableRow>
-                ))}
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
