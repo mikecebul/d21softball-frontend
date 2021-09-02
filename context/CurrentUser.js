@@ -9,6 +9,13 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
       return { ...action.user, isAuthenticated: true };
+    case "UPDATE":
+      console.log("reducer:", action.firstName);
+      return {
+        ...state,
+        firstName: action.firstName,
+        lastName: action.lastName,
+      };
     case "LOGOUT":
       return { isAuthenticated: false };
     default:

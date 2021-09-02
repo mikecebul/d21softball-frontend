@@ -34,7 +34,6 @@ export default function Account() {
   const handleTabSelection = () => {
     if (tab === "View Orders") {
       setTab("Edit Profile");
-      console.log(user.firstName);
     }
     if (tab === "Edit Profile") {
       setTab("View Orders");

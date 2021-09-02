@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
-import { useRouter } from "next/router";
 import { API_URL } from "../utils/urls";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -17,7 +14,7 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -40,48 +37,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-  const router = useRouter();
 
+  const user = useCurrentUser();
   const dispatch = useDispatchCurrentUser();
-  const currentUser = useCurrentUser();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [errorMsg, setErrorMsg] = useState();
 
-  // Check if user is already logged in
-  useEffect(() => {
-    if (currentUser.isAuthenticated) {
-      router.push("/account");
-    }
-  }, []);
-
-  // Validate email exists
-  const validateEmail = () => {
+  // Validate form
+  const validateForm = () => {
     return new Promise((resolve, reject) => {
       setErrorMsg({
-        email: "",
-        password: "",
+        firstName: "",
+        lastName: "",
       });
-      if (!email) {
-        setErrorMsg({ email: "Please provide your email." });
+      if (!firstName) {
+        setErrorMsg({ firstName: "Please provide your first Name." });
         resolve({ isValid: false });
-      } else {
-        resolve({ isValid: true });
-      }
-    });
-  };
-  // Validate Login
-  const validateLogin = () => {
-    return new Promise((resolve, reject) => {
-      setErrorMsg({
-        email: "",
-        password: "",
-      });
-      if (!email) {
-        setErrorMsg({ email: "Please provide your email." });
-        resolve({ isValid: false });
-      } else if (!password) {
-        setErrorMsg({ password: "Please provide your password." });
+      } else if (!lastName) {
+        setErrorMsg({ lastName: "Please provide your last Name." });
         resolve({ isValid: false });
       } else {
         resolve({ isValid: true });
@@ -89,65 +63,35 @@ export default function Login() {
     });
   };
 
-  // Handle login Submit
+  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    validateLogin().then((response) => {
+    validateForm().then((response) => {
       if (response.isValid) {
         axios
-          .post(
-            `${API_URL}/auth/local`,
+          .put(
+            `${API_URL}/users/${user.id}`,
             {
-              identifier: email,
-              password: password,
+              firstName: firstName,
+              lastName: lastName,
             },
             {
               withCredentials: true,
             }
           )
-          .then((response) => {
+          .then((resp) => {
             // Handle success.
-            // console.log("Login Response:", response);
-            dispatch({ type: "LOGIN", user: response.data.user });
-            router.push("/account");
+            // console.log("User Updated:", resp);
+            dispatch({ type: "UPDATE", firstName, lastName });
+            setErrorMsg({
+              edit: "User Updated",
+            });
           })
           .catch((err) => {
             // Handle error.
             console.log("An error occurred:", err.response);
             setErrorMsg({
-              login: err.response.data.data[0].messages[0].message,
-            });
-          });
-      }
-    });
-  };
-
-  // Handle forgot password
-  const handleForgotPassword = async (e) => {
-    e.preventDefault();
-    validateEmail().then((response) => {
-      if (response.isValid) {
-        console.log(email);
-        axios
-          .post(
-            `${API_URL}/auth/forgot-password`,
-            {
-              email: email, // user's email
-            },
-            {
-              withCredentials: true,
-            }
-          )
-          .then((response) => {
-            console.log("Your user received an email");
-            setErrorMsg({ login: "Check your inbox for an email from us." });
-          })
-          .catch((err) => {
-            console.log("An error occurred:", err.response);
-            setErrorMsg({
-              login:
-                err.response.data.data[0]?.messages[0].message ||
-                "Unable to email this address. Contact support.",
+              edit: err.response?.data.message,
             });
           });
       }
@@ -158,10 +102,10 @@ export default function Login() {
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <EditOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Edit Profile
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
@@ -169,30 +113,30 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="firstName"
+            label="First Name"
+            name="firstName"
+            autoComplete="given-name"
             autoFocus
-            error={Boolean(errorMsg?.email)}
-            helperText={errorMsg?.email}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            error={Boolean(errorMsg?.firstName)}
+            helperText={errorMsg?.firstName}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="password"
-            error={Boolean(errorMsg?.password)}
-            helperText={errorMsg?.password}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="lastName"
+            label="Last Name"
+            type="lastName"
+            id="lastName"
+            autoComplete="family-name"
+            error={Boolean(errorMsg?.lastName)}
+            helperText={errorMsg?.lastName}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
           <Button
             type="submit"
@@ -202,28 +146,12 @@ export default function Login() {
             className={classes.submit}
             onClick={(e) => handleSubmit(e)}
           >
-            Login
+            Edit Profile
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                href="#"
-                variant="body2"
-                onClick={(e) => handleForgotPassword(e)}
-              >
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
           {errorMsg && (
             <Box pt={2}>
               <Typography align="center" variant="subtitle2" color="error">
-                {errorMsg?.login}
+                {errorMsg?.edit}
               </Typography>
             </Box>
           )}

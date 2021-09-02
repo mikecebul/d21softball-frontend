@@ -53,7 +53,7 @@ export default function OrderTable() {
         }
       };
       fetchOrders();
-    }, []);
+    }, [user]);
     return { orders, loading };
   };
 
