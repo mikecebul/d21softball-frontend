@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from "../utils/urls";
 import { useRouter } from "next/router";
 import OrderTable from "../components/OrderTable";
+import EditProfile from "../components/EditProfile";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -33,6 +34,7 @@ export default function Account() {
   const handleTabSelection = () => {
     if (tab === "View Orders") {
       setTab("Edit Profile");
+      console.log(user.firstName);
     }
     if (tab === "Edit Profile") {
       setTab("View Orders");
@@ -81,7 +83,7 @@ export default function Account() {
 
             {/* Display Orders || Edit Pofile */}
             {tab !== "View Orders" && <OrderTable />}
-            {tab !== "Edit Profile" && <></>}
+            {tab !== "Edit Profile" && <EditProfile />}
 
             {/* Display Account Action Buttons */}
             <Box
