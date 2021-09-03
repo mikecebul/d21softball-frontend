@@ -6,7 +6,7 @@ import Link from "../src/Link";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
-import Tooltip from "@material-ui/core/Tooltip";
+import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,15 +22,12 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
   },
-  title: {
-    color: theme.palette.primary.light,
-  },
-  titleWrap: {
-    fontSize: 8,
-  },
   titleBar: {
     background:
       "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+  },
+  center: {
+    justifyContent: "center",
   },
 }));
 
@@ -40,12 +37,17 @@ const ImageListTournament = ({ tournament }) => {
     return `${API_URL}${src}?w=${width}&q=${quality || 75}`;
   };
   return (
-    <>
+    <Box dipplay="flex" justifyContent="center">
       {tournament.resultsMedia && (
         <div className={classes.root}>
           <ImageList className={classes.imageList} cols={2.5}>
             {tournament.resultsMedia.map((item) => (
-              <ImageListItem key={item.id}>
+              <ImageListItem
+                key={item.id}
+                cols={2}
+                rows={2}
+                className="classes.center"
+              >
                 <Link
                   href={{
                     pathname: `${API_URL}${item.url}`,
@@ -61,22 +63,20 @@ const ImageListTournament = ({ tournament }) => {
                     layout="intrinsic"
                     objectFit="cover"
                   />
-                  <Tooltip title={item.caption} placement="bottom">
-                    <ImageListItemBar
-                      classes={{
-                        root: classes.titleBar,
-                        title: classes.title,
-                        titleWrap: classes.titleWrap,
-                      }}
-                    />
-                  </Tooltip>
+                  <ImageListItemBar
+                    title={item.caption}
+                    arial-label={item.caption}
+                    position="bottom"
+                    actionPosition="left"
+                    className={classes.titleBar}
+                  />
                 </Link>
               </ImageListItem>
             ))}
           </ImageList>
         </div>
       )}
-    </>
+    </Box>
   );
 };
 
