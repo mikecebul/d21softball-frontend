@@ -1,11 +1,13 @@
 import React from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "../../src/Link";
 import Markdown from "markdown-to-jsx";
+import { fromImageToUrl, API_URL } from "../../utils/urls";
+import { twoDecimals } from "../../utils/format";
+import BuyButton from "../../components/BuyButton";
 
 import Moment from "react-moment";
-import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -14,10 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { fromImageToUrl, API_URL } from "../../utils/urls";
-import { twoDecimals } from "../../utils/format";
-import BuyButton from "../../components/BuyButton";
+import ImageListTournament from "../../components/ImageListTournament";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -36,13 +35,35 @@ const useStyles = makeStyles((theme) => ({
   price: {
     paddingLeft: theme.spacing(1),
   },
+  bracket: {
+    padding: theme.spacing(3),
+    marginBottom: theme.spacing(5),
+  },
+  imgRoot: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.paper,
+  },
+  imageList: {
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
+  },
+  title: {
+    color: theme.palette.primary.light,
+  },
+  titleBar: {
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+  },
 }));
 
 const Tournament = ({ tournament }) => {
   const classes = useStyles();
-
   return (
-    <div>
+    <>
       <Head>
         {tournament.meta_title && <title>{tournament.meta_title}</title>}
         {tournament.meta_description && (
@@ -52,12 +73,6 @@ const Tournament = ({ tournament }) => {
           />
         )}
       </Head>
-      {/* <Image
-        src={fromImageToUrl(tournament.image)}
-        alt="tournament Image"
-        width={1920}
-        height={1080}
-      /> */}
       <Container maxWidth="md">
         <Card className={classes.card}>
           <CardMedia
@@ -89,8 +104,30 @@ const Tournament = ({ tournament }) => {
             </Typography>
           </CardActions>
         </Card>
+        <Paper>
+          <Box className={classes.bracket}>
+            {tournament.finalBracket && (
+              <Link
+                href={{
+                  pathname: `${API_URL}${tournament.finalBracket?.url}`,
+                }}
+                target="_blank"
+              >
+                <Typography variant="h4">Final Bracket</Typography>
+              </Link>
+            )}
+            {tournament.bracketResults && (
+              <Box mt={4}>
+                <Markdown>{tournament.bracketResults}</Markdown>
+              </Box>
+            )}
+            {tournament.resultsMedia && (
+              <ImageListTournament tournament={tournament} />
+            )}
+          </Box>
+        </Paper>
       </Container>
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useCurrentUser } from "../context/CurrentUser";
 import NavDrawer from "./NavDrawer";
+import NavDesktop from "./NavDesktop";
 import AccountMenu from "./AccountMenu";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -46,53 +47,7 @@ export default function Navbar() {
         <Container maxWidth="xl">
           <Toolbar>
             {matches ? (
-              <Box display="flex" flexGrow={1} alignItems="center">
-                <List>
-                  <Link href="/" color="inherit">
-                    <ListItem button>
-                      <ListItemText
-                        className={classes.logo}
-                        primary="MASA D21"
-                      />
-                    </ListItem>
-                  </Link>
-                </List>
-                <List>
-                  <ListItem>
-                    <ListItemText />
-                  </ListItem>
-                </List>
-                <List>
-                  <Link href="/tournaments" color="inherit">
-                    <ListItem button>
-                      <ListItemText
-                        // className={classes.logo}
-                        primary="Tournaments"
-                      />
-                    </ListItem>
-                  </Link>
-                </List>
-                <List>
-                  <Link href="/camps" color="inherit">
-                    <ListItem button>
-                      <ListItemText
-                        // className={classes.logo}
-                        primary="Training Camps"
-                      />
-                    </ListItem>
-                  </Link>
-                </List>
-                <List>
-                  <Link href="/about" color="inherit">
-                    <ListItem button>
-                      <ListItemText
-                        // className={classes.logo}
-                        primary="About"
-                      />
-                    </ListItem>
-                  </Link>
-                </List>
-              </Box>
+              <NavDesktop />
             ) : (
               <>
                 <NavDrawer />

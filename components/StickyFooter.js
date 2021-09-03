@@ -1,33 +1,29 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import Link from "../src/Link";
 import Copyright from "../src/Copyright";
-import {
-  Box,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core";
+
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import PhoneOutlinedIcon from "@material-ui/icons/PhoneOutlined";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
     flexShrink: 0,
     padding: theme.spacing(3, 2),
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[200]
-        : theme.palette.grey[800],
+    backgroundColor: theme.palette.grey[200],
   },
 }));
 
-export default function StickyFooter() {
+const StickyFooter = () => {
   const classes = useStyles();
 
   return (
@@ -35,7 +31,7 @@ export default function StickyFooter() {
       <Container maxWidth="md">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6}>
-            <Box borderBottom={1}>
+            <Box borderBottom={2}>
               <Typography variant="h6">
                 District Commissioner - Scott Kelly
               </Typography>
@@ -71,7 +67,7 @@ export default function StickyFooter() {
             </List>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Box borderBottom={1}>
+            <Box borderBottom={2}>
               <Typography variant="h6">Links</Typography>
             </Box>
             <List dense>
@@ -103,4 +99,6 @@ export default function StickyFooter() {
       </Container>
     </footer>
   );
-}
+};
+
+export default StickyFooter;
