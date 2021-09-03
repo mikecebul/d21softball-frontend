@@ -1,12 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { API_URL } from "../utils/urls";
+import Link from "../src/Link";
 
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
+import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
-import Link from "../src/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: theme.palette.primary.light,
+  },
+  titleWrap: {
+    fontSize: 8,
   },
   titleBar: {
     background:
@@ -57,13 +61,15 @@ const ImageListTournament = ({ tournament }) => {
                     layout="intrinsic"
                     objectFit="cover"
                   />
-                  <ImageListItemBar
-                    title={item.caption}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
-                    }}
-                  />
+                  <Tooltip title={item.caption} placement="bottom">
+                    <ImageListItemBar
+                      classes={{
+                        root: classes.titleBar,
+                        title: classes.title,
+                        titleWrap: classes.titleWrap,
+                      }}
+                    />
+                  </Tooltip>
                 </Link>
               </ImageListItem>
             ))}
