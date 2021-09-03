@@ -55,6 +55,7 @@ const ImageListTournament = ({ tournament }) => {
                     width={500}
                     height={500}
                     layout="intrinsic"
+                    objectFit="cover"
                   />
                   <ImageListItemBar
                     title={item.caption}
