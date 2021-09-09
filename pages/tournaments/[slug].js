@@ -15,8 +15,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
+import ImageCarouselTournament from "../../components/ImageCarouselTournament";
+import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ImageListTournament from "../../components/ImageListTournament";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -41,10 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imgRoot: {
     display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
+    justifyContent: "center",
   },
   imageList: {
     flexWrap: "nowrap",
@@ -117,12 +115,19 @@ const Tournament = ({ tournament }) => {
               </Link>
             )}
             {tournament.bracketResults && (
-              <Box mt={4}>
+              <Box>
                 <Markdown>{tournament.bracketResults}</Markdown>
               </Box>
             )}
             {tournament.resultsMedia && (
-              <ImageListTournament tournament={tournament} />
+              <>
+                <Divider />
+                <Box display="flex" justifyContent="center" mt={4} mb={4}>
+                  <Paper>
+                    <ImageCarouselTournament tournament={tournament} />
+                  </Paper>
+                </Box>
+              </>
             )}
           </Box>
         </Paper>

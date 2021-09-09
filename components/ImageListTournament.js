@@ -37,7 +37,7 @@ const ImageListTournament = ({ tournament }) => {
     return `${API_URL}${src}?w=${width}&q=${quality || 75}`;
   };
   return (
-    <Box dipplay="flex" justifyContent="center">
+    <Box display="flex" justifyContent="center">
       {tournament.resultsMedia && (
         <div className={classes.root}>
           <ImageList className={classes.imageList} cols={2.5}>

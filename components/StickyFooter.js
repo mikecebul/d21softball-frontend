@@ -16,7 +16,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  footer: {
+  foot: {
     flexShrink: 0,
     padding: theme.spacing(3, 2),
     backgroundColor: theme.palette.grey[200],
@@ -27,7 +27,7 @@ const StickyFooter = () => {
   const classes = useStyles();
 
   return (
-    <footer className={classes.footer}>
+    <footer className={classes.foot}>
       <Container maxWidth="md">
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6}>
