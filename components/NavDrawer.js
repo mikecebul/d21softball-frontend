@@ -91,6 +91,15 @@ const NavDrawer = () => {
               <ListItemText primary="Training Camps" />
             </ListItem>
           </Link>
+          {/* Hall of Fame */}
+          <Link href="/hall-of-fame" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <InfoOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Hall of Fame" />
+            </ListItem>
+          </Link>
           {/* About */}
           <Link href="/about" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>

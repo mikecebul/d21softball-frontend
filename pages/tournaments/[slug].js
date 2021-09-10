@@ -14,6 +14,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { Divider } from "@material-ui/core";
@@ -104,30 +105,29 @@ const Tournament = ({ tournament }) => {
         </Card>
         <Paper>
           <Box className={classes.bracket}>
-            {tournament.finalBracket && (
-              <Link
-                href={{
-                  pathname: `${API_URL}${tournament.finalBracket?.url}`,
-                }}
-                target="_blank"
-              >
-                <Typography variant="h4">Final Bracket</Typography>
-              </Link>
+            {/* Carousel of Images */}
+            {tournament.resultsMedia && (
+              <ImageCarouselTournament tournament={tournament} />
             )}
+            {tournament.finalBracket && (
+              <Box mt={4} mb={4}>
+                <Link
+                  href={{
+                    pathname: `${API_URL}${tournament.finalBracket?.url}`,
+                  }}
+                  target="_blank"
+                >
+                  <Button variant="contained" color="secondary">
+                    View Final Bracket
+                  </Button>
+                </Link>
+              </Box>
+            )}
+            {/* Markdown of Tournament Results */}
             {tournament.bracketResults && (
               <Box>
                 <Markdown>{tournament.bracketResults}</Markdown>
               </Box>
-            )}
-            {tournament.resultsMedia && (
-              <>
-                <Divider />
-                <Box display="flex" justifyContent="center" mt={4} mb={4}>
-                  <Paper>
-                    <ImageCarouselTournament tournament={tournament} />
-                  </Paper>
-                </Box>
-              </>
             )}
           </Box>
         </Paper>

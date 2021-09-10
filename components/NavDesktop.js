@@ -75,6 +75,16 @@ export default function NavDesktop() {
         </Link>
       </List>
       <List>
+        <Link href="/hall-of-fame" color="inherit">
+          <ListItem button>
+            <ListItemText
+              // className={classes.logo}
+              primary="Hall of Fame"
+            />
+          </ListItem>
+        </Link>
+      </List>
+      <List>
         <Link href="/about" color="inherit">
           <ListItem button>
             <ListItemText
