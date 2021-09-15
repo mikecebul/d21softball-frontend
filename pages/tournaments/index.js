@@ -82,8 +82,8 @@ const Tournaments = ({ tournaments }) => {
 
           <Grid container spacing={4} justifyContent="center">
             {sortedTournaments.map((tournament) => (
-              <Grid item key={tournament.name} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
+              <Grid item key={tournament.name} xs={10} sm={5} md={4}>
+                <Card className={classes.card} raised>
                   <CardActionArea>
                     <Link
                       color="textPrimary"
@@ -108,13 +108,13 @@ const Tournaments = ({ tournaments }) => {
                       </CardContent>
                     </Link>
                   </CardActionArea>
-                  <CardActions>
+                  {/* <CardActions>
                     <Link href={`/tournaments/${tournament.slug}`}>
                       <Button size="small" color="primary">
                         View
                       </Button>
                     </Link>
-                  </CardActions>
+                  </CardActions> */}
                 </Card>
               </Grid>
             ))}
