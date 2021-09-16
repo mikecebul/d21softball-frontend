@@ -18,6 +18,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import EmojiEventsOutlinedIcon from "@material-ui/icons/EmojiEventsOutlined";
+import StarOutlineIcon from "@material-ui/icons/StarOutline";
+import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import Link from "../src/Link";
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +79,7 @@ const NavDrawer = () => {
           <Link href="/tournaments" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
-                <EmojiEventsOutlinedIcon />
+                <StarOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="Tournaments" />
             </ListItem>
@@ -95,18 +97,18 @@ const NavDrawer = () => {
           <Link href="/hall-of-fame" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
-                <InfoOutlinedIcon />
+                <EmojiEventsOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Hall of Fame" />
             </ListItem>
           </Link>
           {/* About */}
-          <Link href="/about" color="inherit">
+          <Link href="/archives" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
-                <InfoOutlinedIcon />
+                <HistoryOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="About" />
+              <ListItemText primary="Archives" />
             </ListItem>
           </Link>
           {!user.isAuthenticated ? (

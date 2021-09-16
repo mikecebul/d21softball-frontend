@@ -1,5 +1,6 @@
 import React from "react";
 import { useCurrentUser } from "../context/CurrentUser";
+import { useRouter } from "next/router";
 import NavDrawer from "./NavDrawer";
 import NavDesktop from "./NavDesktop";
 import AccountMenu from "./AccountMenu";
@@ -9,6 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Link from "../src/Link";
 import {
   Container,
@@ -36,10 +38,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
+  const router = useRouter();
   const classes = useStyles();
   const user = useCurrentUser();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    router.push("/login");
+  };
+
+  const handleSignupClick = (e) => {
+    e.preventDefault();
+    router.push("/signup");
+  };
 
   return (
     <div>
@@ -60,15 +73,28 @@ export default function Navbar() {
               // Simple Menu
               <AccountMenu />
             ) : (
-              <Link href="/signup">
+              <ButtonGroup
+                // variant="contained"
+                // color="primary"
+                aria-label="verification button group"
+              >
                 <Button
-                  aria-label="Sign Up Button"
+                  onClick={handleLoginClick}
+                  variant="contained"
+                  color="primary"
+                  aria-label="Login Button"
+                >
+                  Login
+                </Button>
+                <Button
+                  onClick={handleSignupClick}
                   variant="contained"
                   color="default"
+                  aria-label="Sign Up Button"
                 >
                   SIGN UP
                 </Button>
-              </Link>
+              </ButtonGroup>
             )}
           </Toolbar>
         </Container>

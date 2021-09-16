@@ -85,11 +85,11 @@ export default function NavDesktop() {
         </Link>
       </List>
       <List>
-        <Link href="/about" color="inherit">
+        <Link href="/archives" color="inherit">
           <ListItem button>
             <ListItemText
               // className={classes.logo}
-              primary="About"
+              primary="Archives"
             />
           </ListItem>
         </Link>
