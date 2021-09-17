@@ -17,6 +17,12 @@ import Divider from "@material-ui/core/Divider";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
+import {
+  filteredItems,
+  uniqueYears,
+  sortIncrement,
+  sortDecrement,
+} from "../../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -47,8 +53,11 @@ const Tournaments = ({ tournaments }) => {
   const classes = useStyles();
 
   // Sorted Tournaments from earliest to latest
-  const sortedTournaments = tournaments.sort((a, b) =>
-    a.date_from > b.date_from ? 1 : -1
+  const sortedList = sortIncrement(tournaments);
+  const years = uniqueYears(sortedList);
+  const currentDate = years[0];
+  const newTournamentList = sortDecrement(
+    filteredItems(sortedList, currentDate)
   );
 
   return (
@@ -64,8 +73,7 @@ const Tournaments = ({ tournaments }) => {
               color="textPrimary"
               gutterBottom
             >
-              <Moment format="YYYY">{sortedTournaments[0].date_from}</Moment>{" "}
-              Tournaments
+              <Moment format="YYYY">{currentDate}</Moment> Tournaments
             </Typography>
             <Typography
               variant="h5"
@@ -81,7 +89,7 @@ const Tournaments = ({ tournaments }) => {
           {/* End hero unit */}
 
           <Grid container spacing={4} justifyContent="center">
-            {sortedTournaments.map((tournament) => (
+            {newTournamentList.map((tournament) => (
               <Grid item key={tournament.name} xs={10} sm={5} md={4}>
                 <Card className={classes.card} raised>
                   <CardActionArea>

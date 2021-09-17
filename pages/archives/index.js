@@ -17,6 +17,7 @@ import Divider from "@material-ui/core/Divider";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
+import { uniqueYears, sortIncrement, filteredItems } from "../../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -50,21 +51,10 @@ const Tournaments = ({ tournaments }) => {
   const classes = useStyles();
 
   // Sorted Tournaments from earliest to latest
-  const sortedTournaments = tournaments.sort((a, b) =>
-    a.date_from < b.date_from ? 1 : -1
-  );
-  const filteredDates = sortedTournaments.map((d) => {
-    return d.date_from.substring(0, 4);
-  });
-  var uniqueDates = [...new Set(filteredDates)];
-
-  const [currentDate, setCurrentDate] = useState(uniqueDates[0]);
-
-  const filterTournaments = sortedTournaments.filter((x) => {
-    if (x.date_from.substring(0, 4) === currentDate) {
-      return x;
-    }
-  });
+  const sortedList = sortIncrement(tournaments);
+  const years = uniqueYears(sortedList);
+  const [currentDate, setCurrentDate] = useState(years[0]);
+  const filteredTournaments = filteredItems(sortedList, currentDate);
 
   return (
     <React.Fragment>
@@ -91,7 +81,7 @@ const Tournaments = ({ tournaments }) => {
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
-                {uniqueDates.map((date, index) => (
+                {years.map((date, index) => (
                   <Grid item key={index}>
                     <Button
                       variant="contained"
@@ -109,7 +99,7 @@ const Tournaments = ({ tournaments }) => {
           {/* End hero unit */}
 
           <Grid container spacing={4} justifyContent="center">
-            {filterTournaments.map((tournament) => (
+            {filteredTournaments.map((tournament) => (
               <Grid item key={tournament.name} xs={10} sm={5} md={4}>
                 <Card className={classes.card} raised>
                   <CardActionArea>
