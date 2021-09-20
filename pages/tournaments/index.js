@@ -69,16 +69,24 @@ const Tournaments = ({ tournaments }) => {
     let dateYear = date.getFullYear();
     let dateMonth = date.getMonth() + 1;
     let dateDay = date.getDate();
+    let pastSeptember = false;
     if (
       mostRecentTournamentYear <= dateYear &&
       dateMonth <= "9" &&
       dateDay < "15"
     ) {
-      return false;
+      return { pastSeptember, dateYear };
     } else {
-      return true;
+      if (mostRecentTournamentYear == dateYear) {
+        dateYear = dateYear + 1;
+        pastSeptember = true;
+        return { pastSeptember, dateYear };
+      }
+      pastSeptember = true;
+      return { pastSeptember, dateYear };
     }
   };
+  const compared = compareDate(mostRecentTournamentYear);
 
   return (
     <React.Fragment>
@@ -93,8 +101,7 @@ const Tournaments = ({ tournaments }) => {
               color="textPrimary"
               gutterBottom
             >
-              <Moment format="YYYY">{mostRecentTournamentYear}</Moment>{" "}
-              Tournaments
+              {compared.dateYear} Tournaments
             </Typography>
             <Typography
               variant="h5"
@@ -108,7 +115,7 @@ const Tournaments = ({ tournaments }) => {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          {compareDate(mostRecentTournamentYear) ? (
+          {compared.pastSeptember ? (
             <>
               <Typography align="center" variant="h6">
                 Next year's tournaments will be posted soon
