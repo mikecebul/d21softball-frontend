@@ -19,6 +19,7 @@ import Container from "@material-ui/core/Container";
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Tournament = ({ tournament }) => {
   const classes = useStyles();
+  const tournamentDate = moment(tournament.date_from).format("YYYY-MM-DD");
+  const currentDate = moment().format("YYYY-MM-DD");
+
   return (
     <>
       <Head>
@@ -74,11 +78,13 @@ const Tournament = ({ tournament }) => {
       </Head>
       <Container maxWidth="md">
         <Card className={classes.card}>
-          <CardMedia
-            className={classes.cardMedia}
-            image={fromImageToUrl(tournament.image)}
-            title={tournament.meta_title}
-          />
+          {tournament.image && (
+            <CardMedia
+              className={classes.cardMedia}
+              image={fromImageToUrl(tournament.image)}
+              title={tournament.meta_title}
+            />
+          )}
           <CardContent className={classes.cardContent}>
             <Typography gutterBottom variant="h5" component="h2">
               {tournament.name}
@@ -90,23 +96,28 @@ const Tournament = ({ tournament }) => {
               {" - "}
               <Moment format="MMMM D, YYYY">{tournament.date_to}</Moment>
             </Typography>
-            <Box mt={4}>
-              <Markdown>{tournament.content}</Markdown>
-            </Box>
+            {tournament.content && (
+              <Box mt={4}>
+                <Markdown>{tournament.content}</Markdown>
+              </Box>
+            )}
           </CardContent>
-          <CardActions>
-            <Link href={`/tournaments/${tournament.slug}`}>
-              <BuyButton tournament={tournament}></BuyButton>
-            </Link>
-            <Typography variant="h6" className={classes.price}>
-              ${twoDecimals(tournament.price)}
-            </Typography>
-          </CardActions>
+          {/* Only show Price and Registration if Tournament is in the future */}
+          {tournamentDate > currentDate && (
+            <CardActions>
+              <Link href={`/tournaments/${tournament.slug}`}>
+                <BuyButton tournament={tournament}></BuyButton>
+              </Link>
+              <Typography variant="h6" className={classes.price}>
+                ${twoDecimals(tournament.price)}
+              </Typography>
+            </CardActions>
+          )}
         </Card>
         <Paper>
           <Box className={classes.bracket}>
             {/* Carousel of Images */}
-            {tournament.resultsMedia && (
+            {tournament.resultsMedia.length && (
               <ImageCarouselTournament tournament={tournament} />
             )}
             {tournament.finalBracket && (

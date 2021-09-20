@@ -53,7 +53,7 @@ function ImageCarouselTournament({ tournament }) {
   return (
     <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Typography>{tournament.resultsMedia[activeStep].caption}</Typography>
+        <Typography>{tournament.resultsMedia[activeStep]?.caption}</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
