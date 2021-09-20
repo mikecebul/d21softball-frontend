@@ -17,7 +17,12 @@ import Divider from "@material-ui/core/Divider";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
-import { uniqueYears, sortIncrement, filteredItems } from "../../utils/sort";
+import {
+  uniqueYears,
+  sortIncrement,
+  filteredItems,
+  sortDecrement,
+} from "../../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -54,7 +59,9 @@ const Tournaments = ({ tournaments }) => {
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
   const [currentDate, setCurrentDate] = useState(years[0]);
-  const filteredTournaments = filteredItems(sortedList, currentDate);
+  const filteredTournaments = sortDevrement(
+    filteredItems(sortedList, currentDate)
+  );
 
   return (
     <React.Fragment>
