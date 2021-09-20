@@ -59,7 +59,7 @@ const Tournaments = ({ tournaments }) => {
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
   const [currentDate, setCurrentDate] = useState(years[0]);
-  const filteredTournaments = sortDevrement(
+  const filteredTournaments = sortDecrement(
     filteredItems(sortedList, currentDate)
   );
 
