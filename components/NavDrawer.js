@@ -90,7 +90,7 @@ const NavDrawer = () => {
               <ListItemIcon>
                 <SportsBaseballOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Training Camps" />
+              <ListItemText primary="Development Workshops" />
             </ListItem>
           </Link>
           {/* Hall of Fame */}

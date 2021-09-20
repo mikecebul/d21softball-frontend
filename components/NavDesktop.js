@@ -69,7 +69,7 @@ export default function NavDesktop() {
           <ListItem button>
             <ListItemText
               // className={classes.logo}
-              primary="Training Camps"
+              primary="Development Workshops"
             />
           </ListItem>
         </Link>

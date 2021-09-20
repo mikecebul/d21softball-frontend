@@ -62,8 +62,8 @@ const camps = ({ camps }) => {
               color="textPrimary"
               gutterBottom
             >
-              <Moment format="YYYY">{sortedcamps[0].date_from}</Moment> Training
-              Camps
+              <Moment format="YYYY">{sortedcamps[0].date_from}</Moment>{" "}
+              Development Workshops
             </Typography>
           </Container>
         </div>

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "../../src/Link";
 import Image from "next/image";
 import Moment from "react-moment";
+import moment from "moment";
+import { useRouter } from "next/router";
 
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -51,14 +54,31 @@ const useStyles = makeStyles((theme) => ({
 
 const Tournaments = ({ tournaments }) => {
   const classes = useStyles();
+  const router = useRouter();
 
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
-  const currentDate = years[0];
+  const mostRecentTournamentYear = years[0];
   const newTournamentList = sortDecrement(
-    filteredItems(sortedList, currentDate)
+    filteredItems(sortedList, mostRecentTournamentYear)
   );
+
+  const compareDate = (mostRecentTournamentYear) => {
+    let date = new Date();
+    let dateYear = date.getFullYear();
+    let dateMonth = date.getMonth() + 1;
+    let dateDay = date.getDate();
+    if (
+      mostRecentTournamentYear <= dateYear &&
+      dateMonth <= "9" &&
+      dateDay < "15"
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   return (
     <React.Fragment>
@@ -73,7 +93,8 @@ const Tournaments = ({ tournaments }) => {
               color="textPrimary"
               gutterBottom
             >
-              <Moment format="YYYY">{currentDate}</Moment> Tournaments
+              <Moment format="YYYY">{mostRecentTournamentYear}</Moment>{" "}
+              Tournaments
             </Typography>
             <Typography
               variant="h5"
@@ -87,46 +108,62 @@ const Tournaments = ({ tournaments }) => {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-
-          <Grid container spacing={4} justifyContent="center">
-            {newTournamentList.map((tournament) => (
-              <Grid item key={tournament.name} xs={10} sm={5} md={4}>
-                <Card className={classes.card} raised>
-                  <CardActionArea>
-                    <Link
-                      color="textPrimary"
-                      href={`/tournaments/${tournament.slug}`}
-                    >
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image={fromImageToUrl(tournament.image)}
-                        title={tournament.meta_title}
-                      />
-                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h3">
-                          {tournament.name}
-                        </Typography>
-                        <Divider className={classes.divider} />
-                        <Typography>{tournament.class}</Typography>
-                        <Typography variant="subtitle2">
-                          <Moment format="MMMM D, YYYY">
-                            {tournament.date_from}
-                          </Moment>
-                        </Typography>
-                      </CardContent>
-                    </Link>
-                  </CardActionArea>
-                  {/* <CardActions>
+          {compareDate(mostRecentTournamentYear) ? (
+            <>
+              <Typography align="center" variant="h6">
+                Next year's tournaments will be posted soon
+              </Typography>
+              <Box pt={4} display="flex" justifyContent="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={(e) => router.push("/archives")}
+                >
+                  View Tournament Archives
+                </Button>
+              </Box>
+            </>
+          ) : (
+            <Grid container spacing={4} justifyContent="center">
+              {newTournamentList.map((tournament) => (
+                <Grid item key={tournament.name} xs={10} sm={5} md={4}>
+                  <Card className={classes.card} raised>
+                    <CardActionArea>
+                      <Link
+                        color="textPrimary"
+                        href={`/tournaments/${tournament.slug}`}
+                      >
+                        <CardMedia
+                          className={classes.cardMedia}
+                          image={fromImageToUrl(tournament.image)}
+                          title={tournament.meta_title}
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5" component="h3">
+                            {tournament.name}
+                          </Typography>
+                          <Divider className={classes.divider} />
+                          <Typography>{tournament.class}</Typography>
+                          <Typography variant="subtitle2">
+                            <Moment format="MMMM D, YYYY">
+                              {tournament.date_from}
+                            </Moment>
+                          </Typography>
+                        </CardContent>
+                      </Link>
+                    </CardActionArea>
+                    {/* <CardActions>
                     <Link href={`/tournaments/${tournament.slug}`}>
                       <Button size="small" color="primary">
                         View
                       </Button>
                     </Link>
                   </CardActions> */}
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Container>
       </main>
     </React.Fragment>
