@@ -82,6 +82,11 @@ const Tournaments = ({ tournaments }) => {
       dateYear;
       return { warning, dateYear };
     }
+    // if we have next year's tournament list available already
+    if (lastTourneyYear > dateYear) {
+      dateYear = dateYear + 1;
+      return { warning: false, dateYear };
+    }
     // Otherwise display most recent list of tournaments
     return { warning: false, dateYear };
   };
