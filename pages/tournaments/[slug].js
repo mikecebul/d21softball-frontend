@@ -114,34 +114,38 @@ const Tournament = ({ tournament }) => {
             </CardActions>
           )}
         </Card>
-        <Paper>
-          <Box className={classes.bracket}>
-            {/* Carousel of Images */}
-            {tournament.resultsMedia.length && (
-              <ImageCarouselTournament tournament={tournament} />
-            )}
-            {tournament.finalBracket && (
-              <Box mt={4} mb={4}>
-                <Link
-                  href={{
-                    pathname: `${API_URL}${tournament.finalBracket?.url}`,
-                  }}
-                  target="_blank"
-                >
-                  <Button variant="contained" color="secondary">
-                    View Final Bracket
-                  </Button>
-                </Link>
+
+        {tournament.resultsMedia.length > 0 ||
+          (tournament.finalBracket && tournament.bracketResults && (
+            <Paper>
+              <Box className={classes.bracket}>
+                {/* Carousel of Images */}
+                {tournament.resultsMedia.length > 0 && (
+                  <ImageCarouselTournament tournament={tournament} />
+                )}
+                {tournament.finalBracket && (
+                  <Box mt={4} mb={4}>
+                    <Link
+                      href={{
+                        pathname: `${API_URL}${tournament.finalBracket.url}`,
+                      }}
+                      target="_blank"
+                    >
+                      <Button variant="contained" color="secondary">
+                        View Final Bracket
+                      </Button>
+                    </Link>
+                  </Box>
+                )}
+                {/* Markdown of Tournament Results */}
+                {tournament.bracketResults && (
+                  <Box>
+                    <Markdown>{tournament.bracketResults}</Markdown>
+                  </Box>
+                )}
               </Box>
-            )}
-            {/* Markdown of Tournament Results */}
-            {tournament.bracketResults && (
-              <Box>
-                <Markdown>{tournament.bracketResults}</Markdown>
-              </Box>
-            )}
-          </Box>
-        </Paper>
+            </Paper>
+          ))}
       </Container>
     </>
   );
