@@ -64,29 +64,28 @@ const Tournaments = ({ tournaments }) => {
     filteredItems(sortedList, mostRecentTournamentYear)
   );
 
-  const compareDate = (mostRecentTournamentYear) => {
+  // Compare today's date with the date of the most recent tournaments to decide whether to display them or not
+  const compareDate = (mostRecentTournamentYear, tournamentList) => {
     let date = new Date();
     let dateYear = date.getFullYear();
     let dateMonth = date.getMonth() + 1;
     let dateDay = date.getDate();
-    let pastSeptember = false;
-    if (
-      mostRecentTournamentYear <= dateYear &&
-      dateMonth <= "9" &&
-      dateDay < "15"
-    ) {
-      return { pastSeptember, dateYear };
-    } else {
-      if (mostRecentTournamentYear == dateYear) {
-        dateYear = dateYear + 1;
-        pastSeptember = true;
-        return { pastSeptember, dateYear };
-      }
-      pastSeptember = true;
-      return { pastSeptember, dateYear };
+    let warning = true;
+    let lastTourneyYear = parseInt(mostRecentTournamentYear);
+    // If its past september 15th and no new tournaments are added for next year
+    if (lastTourneyYear === dateYear && dateMonth >= "9" && dateDay >= "15") {
+      dateYear = dateYear + 1;
+      return { warning, dateYear };
     }
+    // if its next year and still no new tournaments have been added
+    if (lastTourneyYear < dateYear) {
+      dateYear;
+      return { warning, dateYear };
+    }
+    // Otherwise display most recent list of tournaments
+    return { warning: false, dateYear };
   };
-  const compared = compareDate(mostRecentTournamentYear);
+  const compared = compareDate(mostRecentTournamentYear, newTournamentList);
 
   return (
     <React.Fragment>
@@ -115,7 +114,7 @@ const Tournaments = ({ tournaments }) => {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          {compared.pastSeptember ? (
+          {compared.warning ? (
             <>
               <Typography align="center" variant="h6">
                 Next year's tournaments will be posted soon
