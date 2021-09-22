@@ -13,6 +13,10 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
@@ -40,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Camp = ({ camp }) => {
   const classes = useStyles();
+  const [type, setType] = React.useState("");
+
+  const handleTypeSelect = (event) => {
+    setType(event.target.value);
+    camp.type = type;
+    console.log("Camp Type:", camp.type);
+  };
 
   return (
     <div>
@@ -77,6 +88,24 @@ const Camp = ({ camp }) => {
               <Markdown>{camp.content}</Markdown>
             </Box>
           </CardContent>
+
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="Workshop-select-type">Age</InputLabel>
+              <Select
+                labelId="Workshop-select-type"
+                id="Workshop-select-type"
+                value={type}
+                label="type"
+                onChange={handleTypeSelect}
+              >
+                <MenuItem value={"Umpire"}>Umprie</MenuItem>
+                <MenuItem value={"Pitcher"}>Pitcher</MenuItem>
+                <MenuItem value={"Catcher"}>Catcher</MenuItem>
+                <MenuItem value={"Player"}>Player</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           <CardActions>
             <Link href={`/camps/${camp.slug}`}>
               <BuyButton variant="contained" camp={camp}></BuyButton>
