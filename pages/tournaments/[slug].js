@@ -17,7 +17,6 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
-import { Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 
@@ -115,8 +114,9 @@ const Tournament = ({ tournament }) => {
           )}
         </Card>
 
-        {tournament.resultsMedia.length > 0 ||
-          (tournament.finalBracket && tournament.bracketResults && (
+        {tournament.resultsMedia.length > 0 &&
+          tournament.finalBracket &&
+          tournament.bracketResults && (
             <Paper>
               <Box className={classes.bracket}>
                 {/* Carousel of Images */}
@@ -145,7 +145,7 @@ const Tournament = ({ tournament }) => {
                 )}
               </Box>
             </Paper>
-          ))}
+          )}
       </Container>
     </>
   );

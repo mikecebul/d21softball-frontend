@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Link from "../../src/Link";
-import Image from "next/image";
 import Moment from "react-moment";
-import moment from "moment";
 import { useRouter } from "next/router";
 
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
@@ -19,12 +16,12 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
-import { twoDecimals } from "../../utils/format";
 import {
   filteredItems,
   uniqueYears,
   sortIncrement,
   sortDecrement,
+  compareDate,
 } from "../../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,31 +62,6 @@ const Tournaments = ({ tournaments }) => {
   );
 
   // Compare today's date with the date of the most recent tournaments to decide whether to display them or not
-  const compareDate = (mostRecentTournamentYear, tournamentList) => {
-    let date = new Date();
-    let dateYear = date.getFullYear();
-    let dateMonth = date.getMonth() + 1;
-    let dateDay = date.getDate();
-    let warning = true;
-    let lastTourneyYear = parseInt(mostRecentTournamentYear);
-    // If its past september 15th and no new tournaments are added for next year
-    if (lastTourneyYear === dateYear && dateMonth >= "9" && dateDay >= "15") {
-      dateYear = dateYear + 1;
-      return { warning, dateYear };
-    }
-    // if its next year and still no new tournaments have been added
-    if (lastTourneyYear < dateYear) {
-      dateYear;
-      return { warning, dateYear };
-    }
-    // if we have next year's tournament list available already
-    if (lastTourneyYear > dateYear) {
-      dateYear = dateYear + 1;
-      return { warning: false, dateYear };
-    }
-    // Otherwise display most recent list of tournaments
-    return { warning: false, dateYear };
-  };
   const compared = compareDate(mostRecentTournamentYear, newTournamentList);
 
   return (

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import Link from "../../src/Link";
-import Image from "next/image";
+import Link from "../src/Link";
 import Moment from "react-moment";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
@@ -15,14 +13,14 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import { fromImageToUrl, API_URL } from "../../utils/urls";
-import { twoDecimals } from "../../utils/format";
+import { fromImageToUrl, API_URL } from "../utils/urls";
 import {
   uniqueYears,
   sortIncrement,
   filteredItems,
   sortDecrement,
-} from "../../utils/sort";
+  compareDate,
+} from "../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -58,6 +56,18 @@ const Tournaments = ({ tournaments }) => {
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
+
+  // Remove lastest year from the list if the season istn't over yet
+  const compared = () => {
+    let x = compareDate(years[0]);
+    if (x.warning === false) {
+      return years.shift();
+    }
+    return years;
+  };
+  compared();
+
+  // set last completed season year then filter list and sort in order
   const [currentDate, setCurrentDate] = useState(years[0]);
   const filteredTournaments = sortDecrement(
     filteredItems(sortedList, currentDate)
