@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  formControl: {
+    minWidth: 100,
+  },
   price: {
     paddingLeft: theme.spacing(1),
   },
@@ -88,18 +91,19 @@ const Camp = ({ camp }) => {
               <Markdown>{camp.content}</Markdown>
             </Box>
           </CardContent>
-
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="Workshop-select-type">Age</InputLabel>
+          {/* Dropdown menu for type of Development Camp */}
+          <Box ml={2} mb={2}>
+            <FormControl className={classes.formControl} required>
+              <InputLabel id="Workshop-select-type">Type</InputLabel>
               <Select
+                variant="outlined"
                 labelId="Workshop-select-type"
                 id="Workshop-select-type"
                 value={type}
                 label="type"
                 onChange={handleTypeSelect}
               >
-                <MenuItem value={"Umpire"}>Umprie</MenuItem>
+                <MenuItem value={"Umpire"}>Umpire</MenuItem>
                 <MenuItem value={"Pitcher"}>Pitcher</MenuItem>
                 <MenuItem value={"Catcher"}>Catcher</MenuItem>
                 <MenuItem value={"Player"}>Player</MenuItem>
