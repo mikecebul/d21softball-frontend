@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "../../src/Link";
 import Markdown from "markdown-to-jsx";
+import moment from "moment";
 
 import Moment from "react-moment";
 import Button from "@material-ui/core/Button";
@@ -22,6 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
+import { date } from "../../../backend-masa-strapi/node_modules/yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -47,13 +49,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Camp = ({ camp }) => {
   const classes = useStyles();
-  const [type, setType] = React.useState("");
+  const [type, setType] = useState("");
+  const [selected, setSelected] = useState(false);
 
-  const handleTypeSelect = (event) => {
-    setType(event.target.value);
-    camp.type = type;
-    console.log("Camp Type:", camp.type);
+  const handleTypeSelect = (e) => {
+    setType(e.target.value);
+    setSelected(true);
+    camp.type = e.target.value;
   };
+  const date = camp.date_from.substring(0, 10);
+  console.log(moment(date).format("MMMM Do, YYYY"));
 
   return (
     <div>
