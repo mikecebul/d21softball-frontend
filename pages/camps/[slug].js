@@ -23,7 +23,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
-import { date } from "../../../backend-masa-strapi/node_modules/yup/lib/locale";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   formControl: {
-    minWidth: 100,
+    minWidth: 120,
   },
   price: {
     paddingLeft: theme.spacing(1),
@@ -58,7 +57,7 @@ const Camp = ({ camp }) => {
     camp.type = e.target.value;
   };
   const date = camp.date_from.substring(0, 10);
-  console.log(moment(date).format("MMMM Do, YYYY"));
+  // console.log(moment(date).format("MMMM Do, YYYY"));
 
   return (
     <div>
@@ -117,7 +116,11 @@ const Camp = ({ camp }) => {
           </Box>
           <CardActions>
             <Link href={`/camps/${camp.slug}`}>
-              <BuyButton variant="contained" camp={camp}></BuyButton>
+              <BuyButton
+                variant="contained"
+                camp={camp}
+                selected={selected}
+              ></BuyButton>
             </Link>
             <Typography variant="h6" className={classes.price}>
               ${twoDecimals(camp.price)}

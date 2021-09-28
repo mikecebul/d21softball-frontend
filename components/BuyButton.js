@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BuyButton({ tournament, camp }) {
+export default function BuyButton({ tournament, camp, selected }) {
   const classes = useStyles();
   const user = useCurrentUser();
 
@@ -58,6 +58,7 @@ export default function BuyButton({ tournament, camp }) {
           className={classes.button}
           variant="contained"
           color="primary"
+          disabled={camp ? !selected : false}
           onClick={handleBuy}
         >
           Register

@@ -115,7 +115,9 @@ export default function Login() {
             // Handle error.
             console.log("An error occurred:", err.response);
             setErrorMsg({
-              login: err.response.data.data[0].messages[0].message,
+              login:
+                err.response.data.data[0].messages[0].message ||
+                "An eror occurred",
             });
           });
       }

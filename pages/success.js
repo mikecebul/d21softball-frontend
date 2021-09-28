@@ -90,6 +90,12 @@ export default function Success() {
                 with order number: {order.id}
               </Typography>
               <Box display="flex" justifyContent="center" mt={2}>
+                <Typography>
+                  You will be recieving an email from the District Commissioner
+                  soon
+                </Typography>
+              </Box>
+              <Box display="flex" justifyContent="center" mt={2}>
                 <Button variant="contained" color="primary" href="/account">
                   Continue to Account
                 </Button>
