@@ -116,7 +116,7 @@ const Tournament = ({ tournament }) => {
 
         {(tournament.resultsMedia.length > 0 ||
           tournament.finalBracket ||
-          tournament.bracketResult) && (
+          tournament.bracketResults) && (
           <Paper>
             <Box className={classes.bracket}>
               {/* Carousel of Images */}
