@@ -60,6 +60,8 @@ const Tournaments = ({ tournaments }) => {
   const newTournamentList = sortDecrement(
     filteredItems(sortedList, mostRecentTournamentYear)
   );
+
+  console.log("Sorted tournaments:", sortedList);
   console.log("NewTournamentList:", newTournamentList);
 
   // Compare today's date with the date of the most recent tournaments to decide whether to display them or not
