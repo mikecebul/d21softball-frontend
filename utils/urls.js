@@ -10,7 +10,7 @@ export const STRIPE_PK = process.env.stripePK;
  */
 export const fromImageToUrl = (image) => {
   if (!image) {
-    return "/vercel.svg";
+    return "/logo_png.png";
   }
 
   if (image.url.indexOf("/") === 0) {
