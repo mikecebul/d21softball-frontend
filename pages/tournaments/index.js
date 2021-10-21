@@ -53,6 +53,7 @@ const Tournaments = ({ tournaments }) => {
   const classes = useStyles();
   const router = useRouter();
 
+  console.log("Tournaments:", tournaments);
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
@@ -60,9 +61,6 @@ const Tournaments = ({ tournaments }) => {
   const newTournamentList = sortDecrement(
     filteredItems(sortedList, mostRecentTournamentYear)
   );
-
-  console.log("Sorted tournaments:", sortedList);
-  console.log("NewTournamentList:", newTournamentList);
 
   // Compare today's date with the date of the most recent tournaments to decide whether to display them or not
   const compared = compareDate(mostRecentTournamentYear, newTournamentList);
@@ -157,7 +155,9 @@ const Tournaments = ({ tournaments }) => {
 };
 
 export async function getStaticProps() {
-  const tournament_res = await fetch(`${API_URL}/tournaments/`);
+  const tournament_res = await fetch(
+    `${API_URL}/tournaments/?date_from_gte=2022-01-01`
+  );
   const tournaments = await tournament_res.json();
 
   return {
