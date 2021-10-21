@@ -28,6 +28,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
+  status: {
+    fontWeight: "bold",
+    fontSize: "0.75rem",
+    color: "white",
+    backgroundColor: "green",
+    borderRadius: 8,
+    padding: "3px 10px",
+    display: "inline-block",
+  },
 }));
 
 export default function OrderTable() {
@@ -45,8 +54,10 @@ export default function OrderTable() {
           await axios
             .get(`${API_URL}/orders`, { withCredentials: true })
             .then((resp) => {
-              setOrders(resp.data);
-              // console.log(resp.data);
+              const paidOrders = resp.data.filter(
+                (order) => order.status === "paid"
+              );
+              setOrders(paidOrders);
             })
             .catch((err) => {
               setOrders([]);
@@ -60,7 +71,7 @@ export default function OrderTable() {
   };
 
   const { orders, loading } = useOrders(user);
-  console.log(orders);
+
   return (
     <>
       {loading && (
@@ -91,21 +102,29 @@ export default function OrderTable() {
                   </Typography>
                 </Box>
               ) : (
-                orders.map((order) => (
-                  <TableRow key={order.id}>
-                    <TableCell component="th" scope="row">
-                      {new Date(order.created_at).toLocaleDateString("en-EN")}
-                    </TableCell>
-                    <TableCell>
-                      {order.tournament?.id
-                        ? order.tournament?.name
-                        : order.camp?.name}
-                    </TableCell>
-                    <TableCell>${order.total}</TableCell>
-                    <TableCell>{order.id}</TableCell>
-                    <TableCell>{order.status}</TableCell>
-                  </TableRow>
-                ))
+                orders
+                  .filter((order) => order.status === "paid")
+                  .map((filteredOrder) => (
+                    <TableRow key={filteredOrder.id}>
+                      <TableCell component="th" scope="row">
+                        {new Date(filteredOrder.created_at).toLocaleDateString(
+                          "en-EN"
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {filteredOrder.tournament?.id
+                          ? filteredOrder.tournament?.name
+                          : filteredOrder.camp?.name}
+                      </TableCell>
+                      <TableCell>${filteredOrder.total}</TableCell>
+                      <TableCell>{filteredOrder.id}</TableCell>
+                      <TableCell>
+                        <Typography className={classes.status}>
+                          {filteredOrder.status.toUpperCase()}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  ))
               )}
             </TableBody>
           </Table>
