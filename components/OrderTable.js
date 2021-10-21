@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "0.75rem",
     color: "white",
-    backgroundColor: "green",
+    backgroundColor: theme.palette.success.main,
     borderRadius: 8,
     padding: "3px 10px",
     display: "inline-block",
