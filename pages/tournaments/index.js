@@ -155,9 +155,7 @@ const Tournaments = ({ tournaments }) => {
 };
 
 export async function getStaticProps() {
-  const tournament_res = await fetch(
-    `${API_URL}/tournaments/?date_from_gte=2022-01-01`
-  );
+  const tournament_res = await fetch(`${API_URL}/tournaments/?limit=1000`);
   const tournaments = await tournament_res.json();
 
   return {
