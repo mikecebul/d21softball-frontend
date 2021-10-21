@@ -53,7 +53,6 @@ const Tournaments = ({ tournaments }) => {
   const classes = useStyles();
   const router = useRouter();
 
-  console.log(tournaments);
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);

@@ -161,7 +161,7 @@ const Tournaments = ({ tournaments }) => {
 };
 
 export async function getStaticProps() {
-  const tournament_res = await fetch(`${API_URL}/tournaments/`);
+  const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournament_res.json();
 
   return {
