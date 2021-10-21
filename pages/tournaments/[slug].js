@@ -164,7 +164,7 @@ export async function getStaticProps({ params: { slug } }) {
 
 export async function getStaticPaths() {
   //Retrieve all the possible paths
-  const tournaments_res = await fetch(`${API_URL}/tournaments/?limit=1000`);
+  const tournaments_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournaments_res.json();
 
   //Return them to NextJS context

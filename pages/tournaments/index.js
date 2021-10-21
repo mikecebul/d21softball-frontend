@@ -53,7 +53,6 @@ const Tournaments = ({ tournaments }) => {
   const classes = useStyles();
   const router = useRouter();
 
-  console.log("Tournaments:", tournaments);
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
@@ -155,7 +154,7 @@ const Tournaments = ({ tournaments }) => {
 };
 
 export async function getStaticProps() {
-  const tournament_res = await fetch(`${API_URL}/tournaments/?limit=1000`);
+  const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournament_res.json();
 
   return {
