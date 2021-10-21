@@ -102,6 +102,7 @@ const Tournaments = ({ tournaments }) => {
                   <Grid item key={index}>
                     <Button
                       variant="contained"
+                      color={currentDate === date ? "secondary" : "default"}
                       onClick={() => setCurrentDate(date)}
                     >
                       <Moment format="YYYY">{date}</Moment>{" "}
