@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2rem",
     },
   },
+  navbar: {
+    flexDirection: "column",
+  },
+  navItem: {
+    flexDirection: "row",
+  },
 }));
 
 export default function NavDesktop() {

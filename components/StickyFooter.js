@@ -50,7 +50,7 @@ const StickyFooter = () => {
                   <ListItemIcon>
                     <PhoneOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="231-547-1144" />
+                  <ListItemText primary="(231) 547-1144" />
                 </ListItem>
               </Link>
               <Link
