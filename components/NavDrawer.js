@@ -25,6 +25,7 @@ import Link from "../src/Link";
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   },
 }));
 
@@ -56,13 +57,12 @@ const NavDrawer = () => {
     <>
       <IconButton
         edge="start"
-        className={classes.menuButton}
         color="inherit"
         aria-label="menu"
         aria-haspopup="true"
         onClick={() => setOpen(true)}
       >
-        <MenuIcon />
+        <MenuIcon className={classes.menuButton} />
       </IconButton>
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List>

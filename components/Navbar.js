@@ -43,10 +43,32 @@ const useStyles = makeStyles((theme) => ({
   },
   navItems: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "start",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1.5),
+    },
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+    },
   },
   horizMenu: {
     display: "flex",
+    paddingBottom: 0,
+  },
+  icon: {
+    minWidth: "3rem",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1rem",
+      minWidth: "24px",
+    },
+  },
+  button: {
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: theme.spacing(0),
+      paddingTop: theme.spacing(0),
+      paddingBottom: theme.spacing(0),
+      paddingRight: theme.spacing(1),
+    },
   },
 }));
 
@@ -75,17 +97,17 @@ export default function Navbar() {
             <Box display="flex" className={classes.navItems}>
               <List dense className={classes.horizMenu}>
                 <Link href="mailto:scott@masad21.org" color="inherit">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <EmailOutlinedIcon />
+                  <ListItem button className={classes.button}>
+                    <ListItemIcon className={classes.icon}>
+                      <EmailOutlinedIcon className={classes.icon} />
                     </ListItemIcon>
                     <ListItemText primary="scott@masad21.org" />
                   </ListItem>
                 </Link>
                 <Link href="tel:123-547-1144" color="inherit">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <PhoneOutlinedIcon />
+                  <ListItem button className={classes.button}>
+                    <ListItemIcon className={classes.icon}>
+                      <PhoneOutlinedIcon className={classes.icon} />
                     </ListItemIcon>
                     <ListItemText primary="(231) 547-1144" />
                   </ListItem>
