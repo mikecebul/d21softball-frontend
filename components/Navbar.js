@@ -78,6 +78,7 @@ export default function Navbar() {
   const user = useCurrentUser();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
+  const tinyMobile = useMediaQuery("(min-width:360px)");
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -94,26 +95,28 @@ export default function Navbar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Box display="flex" className={classes.navbar}>
-            <Box display="flex" className={classes.navItems}>
-              <List dense className={classes.horizMenu}>
-                <Link href="mailto:scott@masad21.org" color="inherit">
-                  <ListItem button className={classes.button}>
-                    <ListItemIcon className={classes.icon}>
-                      <EmailOutlinedIcon className={classes.icon} />
-                    </ListItemIcon>
-                    <ListItemText primary="scott@masad21.org" />
-                  </ListItem>
-                </Link>
-                <Link href="tel:123-547-1144" color="inherit">
-                  <ListItem button className={classes.button}>
-                    <ListItemIcon className={classes.icon}>
-                      <PhoneOutlinedIcon className={classes.icon} />
-                    </ListItemIcon>
-                    <ListItemText primary="(231) 547-1144" />
-                  </ListItem>
-                </Link>
-              </List>
-            </Box>
+            {tinyMobile && (
+              <Box display="flex" className={classes.navItems}>
+                <List dense className={classes.horizMenu}>
+                  <Link href="mailto:scott@masad21.org" color="inherit">
+                    <ListItem button className={classes.button}>
+                      <ListItemIcon className={classes.icon}>
+                        <EmailOutlinedIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText primary="scott@masad21.org" />
+                    </ListItem>
+                  </Link>
+                  <Link href="tel:123-547-1144" color="inherit">
+                    <ListItem button className={classes.button}>
+                      <ListItemIcon className={classes.icon}>
+                        <PhoneOutlinedIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText primary="(231) 547-1144" />
+                    </ListItem>
+                  </Link>
+                </List>
+              </Box>
+            )}
             <Toolbar>
               {matches ? (
                 <NavDesktop />
