@@ -79,6 +79,7 @@ export default function Navbar() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const tinyMobile = useMediaQuery("(min-width:360px)");
+  const mobile = useMediaQuery("(min-width:425px)");
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -135,6 +136,7 @@ export default function Navbar() {
                 <ButtonGroup
                   // variant="contained"
                   // color="primary"
+                  size="small"
                   aria-label="verification button group"
                 >
                   <Button
