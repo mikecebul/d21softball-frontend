@@ -1,8 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Motel_Logo from "../../public/Petoskey-Area-Logo-Green.png";
-import Link from "../../src/Link";
-import { fromImageToUrl, API_URL } from "../../utils/urls";
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -43,12 +41,12 @@ export default function Hotel() {
           </Typography>
         </Box>
         <Box display="flex" justifyContent="center" className={classes.logo}>
-          <Link href={`https://www.petoskeyarea.com/stay/`}>
+          <a target="_blank" href="https://www.petoskeyarea.com/stay/">
             <Image src={Motel_Logo} alt="Link to local Motels"></Image>
             <Typography variant="caption">
               Petoskey Area Hotel Listings
             </Typography>
-          </Link>
+          </a>
         </Box>
       </Container>
     </React.Fragment>
