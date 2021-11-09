@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     paddingLeft: theme.spacing(20),
     paddingRight: theme.spacing(20),
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+    },
   },
   card: {
     marginTop: theme.spacing(5),
@@ -29,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(10),
     paddingRight: theme.spacing(10),
     flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
   },
   date: {
     paddingBottom: theme.spacing(3),
