@@ -63,40 +63,35 @@ export default function NavDesktop() {
       <List>
         <Link href="/tournaments" color="inherit">
           <ListItem button>
-            <ListItemText
-              // className={classes.logo}
-              primary="Tournaments"
-            />
+            <ListItemText primary="Tournaments" />
           </ListItem>
         </Link>
       </List>
       <List>
         <Link href="/camps" color="inherit">
           <ListItem button>
-            <ListItemText
-              // className={classes.logo}
-              primary="Development Workshops"
-            />
+            <ListItemText primary="Development Workshops" />
           </ListItem>
         </Link>
       </List>
       <List>
         <Link href="/archives" color="inherit">
           <ListItem button>
-            <ListItemText
-              // className={classes.logo}
-              primary="Archives"
-            />
+            <ListItemText primary="Archives" />
           </ListItem>
         </Link>
       </List>
       <List>
         <Link href="/hall-of-fame" color="inherit">
           <ListItem button>
-            <ListItemText
-              // className={classes.logo}
-              primary="Hall of Fame"
-            />
+            <ListItemText primary="Hall of Fame" />
+          </ListItem>
+        </Link>
+      </List>
+      <List>
+        <Link href="/info" color="inherit">
+          <ListItem button>
+            <ListItemText primary="Info" />
           </ListItem>
         </Link>
       </List>

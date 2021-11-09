@@ -111,6 +111,15 @@ const NavDrawer = () => {
               <ListItemText primary="Hall of Fame" />
             </ListItem>
           </Link>
+          {/* Info */}
+          <Link href="/info" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <InfoOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Info" />
+            </ListItem>
+          </Link>
           {!user.isAuthenticated ? (
             <Link href="/login" color="inherit">
               <ListItem button onClick={() => setOpen(false)}>
