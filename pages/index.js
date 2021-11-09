@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Index({ messages }) {
+const Index = ({ messages }) => {
   const classes = useStyles();
 
   return (
@@ -69,7 +69,7 @@ export default function Index({ messages }) {
       </Card>
     </Container>
   );
-}
+};
 
 export async function getStaticProps() {
   const message_res = await fetch(`${API_URL}/messages/`);
@@ -81,3 +81,5 @@ export async function getStaticProps() {
     },
   };
 }
+
+export default Index;
