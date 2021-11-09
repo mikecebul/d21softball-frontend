@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Tournament = ({ tournament }) => {
   const classes = useStyles();
-  const tournamentDate = moment(tournament.date_from).format("YYYY-MM-DD");
+  const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
 
   return (
