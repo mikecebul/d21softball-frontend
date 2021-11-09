@@ -93,6 +93,15 @@ const NavDrawer = () => {
               <ListItemText primary="Development Workshops" />
             </ListItem>
           </Link>
+          {/* Archives */}
+          <Link href="/archives" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <HistoryOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Archives" />
+            </ListItem>
+          </Link>
           {/* Hall of Fame */}
           <Link href="/hall-of-fame" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
@@ -100,15 +109,6 @@ const NavDrawer = () => {
                 <EmojiEventsOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Hall of Fame" />
-            </ListItem>
-          </Link>
-          {/* About */}
-          <Link href="/archives" color="inherit">
-            <ListItem button onClick={() => setOpen(false)}>
-              <ListItemIcon>
-                <HistoryOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Archives" />
             </ListItem>
           </Link>
           {!user.isAuthenticated ? (
