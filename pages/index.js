@@ -8,6 +8,11 @@ import { Typography, Card, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  logo: {
+    marginTop: theme.spacing(3),
+    paddingLeft: theme.spacing(20),
+    paddingRight: theme.spacing(20),
+  },
   card: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
@@ -18,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   news: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(10),
+    paddingRight: theme.spacing(10),
     flexDirection: "column",
   },
   date: {
@@ -33,7 +40,7 @@ export default function Index() {
 
   return (
     <Container maxWidth="md">
-      <Box display="flex" justifyContent="center" pl={20} pr={20}>
+      <Box display="flex" justifyContent="center" className={classes.logo}>
         <Image src={logo} alt="Site Logo" />
       </Box>
       <Card className={classes.card}>
