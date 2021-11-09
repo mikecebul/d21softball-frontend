@@ -54,19 +54,23 @@ const Index = ({ messages }) => {
       <Box display="flex" justifyContent="center" className={classes.logo}>
         <Image src={logo} alt="Site Logo" />
       </Box>
-      <Card className={classes.card}>
-        <Paper>
-          <Box className={classes.news}>
-            <Typography variant="h4" className={classes.date}>
-              <Markdown>{moment(messages[0].created_at).format("LL")}</Markdown>
-            </Typography>
-            <Markdown>{messages[0].content}</Markdown>
-            <Typography variant="h6" className={classes.author}>
-              Scott Kelly
-            </Typography>
-          </Box>
-        </Paper>
-      </Card>
+      {messages && (
+        <Card className={classes.card}>
+          <Paper>
+            <Box className={classes.news}>
+              <Typography variant="h4" className={classes.date}>
+                <Markdown>
+                  {moment(messages[0].updated_at).format("LL")}
+                </Markdown>
+              </Typography>
+              <Markdown>{messages[0].content}</Markdown>
+              <Typography variant="h6" className={classes.author}>
+                Scott Kelly
+              </Typography>
+            </Box>
+          </Paper>
+        </Card>
+      )}
     </Container>
   );
 };
