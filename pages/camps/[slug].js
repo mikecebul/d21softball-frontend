@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "../../src/Link";
 import Markdown from "markdown-to-jsx";
 import moment from "moment";
 
 import Moment from "react-moment";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
