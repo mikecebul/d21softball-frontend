@@ -41,6 +41,7 @@ export default function BuyButton({ tournament, camp, selected }) {
       });
   };
 
+  console.log("Stipe Public Key:", STRIPE_PK);
   return (
     <>
       {!user.isAuthenticated && (
