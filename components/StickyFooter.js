@@ -78,7 +78,7 @@ const StickyFooter = () => {
                 color="inherit"
               >
                 <ListItem button>
-                  <ListItemText primary="MASA Home" />
+                  <ListItemText primary="USA Softball MI" />
                 </ListItem>
               </Link>
               <Link
@@ -88,7 +88,7 @@ const StickyFooter = () => {
                 color="inherit"
               >
                 <ListItem button>
-                  <ListItemText primary="BASES Home" />
+                  <ListItemText primary="BASES Recovery Center" />
                 </ListItem>
               </Link>
             </List>

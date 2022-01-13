@@ -51,7 +51,7 @@ export default function NavDesktop() {
       <List>
         <Link href="/" color="inherit">
           <ListItem button>
-            <ListItemText className={classes.logo} primary="MASA D21" />
+            <ListItemText className={classes.logo} primary="D21 Softball" />
           </ListItem>
         </Link>
       </List>

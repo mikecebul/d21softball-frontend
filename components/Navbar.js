@@ -125,7 +125,7 @@ export default function Navbar() {
                 <>
                   <NavDrawer />
                   <Typography variant="h6" className={classes.title}>
-                    MASA D21
+                    D21 Softball
                   </Typography>
                 </>
               )}
