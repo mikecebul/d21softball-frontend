@@ -37,12 +37,12 @@ const StickyFooter = () => {
               </Typography>
             </Box>
             <List dense>
-              <Link href="mailto:scott@masad21.org" color="inherit">
+              <Link href="mailto:scott@d21softball.org" color="inherit">
                 <ListItem button>
                   <ListItemIcon>
                     <EmailOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="scott@masad21.org" />
+                  <ListItemText primary="scott@d21softball.org" />
                 </ListItem>
               </Link>
               <Link href="tel:123-547-1144" color="inherit">

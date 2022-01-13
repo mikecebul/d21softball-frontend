@@ -1,10 +1,10 @@
 module.exports = {
   env: {
     stripePK:
-      "pk_test_51JRqZfK6osQEiLfg5lTb51JBXylk2BQZ1Swy3uetaUD4HfQv8OzwjSnwxABPTkQLQ9Rn13Ek5eWXvl3lRveaG8mA00ox6GHFWv",
+      "pk_live_51JxYkRBQz2Mt6K8U0G56SvpUniADuPyLNuTdVMi6qHrkvkxhYDYIBu0xUR6BZeZ9WfIeNI6QHFHRKOTFo7f1sDqx00j8PKrtJ0",
   },
   images: {
-    domains: ["localhost", "api.mikecebul.cloud"],
+    domains: ["localhost", "api.d21softball.org"],
   },
   reactStrictMode: true,
 };
