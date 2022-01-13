@@ -3,7 +3,6 @@ export const API_URL =
 
 export const STRIPE_PK =
   process.env.NEXT_STRIPE_PK ||
-  process.env.NEXT_TEST_STRIPE_PK ||
   "pk_test_51JRqZfK6osQEiLfg5lTb51JBXylk2BQZ1Swy3uetaUD4HfQv8OzwjSnwxABPTkQLQ9Rn13Ek5eWXvl3lRveaG8mA00ox6GHFWv";
 
 /**
