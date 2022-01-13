@@ -104,7 +104,7 @@ export default function Navbar() {
                       <ListItemIcon className={classes.icon}>
                         <EmailOutlinedIcon className={classes.icon} />
                       </ListItemIcon>
-                      <ListItemText primary="scott@masad21.org" />
+                      <ListItemText primary="scott@d21softball.org" />
                     </ListItem>
                   </Link>
                   <Link href="tel:123-547-1144" color="inherit">
