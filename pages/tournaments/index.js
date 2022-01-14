@@ -89,8 +89,8 @@ const Tournaments = ({ tournaments }) => {
             </Typography>
           </Container>
         </div>
+        {/* End hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
           {compared.warning ? (
             <>
               <Typography align="center" variant="h6">

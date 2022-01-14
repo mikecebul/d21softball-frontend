@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
+import Sponsors from "../components/sponsors";
 
 import Markdown from "markdown-to-jsx";
 import moment from "moment";
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Index = ({ messages }) => {
+const Index = ({ messages, sponsors }) => {
   const classes = useStyles();
 
   return (
@@ -71,6 +72,7 @@ const Index = ({ messages }) => {
           </Paper>
         </Card>
       )}
+      <Sponsors sponsors={sponsors} />
     </Container>
   );
 };
@@ -79,9 +81,13 @@ export async function getStaticProps() {
   const message_res = await fetch(`${API_URL}/messages/`);
   const messages = await message_res.json();
 
+  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsors = await sponsor_res.json();
+
   return {
     props: {
       messages,
+      sponsors,
     },
   };
 }

@@ -22,12 +22,9 @@ export default function Hotel() {
           justifyContent="center"
           pt={3}
         >
-          <Typography variant="h6">
-            Please book hotel rooms well in advance of the summer softball
-            season. At this time, we are unable to secure discounted rates for
-            our softball teams at any of the local hotels. Feel free to
-            negotiate with each hotel on your own.
-          </Typography>
+          {/* <Typography variant="h6">
+            Any text specific to Umpires.
+          </Typography> */}
           <List>
             <ListItem
               component={Link}
