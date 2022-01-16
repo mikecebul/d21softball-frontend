@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "../src/Link";
 import Moment from "react-moment";
+import Sponsors from "../components/sponsors";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -25,7 +26,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(4, 0, 2),
+    padding: theme.spacing(8, 0, 2),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -48,9 +49,13 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(1),
   },
+  sponsorDivider: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(16),
+  },
 }));
 
-const Tournaments = ({ tournaments }) => {
+const Archives = ({ tournaments, sponsors }) => {
   const classes = useStyles();
 
   // Sorted Tournaments from earliest to latest
@@ -113,9 +118,8 @@ const Tournaments = ({ tournaments }) => {
             </div>
           </Container>
         </div>
+        {/* End hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-
           <Grid container spacing={4} justifyContent="center">
             {filteredTournaments.map((tournament) => (
               <Grid item key={tournament.name} xs={10} sm={5} md={4}>
@@ -155,6 +159,8 @@ const Tournaments = ({ tournaments }) => {
               </Grid>
             ))}
           </Grid>
+          <Divider className={classes.sponsorDivider} />
+          <Sponsors sponsors={sponsors} />
         </Container>
       </main>
     </React.Fragment>
@@ -165,11 +171,15 @@ export async function getStaticProps() {
   const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournament_res.json();
 
+  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsors = await sponsor_res.json();
+
   return {
     props: {
       tournaments,
+      sponsors,
     },
   };
 }
 
-export default Tournaments;
+export default Archives;

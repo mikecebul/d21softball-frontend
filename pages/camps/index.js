@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "../../src/Link";
 import Image from "next/image";
+import Sponsors from "../../components/sponsors";
 
 import Moment from "react-moment";
 import Button from "@material-ui/core/Button";
@@ -13,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import Divider from "@material-ui/core/Divider";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
@@ -20,7 +22,7 @@ import { twoDecimals } from "../../utils/format";
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(8, 0, 0),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -40,9 +42,13 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  sponsorDivider: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(16),
+  },
 }));
 
-const camps = ({ camps }) => {
+const camps = ({ camps, sponsors }) => {
   const classes = useStyles();
 
   // Sorted camps from earliest to latest
@@ -100,6 +106,8 @@ const camps = ({ camps }) => {
               </Grid>
             ))}
           </Grid>
+          <Divider className={classes.sponsorDivider} />
+          <Sponsors sponsors={sponsors} />
         </Container>
       </main>
     </React.Fragment>
@@ -110,9 +118,13 @@ export async function getStaticProps() {
   const camp_res = await fetch(`${API_URL}/camps/`);
   const camps = await camp_res.json();
 
+  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsors = await sponsor_res.json();
+
   return {
     props: {
       camps,
+      sponsors,
     },
   };
 }

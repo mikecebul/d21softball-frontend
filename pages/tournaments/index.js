@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "../../src/Link";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
+import Sponsors from "../../components/sponsors";
 
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -27,7 +28,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(4, 0, 2),
+    padding: theme.spacing(8, 0, 2),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -47,9 +48,13 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(1),
   },
+  sponsorDivider: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(16),
+  },
 }));
 
-const Tournaments = ({ tournaments }) => {
+const Tournaments = ({ tournaments, sponsors }) => {
   const classes = useStyles();
   const router = useRouter();
 
@@ -147,6 +152,9 @@ const Tournaments = ({ tournaments }) => {
               ))}
             </Grid>
           )}
+
+          <Divider className={classes.sponsorDivider} />
+          <Sponsors sponsors={sponsors} />
         </Container>
       </main>
     </React.Fragment>
@@ -157,9 +165,13 @@ export async function getStaticProps() {
   const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournament_res.json();
 
+  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsors = await sponsor_res.json();
+
   return {
     props: {
       tournaments,
+      sponsors,
     },
   };
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import axios from "axios";
 import Link from "../src/Link";
 import Moment from "react-moment";
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiCardMedia-root": {
       backgroundSize: "contain",
+    },
+    "& .MuiCardActionArea-root": {
+      textAlign: "center",
     },
     marginBottom: theme.spacing(4),
   },
@@ -50,32 +54,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Sponsors() {
+export default function Sponsors({ sponsors }) {
   const classes = useStyles();
-  const [sponsors, setSponsors] = useState({});
 
-  // Request User Data -----------------
-  useEffect(() => {
-    const getSponsors = async () => {
-      axios
-        .get(`${API_URL}/sponsors`)
-        .then((response) => {
-          // Handle success.
-          console.log("Data: ", response.data);
-          if (response.data.id) {
-            setSponsors = response.data;
-            return;
-          }
-        })
-        .catch((err) => {
-          // Handle error.
-          console.log("An error occurred:", err.response);
-        });
-    };
-    getSponsors();
-  }, []);
-
-  console.log("Sponsors:", sponsors);
   return (
     <React.Fragment>
       <main className={classes.root}>
@@ -103,8 +84,6 @@ export default function Sponsors() {
         </div>
         <Container maxWidth="md">
           <Grid container spacing={4} justifyContent="center">
-            {/* {!sponsors ? (
-            ) : (
             {sponsors.map((sponsor) => (
               <Grid item key={sponsor.name} xs={10} sm={5} md={4}>
                 <Card className={classes.card} raised>
@@ -124,17 +103,16 @@ export default function Sponsors() {
                       </CardContent>
                     </Link>
                   </CardActionArea>
-                  <CardActions>
+                  {/* <CardActions>
                     <Link href={`/tournaments/${tournament.slug}`}>
                       <Button size="small" color="primary">
                         View
                       </Button>
                     </Link>
-                  </CardActions>
+                  </CardActions> */}
                 </Card>
               </Grid>
             ))}
-            )} */}
           </Grid>
         </Container>
       </main>
