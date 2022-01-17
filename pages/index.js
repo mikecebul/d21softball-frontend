@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: theme.spacing(5),
     },
   },
-  card: {
+  paper: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     height: "100%",
@@ -56,21 +56,17 @@ const Index = ({ messages, sponsors }) => {
         <Image src={logo} alt="Site Logo" />
       </Box>
       {messages && (
-        <Card className={classes.card}>
-          <Paper>
-            <Box className={classes.news}>
-              <Typography variant="h4" className={classes.date}>
-                <Markdown>
-                  {moment(messages[0].updated_at).format("LL")}
-                </Markdown>
-              </Typography>
-              <Markdown>{messages[0].content}</Markdown>
-              <Typography variant="h6" className={classes.author}>
-                Scott Kelly
-              </Typography>
-            </Box>
-          </Paper>
-        </Card>
+        <Paper className={classes.paper} elevation={3}>
+          <Box className={classes.news}>
+            <Typography variant="h4" className={classes.date}>
+              <Markdown>{moment(messages[0].updated_at).format("LL")}</Markdown>
+            </Typography>
+            <Markdown>{messages[0].content}</Markdown>
+            <Typography variant="h6" className={classes.author}>
+              Scott Kelly
+            </Typography>
+          </Box>
+        </Paper>
       )}
       <Sponsors sponsors={sponsors} />
     </Container>

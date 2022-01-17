@@ -22,7 +22,7 @@ import { twoDecimals } from "../../utils/format";
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 0),
+    padding: theme.spacing(8, 0, 2),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -81,7 +81,10 @@ const camps = ({ camps, sponsors }) => {
               <Grid item key={camp.name} xs={12} sm={6} md={4}>
                 <Card className={classes.card} raised>
                   <CardActionArea>
-                    <Link color="textPrimary" href={`/camps/${camp.slug}`}>
+                    <Link
+                      color="textPrimary"
+                      href={`/development-workshops/${camp.slug}`}
+                    >
                       <CardMedia
                         className={classes.cardMedia}
                         image={fromImageToUrl(camp.image)}

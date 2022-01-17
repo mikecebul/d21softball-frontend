@@ -68,7 +68,7 @@ export default function NavDesktop() {
         </Link>
       </List>
       <List>
-        <Link href="/camps" color="inherit">
+        <Link href="/development-workshops" color="inherit">
           <ListItem button>
             <ListItemText primary="Development Workshops" />
           </ListItem>

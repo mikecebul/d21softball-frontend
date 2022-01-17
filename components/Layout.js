@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core";
 import React from "react";
 import Navbar from "./Navbar";
 import StickyFooter from "./StickyFooter";
+import NavBreadcrumbs from "./NavBreadcrumbs";
 
 const useStyles = makeStyles({
   page: {
@@ -22,6 +23,8 @@ export default function Layout({ children }) {
   return (
     <div className={classes.root}>
       <Navbar />
+      {/* Deactivated BreadCrumbs */}
+      {/* <NavBreadcrumbs /> */}
       <div className={classes.page}>{children}</div>
       <StickyFooter />
     </div>
