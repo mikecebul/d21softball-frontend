@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Camp = ({ camp }) => {
+const DevelopmentWorkshops = ({ camp }) => {
   const classes = useStyles();
   const [type, setType] = useState("");
   const [selected, setSelected] = useState(false);
@@ -155,4 +155,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default Camp;
+export default DevelopmentWorkshops;

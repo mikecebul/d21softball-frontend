@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Link from "../src/Link";
+import Link from "../../src/Link";
 import Moment from "react-moment";
-import Sponsors from "../components/sponsors";
+import Sponsors from "../../components/sponsors";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -14,14 +14,14 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import { fromImageToUrl, API_URL } from "../utils/urls";
+import { fromImageToUrl, API_URL } from "../../utils/urls";
 import {
   uniqueYears,
   sortIncrement,
   filteredItems,
   sortDecrement,
   compareDate,
-} from "../utils/sort";
+} from "../../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -127,7 +127,7 @@ const Archives = ({ tournaments, sponsors }) => {
                   <CardActionArea>
                     <Link
                       color="textPrimary"
-                      href={`/tournaments/${tournament.slug}`}
+                      href={`/archives/${tournament.slug}`}
                     >
                       <CardMedia
                         className={classes.cardMedia}

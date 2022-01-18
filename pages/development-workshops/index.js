@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const camps = ({ camps, sponsors }) => {
+const DevelopmentWorkshops = ({ camps, sponsors }) => {
   const classes = useStyles();
 
   // Sorted camps from earliest to latest
@@ -132,4 +132,4 @@ export async function getStaticProps() {
   };
 }
 
-export default camps;
+export default DevelopmentWorkshops;
