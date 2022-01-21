@@ -27,11 +27,12 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiCardActionArea-root": {
       textAlign: "center",
     },
-    marginBottom: theme.spacing(4),
+    // margin: theme.spacing(0, 4, 0, 8),
   },
   heroContent: {
     // backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(4, 0, 2),
+    marginTop: theme.spacing(8),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -49,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
-  divider: {
-    marginBottom: theme.spacing(1),
-  },
 }));
 
 export default function Sponsors({ sponsors }) {
@@ -59,10 +57,11 @@ export default function Sponsors({ sponsors }) {
 
   return (
     <React.Fragment>
-      <main className={classes.root}>
+      <div className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
+            <Divider />
             <Typography
               component="h1"
               variant="h2"
@@ -98,35 +97,15 @@ export default function Sponsors({ sponsors }) {
                         <Typography gutterBottom variant="h5" component="h3">
                           {sponsor.name}
                         </Typography>
-                        <Divider className={classes.divider} />
-                        <Typography>{sponsor.class}</Typography>
                       </CardContent>
                     </Link>
                   </CardActionArea>
-                  {/* <CardActions>
-                    <Link href={`/tournaments/${tournament.slug}`}>
-                      <Button size="small" color="primary">
-                        View
-                      </Button>
-                    </Link>
-                  </CardActions> */}
                 </Card>
               </Grid>
             ))}
           </Grid>
         </Container>
-      </main>
+      </div>
     </React.Fragment>
   );
 }
-
-// export async function getStaticProps() {
-//   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
-//   const sponsors = await sponsor_res.json();
-
-//   return {
-//     props: {
-//       sponsors,
-//     },
-//   };
-// }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
 import Markdown from "markdown-to-jsx";
+import Sponsors from "../../components/sponsors";
 import moment from "moment";
 
 import Moment from "react-moment";
@@ -23,6 +24,9 @@ import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
 
 const useStyles = makeStyles((theme) => ({
+  content: {
+    paddingBottom: theme.spacing(8),
+  },
   card: {
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(5),
@@ -37,14 +41,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   formControl: {
-    minWidth: 120,
+    minWidth: 166,
   },
   price: {
     paddingLeft: theme.spacing(1),
   },
+  inputLabel: {
+    paddingLeft: theme.spacing(2),
+  },
 }));
 
-const DevelopmentWorkshops = ({ camp }) => {
+const DevelopmentWorkshops = ({ camp, sponsors }) => {
   const classes = useStyles();
   const [type, setType] = useState("");
   const [selected, setSelected] = useState(false);
@@ -72,7 +79,7 @@ const DevelopmentWorkshops = ({ camp }) => {
         height={1080}
       /> */}
 
-      <Container maxWidth="md">
+      <Container className={classes.content} maxWidth="md">
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
@@ -96,7 +103,12 @@ const DevelopmentWorkshops = ({ camp }) => {
           {/* Dropdown menu for type of Development Camp */}
           <Box ml={2} mb={2}>
             <FormControl className={classes.formControl} required>
-              <InputLabel id="Workshop-select-type">Type</InputLabel>
+              <InputLabel
+                className={classes.inputLabel}
+                id="Workshop-select-type"
+              >
+                Type
+              </InputLabel>
               <Select
                 variant="outlined"
                 labelId="Workshop-select-type"
@@ -125,6 +137,7 @@ const DevelopmentWorkshops = ({ camp }) => {
             </Typography>
           </CardActions>
         </Card>
+        <Sponsors sponsors={sponsors} />
       </Container>
     </div>
   );
@@ -134,9 +147,13 @@ export async function getStaticProps({ params: { slug } }) {
   const camp_res = await fetch(`${API_URL}/camps/?slug=${slug}`);
   const found = await camp_res.json();
 
+  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsors = await sponsor_res.json();
+
   return {
     props: {
       camp: found[0], //Because the API reponse for filters is an array
+      sponsors,
     },
   };
 }

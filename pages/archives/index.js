@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Link from "../../src/Link";
 import Moment from "react-moment";
 import Sponsors from "../../components/sponsors";
+import HallOfFame from "../../components/HallOfFame";
 
 import Button from "@material-ui/core/Button";
+import EmojiEventsOutlinedIcon from "@material-ui/icons/EmojiEventsOutlined";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -49,14 +51,13 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(1),
   },
-  sponsorDivider: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(16),
-  },
 }));
 
-const Archives = ({ tournaments, sponsors }) => {
+const Archives = ({ tournaments, hallOfFames, sponsors }) => {
   const classes = useStyles();
+
+  // Do I show Hall Of Fame List?
+  const [showHallOfFame, setShowHallOfFame] = useState(null);
 
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
@@ -107,59 +108,79 @@ const Archives = ({ tournaments, sponsors }) => {
                   <Grid item key={index}>
                     <Button
                       variant="contained"
-                      color={currentDate === date ? "secondary" : "default"}
-                      onClick={() => setCurrentDate(date)}
+                      color={
+                        currentDate === date && !showHallOfFame
+                          ? "secondary"
+                          : "default"
+                      }
+                      onClick={() => {
+                        setCurrentDate(date);
+                        setShowHallOfFame(null);
+                      }}
                     >
                       <Moment format="YYYY">{date}</Moment>{" "}
                     </Button>
                   </Grid>
                 ))}
+                <Grid item>
+                  <Button
+                    startIcon={<EmojiEventsOutlinedIcon />}
+                    variant="contained"
+                    color={showHallOfFame ? "secondary" : "default"}
+                    onClick={() => setShowHallOfFame(1)}
+                  >
+                    Hall of Fame
+                  </Button>
+                </Grid>
               </Grid>
             </div>
           </Container>
         </div>
         {/* End hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container spacing={4} justifyContent="center">
-            {filteredTournaments.map((tournament) => (
-              <Grid item key={tournament.name} xs={10} sm={5} md={4}>
-                <Card className={classes.card} raised>
-                  <CardActionArea>
-                    <Link
-                      color="textPrimary"
-                      href={`/archives/${tournament.slug}`}
-                    >
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image={fromImageToUrl(tournament.image)}
-                        title={tournament.meta_title}
-                      />
-                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h3">
-                          {tournament.name}
-                        </Typography>
-                        <Divider className={classes.divider} />
-                        <Typography>{tournament.class}</Typography>
-                        <Typography variant="subtitle2">
-                          <Moment format="MMMM D, YYYY">
-                            {tournament.date_from}
-                          </Moment>
-                        </Typography>
-                      </CardContent>
-                    </Link>
-                  </CardActionArea>
-                  {/* <CardActions>
-                    <Link href={`/tournaments/${tournament.slug}`}>
-                      <Button size="small" color="primary">
-                        View
-                      </Button>
-                    </Link>
-                  </CardActions> */}
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-          <Divider className={classes.sponsorDivider} />
+          {showHallOfFame ? (
+            <HallOfFame hallOfFames={hallOfFames} />
+          ) : (
+            <Grid container spacing={4} justifyContent="center">
+              {filteredTournaments.map((tournament) => (
+                <Grid item key={tournament.name} xs={10} sm={5} md={4}>
+                  <Card className={classes.card} raised>
+                    <CardActionArea>
+                      <Link
+                        color="textPrimary"
+                        href={`/archives/${tournament.slug}`}
+                      >
+                        <CardMedia
+                          className={classes.cardMedia}
+                          image={fromImageToUrl(tournament.image)}
+                          title={tournament.meta_title}
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5" component="h3">
+                            {tournament.name}
+                          </Typography>
+                          <Divider className={classes.divider} />
+                          <Typography>{tournament.class}</Typography>
+                          <Typography variant="subtitle2">
+                            <Moment format="MMMM D, YYYY">
+                              {tournament.date_from}
+                            </Moment>
+                          </Typography>
+                        </CardContent>
+                      </Link>
+                    </CardActionArea>
+                    {/* <CardActions>
+                      <Link href={`/tournaments/${tournament.slug}`}>
+                        <Button size="small" color="primary">
+                          View
+                        </Button>
+                      </Link>
+                    </CardActions> */}
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          )}
           <Sponsors sponsors={sponsors} />
         </Container>
       </main>
@@ -171,12 +192,16 @@ export async function getStaticProps() {
   const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournament_res.json();
 
+  const hallOfFame_res = await fetch(`${API_URL}/hall-of-fames/`);
+  const hallOfFames = await hallOfFame_res.json();
+
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
   const sponsors = await sponsor_res.json();
 
   return {
     props: {
       tournaments,
+      hallOfFames,
       sponsors,
     },
   };

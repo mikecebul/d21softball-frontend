@@ -48,10 +48,6 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(1),
   },
-  sponsorDivider: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(16),
-  },
 }));
 
 const Tournaments = ({ tournaments, sponsors }) => {
@@ -152,8 +148,6 @@ const Tournaments = ({ tournaments, sponsors }) => {
               ))}
             </Grid>
           )}
-
-          <Divider className={classes.sponsorDivider} />
           <Sponsors sponsors={sponsors} />
         </Container>
       </main>

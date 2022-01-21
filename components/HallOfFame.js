@@ -1,22 +1,21 @@
 import React from "react";
 import Markdown from "markdown-to-jsx";
 import { fromImageToUrl, API_URL } from "../utils/urls";
-import Sponsors from "../components/sponsors";
 
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 2),
+    // backgroundColor: theme.palette.background.paper,
+    margin: theme.spacing(0, 0, 0, 4),
   },
   fameContent: {
     paddingTop: theme.spacing(0),
-    paddingBottom: theme.spacing(8),
   },
   list: {
     padding: theme.spacing(3),
@@ -25,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HallOfFame({ hallOfFames, sponsors }) {
+export default function HallOfFame({ hallOfFames }) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <main>
+      <div>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
+        <div className={classes.fameContent}>
           <Container maxWidth="sm">
             <Typography
               component="h1"
@@ -42,14 +41,15 @@ export default function HallOfFame({ hallOfFames, sponsors }) {
             >
               Hall of Fame
             </Typography>
-            {/* <Typography
+            <Typography
               variant="h5"
               align="center"
               color="textSecondary"
               paragraph
             >
-              Secondary Text
-            </Typography> */}
+              Current Members of the USA Softball of Michigan (former MASA) Hall
+              of Fame representing District 21 Softball
+            </Typography>
           </Container>
         </div>
         <Container className={classes.fameContent} maxWidth="md">
@@ -58,24 +58,8 @@ export default function HallOfFame({ hallOfFames, sponsors }) {
               <Markdown>{hallOfFames[0].list}</Markdown>
             </Box>
           </Paper>
-          <Sponsors sponsors={sponsors} />
         </Container>
-      </main>
+      </div>
     </React.Fragment>
   );
-}
-
-export async function getStaticProps() {
-  const hallOfFame_res = await fetch(`${API_URL}/hall-of-fames/`);
-  const hallOfFames = await hallOfFame_res.json();
-
-  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
-  const sponsors = await sponsor_res.json();
-
-  return {
-    props: {
-      hallOfFames,
-      sponsors,
-    },
-  };
 }

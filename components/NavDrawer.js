@@ -17,7 +17,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import EmojiEventsOutlinedIcon from "@material-ui/icons/EmojiEventsOutlined";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import Link from "../src/Link";
@@ -100,15 +99,6 @@ const NavDrawer = () => {
                 <HistoryOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Archives" />
-            </ListItem>
-          </Link>
-          {/* Hall of Fame */}
-          <Link href="/hall-of-fame" color="inherit">
-            <ListItem button onClick={() => setOpen(false)}>
-              <ListItemIcon>
-                <EmojiEventsOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Hall of Fame" />
             </ListItem>
           </Link>
           {/* Info */}

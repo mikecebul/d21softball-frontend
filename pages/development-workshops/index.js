@@ -42,10 +42,6 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
-  sponsorDivider: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(16),
-  },
 }));
 
 const DevelopmentWorkshops = ({ camps, sponsors }) => {
@@ -109,7 +105,6 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
               </Grid>
             ))}
           </Grid>
-          <Divider className={classes.sponsorDivider} />
           <Sponsors sponsors={sponsors} />
         </Container>
       </main>

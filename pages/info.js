@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
+import PitcherClassification from "../components/info/PitcherClassification";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -23,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
   infoContent: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-  },
-  sponsorDivider: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(16),
   },
 }));
 
@@ -93,6 +90,19 @@ export default function Info({ miscInformation, sponsors }) {
                     Leagues
                   </Button>
                 </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color={
+                      infoPage === "Pitcher Classification Info"
+                        ? "secondary"
+                        : "default"
+                    }
+                    onClick={() => setInfoPage("Pitcher Classification Info")}
+                  >
+                    Pitchers
+                  </Button>
+                </Grid>
               </Grid>
             </div>
           </Container>
@@ -103,7 +113,9 @@ export default function Info({ miscInformation, sponsors }) {
           {infoPage === "Local Leagues Info" && (
             <League leagues={local_leagues} />
           )}
-          <Divider className={classes.sponsorDivider} />
+          {infoPage === "Pitcher Classification Info" && (
+            <PitcherClassification />
+          )}
           <Sponsors sponsors={sponsors} />
         </Container>
       </main>

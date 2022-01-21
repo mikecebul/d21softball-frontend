@@ -5,6 +5,7 @@ import Markdown from "markdown-to-jsx";
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
+import Sponsors from "../../components/sponsors";
 
 import Moment from "react-moment";
 import Paper from "@material-ui/core/Paper";
@@ -21,6 +22,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
+  content: {
+    paddingBottom: theme.spacing(8),
+  },
   card: {
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(5),
@@ -59,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tournament = ({ tournament }) => {
+const Tournament = ({ tournament, sponsors }) => {
   const classes = useStyles();
   const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
@@ -75,7 +79,7 @@ const Tournament = ({ tournament }) => {
           />
         )}
       </Head>
-      <Container maxWidth="md">
+      <Container className={classes.content} maxWidth="md">
         <Card className={classes.card}>
           {tournament.image && (
             <CardMedia
@@ -146,6 +150,7 @@ const Tournament = ({ tournament }) => {
             </Box>
           </Paper>
         )}
+        <Sponsors sponsors={sponsors} />
       </Container>
     </>
   );
@@ -155,9 +160,13 @@ export async function getStaticProps({ params: { slug } }) {
   const tournament_res = await fetch(`${API_URL}/tournaments/?slug=${slug}`);
   const found = await tournament_res.json();
 
+  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsors = await sponsor_res.json();
+
   return {
     props: {
       tournament: found[0], //Because the API reponse for filters is an array
+      sponsors,
     },
   };
 }
