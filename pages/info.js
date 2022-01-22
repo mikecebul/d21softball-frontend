@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { API_URL } from "../utils/urls";
-import Hotel from "../components/info/hotel";
-import Umpire from "../components/info/umpire";
-import League from "../components/info/league";
+import Hotel from "../components/info/Motel";
+import Umpire from "../components/info/Umpire";
+import League from "../components/info/League";
 import Sponsors from "../components/sponsors";
 
 import Container from "@material-ui/core/Container";
@@ -31,8 +31,10 @@ export default function Info({ miscInformation, sponsors }) {
   const classes = useStyles();
   const [infoPage, setInfoPage] = useState("Motel Info");
 
-  // console.log("Misc Info:", miscInformation[0].local_leagues);
+  // console.log("Misc Info:", miscInformation[0]);
   const local_leagues = miscInformation[0].local_leagues;
+  const umpires = miscInformation[0].umpires;
+  const pitcherClassification = miscInformation[0].pitcher_classification;
 
   return (
     <React.Fragment>
@@ -109,12 +111,14 @@ export default function Info({ miscInformation, sponsors }) {
         </div>
         <Container className={classes.infoContent} maxWidth="md">
           {infoPage === "Motel Info" && <Hotel />}
-          {infoPage === "Umpire Info" && <Umpire />}
+          {infoPage === "Umpire Info" && <Umpire umpires={umpires} />}
           {infoPage === "Local Leagues Info" && (
             <League leagues={local_leagues} />
           )}
           {infoPage === "Pitcher Classification Info" && (
-            <PitcherClassification />
+            <PitcherClassification
+              pitcherClassification={pitcherClassification}
+            />
           )}
           <Sponsors sponsors={sponsors} />
         </Container>

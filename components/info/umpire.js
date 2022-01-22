@@ -1,4 +1,5 @@
 import React from "react";
+import Markdown from "markdown-to-jsx";
 import Link from "../../src/Link";
 
 import Container from "@material-ui/core/Container";
@@ -10,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({}));
 
-export default function Hotel() {
+export default function Umpire({ umpires }) {
   const classes = useStyles();
 
   return (
@@ -22,10 +23,11 @@ export default function Hotel() {
           justifyContent="center"
           pt={3}
         >
+          <Markdown>{umpires}</Markdown>
           {/* <Typography variant="h6">
             Any text specific to Umpires.
           </Typography> */}
-          <List>
+          {/* <List>
             <ListItem
               component={Link}
               target="_blank"
@@ -40,7 +42,7 @@ export default function Hotel() {
             >
               <ListItemText primary="USA Softball of Michigan Umpire Home Page" />
             </ListItem>
-          </List>
+          </List> */}
         </Box>
       </Container>
     </React.Fragment>

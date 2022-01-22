@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Sponsors from "../components/sponsors";
@@ -12,28 +13,23 @@ import { Typography, Card, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  indexContent: {
-    paddingTop: theme.spacing(8),
-  },
-  logo: {
-    // marginTop: theme.spacing(3),
-    paddingLeft: theme.spacing(20),
-    paddingRight: theme.spacing(20),
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 4, 8, 4),
     [theme.breakpoints.down("xs")]: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      padding: theme.spacing(4, 4, 4, 4),
     },
   },
   paper: {
     padding: theme.spacing(4, 8, 4, 8),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(2, 0, 2, 0),
+    },
     height: "100%",
     display: "flex",
     flexDirection: "column",
   },
   box: {
-    // marginBottom: theme.spacing(5),
-    // paddingLeft: theme.spacing(10),
-    // paddingRight: theme.spacing(10),
     flexDirection: "column",
     [theme.breakpoints.down("xs")]: {
       paddingLeft: theme.spacing(3),
@@ -55,45 +51,55 @@ const Index = ({ messages, sponsors }) => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.indexContent} maxWidth="md">
-      <Box display="flex" justifyContent="center" className={classes.logo}>
-        <Image src={logo} alt="Site Logo" />
-      </Box>
-      {messages && (
+    <>
+      <Head>
+        <title>D21 Softball Home Page</title>
+        <meta
+          name="description"
+          content="Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
+      {/* Hero unit */}
+      <div className={classes.heroContent}>
+        <Container maxWidth="sm">
+          <Box display="flex" justifyContent="center">
+            <Image src={logo} alt="Site Logo" />
+          </Box>
+        </Container>
+      </div>
+      {/* End hero unit */}
+      <Container maxWidth="md">
+        {messages && (
+          <Box className={classes.outterBox}>
+            <Paper className={classes.paper} elevation={3}>
+              <Box className={classes.box}>
+                <Typography variant="h4" className={classes.date}>
+                  <Markdown>
+                    {moment(messages[0].updated_at).format("LL")}
+                  </Markdown>
+                </Typography>
+                <Markdown>{messages[0].message}</Markdown>
+                <Typography variant="h4" className={classes.author}>
+                  Scott Kelly
+                </Typography>
+              </Box>
+            </Paper>
+          </Box>
+        )}
         <Box className={classes.outterBox}>
           <Paper className={classes.paper} elevation={3}>
             <Box className={classes.box}>
-              <Typography variant="h4" className={classes.date}>
-                <Markdown>
-                  {moment(messages[0].updated_at).format("LL")}
-                </Markdown>
-              </Typography>
-              <Markdown>{messages[0].content}</Markdown>
-              <Typography variant="h6" className={classes.author}>
-                Scott Kelly
+              <Typography align="center">
+                <Markdown>{messages[0].info}</Markdown>
               </Typography>
             </Box>
           </Paper>
         </Box>
-      )}
-      <Box className={classes.outterBox}>
-        <Paper className={classes.paper} elevation={3}>
-          <Box className={classes.box}>
-            <Typography variant="h4" align="center">
-              2021 Men's Fastpitch USA Softball of Michigan State Championships
-            </Typography>
-            <Typography align="center">August 6-8, 2021</Typography>
-            <Typography align="center">
-              Class A & Class B in Rockford
-            </Typography>
-            <Typography align="center">Class D & Class E in Holland</Typography>
-          </Box>
-        </Paper>
-      </Box>
-      <Box className={classes.outterBox}>
-        <Sponsors sponsors={sponsors} />
-      </Box>
-    </Container>
+        <Box className={classes.outterBox}>
+          <Sponsors sponsors={sponsors} />
+        </Box>
+      </Container>
+    </>
   );
 };
 

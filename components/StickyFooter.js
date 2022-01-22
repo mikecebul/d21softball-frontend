@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import PhoneOutlinedIcon from "@material-ui/icons/PhoneOutlined";
+import FacebookIcon from "@material-ui/icons/Facebook";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     padding: theme.spacing(3, 2),
     backgroundColor: theme.palette.grey[200],
+  },
+  noIcon: {
+    paddingLeft: theme.spacing(9),
   },
 }));
 
@@ -72,12 +76,25 @@ const StickyFooter = () => {
             </Box>
             <List dense>
               <Link
-                href="https://www.usasoftballmi.org/"
+                href="https://www.facebook.com/groups/127657947314063"
                 rel="noopener"
                 target="_blank"
                 color="inherit"
               >
                 <ListItem button>
+                  <ListItemIcon>
+                    <FacebookIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="D21 Softball Facebook Group" />
+                </ListItem>
+              </Link>
+              <Link
+                href="https://www.usasoftballmi.org/"
+                rel="noopener"
+                target="_blank"
+                color="inherit"
+              >
+                <ListItem className={classes.noIcon} button>
                   <ListItemText primary="USA Softball MI" />
                 </ListItem>
               </Link>
@@ -87,7 +104,7 @@ const StickyFooter = () => {
                 target="_blank"
                 color="inherit"
               >
-                <ListItem button>
+                <ListItem className={classes.noIcon} button>
                   <ListItemText primary="BASES Recovery Center" />
                 </ListItem>
               </Link>

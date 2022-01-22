@@ -26,6 +26,12 @@ import {
 } from "../../utils/sort";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiCardActionArea-root": {
+      textAlign: "center",
+    },
+    // margin: theme.spacing(0, 4, 0, 8),
+  },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 2),
@@ -81,10 +87,10 @@ const Archives = ({ tournaments, hallOfFames, sponsors }) => {
 
   return (
     <React.Fragment>
-      <main>
+      <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
             <Typography
               component="h1"
               variant="h2"
@@ -100,7 +106,15 @@ const Archives = ({ tournaments, hallOfFames, sponsors }) => {
               color="textSecondary"
               paragraph
             >
-              Viewing <Moment format="YYYY">{currentDate}</Moment> Archives
+              {showHallOfFame ? (
+                "Viewing Hall of Fame"
+              ) : (
+                <>
+                  {"Viewing "}
+                  <Moment format="YYYY">{currentDate}</Moment>
+                  {" Archives"}
+                </>
+              )}
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">

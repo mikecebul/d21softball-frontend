@@ -22,7 +22,7 @@ export default function MyApp(props) {
     <React.Fragment>
       <CurrentUserProvider>
         <Head>
-          <title>My page</title>
+          <title>D21 Softball</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"

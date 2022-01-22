@@ -20,6 +20,12 @@ import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiCardActionArea-root": {
+      textAlign: "center",
+    },
+    // margin: theme.spacing(0, 4, 0, 8),
+  },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 2),
@@ -53,10 +59,10 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
   );
   return (
     <React.Fragment>
-      <main>
+      <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
             <Typography
               component="h1"
               variant="h2"

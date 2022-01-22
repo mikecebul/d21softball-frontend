@@ -31,7 +31,7 @@ export default function HallOfFame({ hallOfFames }) {
       <div>
         {/* Hero unit */}
         <div className={classes.fameContent}>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
             <Typography
               component="h1"
               variant="h2"
@@ -41,7 +41,7 @@ export default function HallOfFame({ hallOfFames }) {
             >
               Hall of Fame
             </Typography>
-            <Typography
+            {/* <Typography
               variant="h5"
               align="center"
               color="textSecondary"
@@ -49,7 +49,7 @@ export default function HallOfFame({ hallOfFames }) {
             >
               Current Members of the USA Softball of Michigan (former MASA) Hall
               of Fame representing District 21 Softball
-            </Typography>
+            </Typography> */}
           </Container>
         </div>
         <Container className={classes.fameContent} maxWidth="md">

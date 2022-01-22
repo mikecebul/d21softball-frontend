@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Hotel() {
+export default function Motel() {
   const classes = useStyles();
 
   return (

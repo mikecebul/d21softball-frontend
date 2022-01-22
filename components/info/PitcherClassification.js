@@ -30,13 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PitcherClassification() {
+export default function PitcherClassification({ pitcherClassification }) {
   const classes = useStyles();
   return (
     <React.Fragment>
       <Container className={classes.content} maxWidth="md">
         <Box>
-          <Typography align="center" variant="h4">
+          <Markdown>{pitcherClassification}</Markdown>
+          {/* <Typography align="center" variant="h4">
             Fast Pitch Classification Committee Members
           </Typography>
           <Typography align="center">
@@ -106,7 +107,7 @@ export default function PitcherClassification() {
             local commissioners and a final classification review committee that
             meets in Midland in early July each year. If you have questions,
             please email Scott at the link above.
-          </Typography>
+          </Typography> */}
         </Box>
       </Container>
     </React.Fragment>
