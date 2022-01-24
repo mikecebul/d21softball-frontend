@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { API_URL } from "../utils/urls";
-import Hotel from "../components/info/Motel";
+import Motel from "../components/info/Motel";
 import Umpire from "../components/info/Umpire";
 import League from "../components/info/League";
 import Sponsors from "../components/sponsors";
@@ -9,7 +9,6 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
 import PitcherClassification from "../components/info/PitcherClassification";
 
@@ -110,7 +109,7 @@ export default function Info({ miscInformation, sponsors }) {
           </Container>
         </div>
         <Container className={classes.infoContent} maxWidth="md">
-          {infoPage === "Motel Info" && <Hotel />}
+          {infoPage === "Motel Info" && <Motel />}
           {infoPage === "Umpire Info" && <Umpire umpires={umpires} />}
           {infoPage === "Local Leagues Info" && (
             <League leagues={local_leagues} />

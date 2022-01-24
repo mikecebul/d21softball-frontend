@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const Index = ({ frontPage, sponsors }) => {
   const classes = useStyles();
   // console.log("Front Page:", API_URL + frontPage.updates[1].media.url);
+  // console.log("error:", frontPage.news.content);
   return (
     <>
       <Head>
@@ -82,11 +83,11 @@ const Index = ({ frontPage, sponsors }) => {
             <Paper className={classes.paper} elevation={3}>
               <Box className={classes.box}>
                 <Typography variant="h4" className={classes.date}>
-                  <Markdown>
-                    {moment(frontPage.news.date).format("LL")}
-                  </Markdown>
+                  {moment(frontPage.news.date).format("LL")}
                 </Typography>
-                <Markdown>{frontPage.news.content}</Markdown>
+                <Typography>
+                  <Markdown>{frontPage.news.content}</Markdown>
+                </Typography>
                 <Typography variant="h6" className={classes.author}>
                   {frontPage.news.from}
                 </Typography>
@@ -102,7 +103,11 @@ const Index = ({ frontPage, sponsors }) => {
                   {update.title && (
                     <Typography variant="h6">{update.title}</Typography>
                   )}
-                  {update.content && <Markdown>{update.content}</Markdown>}
+                  {update.content && (
+                    <Typography>
+                      <Markdown>{update.content}</Markdown>
+                    </Typography>
+                  )}
                   {update.media && (
                     <Button
                       className={classes.updateButton}
