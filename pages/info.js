@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { API_URL } from "../utils/urls";
 import Motel from "../components/info/Motel";
-import Umpire from "../components/info/Umpire";
+import Umpires from "../components/info/Umpires";
 import League from "../components/info/League";
 import PitcherClassification from "../components/info/PitcherClassification";
 import Sponsors from "../components/sponsors";
@@ -110,7 +110,7 @@ export default function Info({ miscInformation, sponsors }) {
         </div>
         <Container className={classes.infoContent} maxWidth="md">
           {infoPage === "Motel Info" && <Motel />}
-          {infoPage === "Umpire Info" && <Umpire umpires={umpires} />}
+          {infoPage === "Umpire Info" && <Umpires umpires={umpires} />}
           {infoPage === "Local Leagues Info" && (
             <League leagues={local_leagues} />
           )}
