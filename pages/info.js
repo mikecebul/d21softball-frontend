@@ -3,6 +3,7 @@ import { API_URL } from "../utils/urls";
 import Motel from "../components/info/Motel";
 import Umpire from "../components/info/Umpire";
 import League from "../components/info/League";
+import PitcherClassification from "../components/info/PitcherClassification";
 import Sponsors from "../components/sponsors";
 
 import Container from "@material-ui/core/Container";
@@ -10,7 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import PitcherClassification from "../components/info/PitcherClassification";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
