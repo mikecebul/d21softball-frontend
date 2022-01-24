@@ -3,13 +3,15 @@ import Head from "next/head";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Sponsors from "../components/sponsors";
+import Link from "../src/Link";
 
 import Markdown from "markdown-to-jsx";
 import moment from "moment";
 import { API_URL } from "../utils/urls";
 import Image from "next/image";
 import logo from "../public/logo.svg";
-import { Typography, Card, Paper, Divider } from "@material-ui/core";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import { Typography, Card, Paper, Divider, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,11 +47,17 @@ const useStyles = makeStyles((theme) => ({
   author: {
     paddingTop: theme.spacing(3),
   },
+  updateButton: {
+    margin: theme.spacing(4, 0, 2, 0),
+  },
+  link: {
+    textDecoration: "none",
+  },
 }));
 
-const Index = ({ messages, sponsors }) => {
+const Index = ({ frontPage, sponsors }) => {
   const classes = useStyles();
-
+  console.log("Front Page:", API_URL + frontPage.updates[1].media.url);
   return (
     <>
       <Head>
@@ -69,32 +77,68 @@ const Index = ({ messages, sponsors }) => {
       </div>
       {/* End hero unit */}
       <Container maxWidth="md">
-        {messages && (
+        {frontPage.news && (
           <Box className={classes.outterBox}>
             <Paper className={classes.paper} elevation={3}>
               <Box className={classes.box}>
                 <Typography variant="h4" className={classes.date}>
                   <Markdown>
-                    {moment(messages[0].updated_at).format("LL")}
+                    {moment(frontPage.news.date).format("LL")}
                   </Markdown>
                 </Typography>
-                <Markdown>{messages[0].message}</Markdown>
-                <Typography variant="h4" className={classes.author}>
-                  Scott Kelly
+                <Markdown>{frontPage.news.content}</Markdown>
+                <Typography variant="h6" className={classes.author}>
+                  {frontPage.news.from}
                 </Typography>
               </Box>
             </Paper>
           </Box>
         )}
-        <Box className={classes.outterBox}>
-          <Paper className={classes.paper} elevation={3}>
-            <Box className={classes.box}>
-              <Typography align="center">
-                <Markdown>{messages[0].info}</Markdown>
-              </Typography>
-            </Box>
-          </Paper>
-        </Box>
+        {frontPage.updates && (
+          <Box className={classes.outterBox}>
+            <Paper className={classes.paper} elevation={3}>
+              {frontPage.updates.map((update) => (
+                <Box className={classes.box} key={update.id} mb={4}>
+                  {update.title && (
+                    <Typography variant="h6">{update.title}</Typography>
+                  )}
+                  {update.content && <Markdown>{update.content}</Markdown>}
+                  {update.media && (
+                    <Button
+                      className={classes.updateButton}
+                      size="small"
+                      endIcon={<ArrowRightIcon />}
+                      color="primary"
+                      variant="contained"
+                      component={Link}
+                      href={API_URL + update.media.url}
+                    >
+                      Check it out
+                    </Button>
+                  )}
+                  {update.link && (
+                    <a
+                      href={update.link}
+                      target="_blank"
+                      className={classes.link}
+                    >
+                      <Button
+                        className={classes.updateButton}
+                        size="small"
+                        endIcon={<ArrowRightIcon />}
+                        color="primary"
+                        variant="contained"
+                      >
+                        Check it out
+                      </Button>
+                    </a>
+                  )}
+                  <Divider />
+                </Box>
+              ))}
+            </Paper>
+          </Box>
+        )}
         <Box className={classes.outterBox}>
           <Sponsors sponsors={sponsors} />
         </Box>
@@ -104,15 +148,15 @@ const Index = ({ messages, sponsors }) => {
 };
 
 export async function getStaticProps() {
-  const message_res = await fetch(`${API_URL}/messages/`);
-  const messages = await message_res.json();
+  const frontPage_res = await fetch(`${API_URL}/front-page/`);
+  const frontPage = await frontPage_res.json();
 
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
   const sponsors = await sponsor_res.json();
 
   return {
     props: {
-      messages,
+      frontPage,
       sponsors,
     },
   };
