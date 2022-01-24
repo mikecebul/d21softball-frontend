@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     // backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(4, 0, 2),
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(2),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  divider: {
+    marginBottom: theme.spacing(4),
+  },
 }));
 
 export default function Sponsors({ sponsors }) {
@@ -61,7 +64,7 @@ export default function Sponsors({ sponsors }) {
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Divider />
+            <Divider className={classes.divider} />
             <Typography
               component="h1"
               variant="h2"

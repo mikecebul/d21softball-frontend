@@ -3,15 +3,12 @@ import Head from "next/head";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Sponsors from "../components/sponsors";
-import Link from "../src/Link";
+import FrontPageUpdates from "../components/FrontPageUpdates";
+import FrontPageNews from "../components/FrontPageNews";
 
-import Markdown from "markdown-to-jsx";
-import moment from "moment";
 import { API_URL } from "../utils/urls";
 import Image from "next/image";
 import logo from "../public/logo.svg";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import { Typography, Card, Paper, Divider, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -78,72 +75,8 @@ const Index = ({ frontPage, sponsors }) => {
       </div>
       {/* End hero unit */}
       <Container maxWidth="md">
-        {frontPage.news && (
-          <Box className={classes.outterBox}>
-            <Paper className={classes.paper} elevation={3}>
-              <Box className={classes.box}>
-                <Typography variant="h4" className={classes.date}>
-                  {moment(frontPage.news.date).format("LL")}
-                </Typography>
-                <Typography>
-                  <Markdown>{frontPage.news.content}</Markdown>
-                </Typography>
-                <Typography variant="h6" className={classes.author}>
-                  {frontPage.news.from}
-                </Typography>
-              </Box>
-            </Paper>
-          </Box>
-        )}
-        {frontPage.updates && (
-          <Box className={classes.outterBox}>
-            <Paper className={classes.paper} elevation={3}>
-              {frontPage.updates.map((update) => (
-                <Box className={classes.box} key={update.id} mb={4}>
-                  {update.title && (
-                    <Typography variant="h6">{update.title}</Typography>
-                  )}
-                  {update.content && (
-                    <Typography>
-                      <Markdown>{update.content}</Markdown>
-                    </Typography>
-                  )}
-                  {update.media && (
-                    <Button
-                      className={classes.updateButton}
-                      size="small"
-                      endIcon={<ArrowRightIcon />}
-                      color="primary"
-                      variant="contained"
-                      component={Link}
-                      href={API_URL + update.media.url}
-                    >
-                      Check it out
-                    </Button>
-                  )}
-                  {update.link && (
-                    <a
-                      href={update.link}
-                      target="_blank"
-                      className={classes.link}
-                    >
-                      <Button
-                        className={classes.updateButton}
-                        size="small"
-                        endIcon={<ArrowRightIcon />}
-                        color="primary"
-                        variant="contained"
-                      >
-                        Check it out
-                      </Button>
-                    </a>
-                  )}
-                  <Divider />
-                </Box>
-              ))}
-            </Paper>
-          </Box>
-        )}
+        <FrontPageNews news={frontPage.news} />
+        <FrontPageUpdates updates={frontPage.updates} />
         <Box className={classes.outterBox}>
           <Sponsors sponsors={sponsors} />
         </Box>
