@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Index = ({ frontPage, sponsors }) => {
   const classes = useStyles();
-  console.log("Front Page:", API_URL + frontPage.updates[1].media.url);
+  // console.log("Front Page:", API_URL + frontPage.updates[1].media.url);
   return (
     <>
       <Head>
