@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const League = ({ leagues }) => {
+export default function League({ leagues }) {
   const classes = useStyles();
   // console.log("Leagues:", leagues);
 
@@ -40,6 +40,4 @@ const League = ({ leagues }) => {
       </Container>
     </React.Fragment>
   );
-};
-
-export default League;
+}
