@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Info({ miscInformation, sponsors }) {
+export default function Info({ miscInformation, infoPage, sponsors }) {
   const classes = useStyles();
-  const [infoPage, setInfoPage] = useState("Motel Info");
+  const [page, setPage] = useState("Motel Info");
 
   // console.log("Misc Info:", miscInformation[0]);
   const local_leagues = miscInformation[0].local_leagues;
-  const umpires = miscInformation[0].umpires;
+  const umpires = infoPage.umpires;
   const pitcherClassification = miscInformation[0].pitcher_classification;
 
   return (
@@ -56,15 +56,15 @@ export default function Info({ miscInformation, sponsors }) {
               color="textSecondary"
               paragraph
             >
-              Viewing {infoPage}
+              Viewing {page}
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
                   <Button
                     variant="contained"
-                    color={infoPage === "Motel Info" ? "secondary" : "default"}
-                    onClick={() => setInfoPage("Motel Info")}
+                    color={page === "Motel Info" ? "secondary" : "default"}
+                    onClick={() => setPage("Motel Info")}
                   >
                     Motels
                   </Button>
@@ -72,8 +72,8 @@ export default function Info({ miscInformation, sponsors }) {
                 <Grid item>
                   <Button
                     variant="contained"
-                    color={infoPage === "Umpire Info" ? "secondary" : "default"}
-                    onClick={() => setInfoPage("Umpire Info")}
+                    color={page === "Umpire Info" ? "secondary" : "default"}
+                    onClick={() => setPage("Umpire Info")}
                   >
                     Umpires
                   </Button>
@@ -82,11 +82,9 @@ export default function Info({ miscInformation, sponsors }) {
                   <Button
                     variant="contained"
                     color={
-                      infoPage === "Local Leagues Info"
-                        ? "secondary"
-                        : "default"
+                      page === "Local Leagues Info" ? "secondary" : "default"
                     }
-                    onClick={() => setInfoPage("Local Leagues Info")}
+                    onClick={() => setPage("Local Leagues Info")}
                   >
                     Leagues
                   </Button>
@@ -95,11 +93,11 @@ export default function Info({ miscInformation, sponsors }) {
                   <Button
                     variant="contained"
                     color={
-                      infoPage === "Pitcher Classification Info"
+                      page === "Pitcher Classification Info"
                         ? "secondary"
                         : "default"
                     }
-                    onClick={() => setInfoPage("Pitcher Classification Info")}
+                    onClick={() => setPage("Pitcher Classification Info")}
                   >
                     Pitchers
                   </Button>
@@ -109,12 +107,10 @@ export default function Info({ miscInformation, sponsors }) {
           </Container>
         </div>
         <Container className={classes.infoContent} maxWidth="md">
-          {infoPage === "Motel Info" && <Motel />}
-          {infoPage === "Umpire Info" && <Umpires umpires={umpires} />}
-          {infoPage === "Local Leagues Info" && (
-            <Leagues leagues={local_leagues} />
-          )}
-          {infoPage === "Pitcher Classification Info" && (
+          {page === "Motel Info" && <Motel motel={infoPage.motel} />}
+          {page === "Umpire Info" && <Umpires umpires={umpires} />}
+          {page === "Local Leagues Info" && <Leagues leagues={local_leagues} />}
+          {page === "Pitcher Classification Info" && (
             <PitcherClassification
               pitcherClassification={pitcherClassification}
             />
@@ -129,12 +125,16 @@ export async function getStaticProps() {
   const miscInformation_res = await fetch(`${API_URL}/misc-informations/`);
   const miscInformation = await miscInformation_res.json();
 
+  const infoPage_res = await fetch(`${API_URL}/info-page/`);
+  const infoPage = await infoPage_res.json();
+
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
   const sponsors = await sponsor_res.json();
 
   return {
     props: {
       miscInformation,
+      infoPage,
       sponsors,
     },
   };

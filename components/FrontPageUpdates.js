@@ -86,7 +86,7 @@ export default function FrontPageUpdates({ updates }) {
           <div className={classes.heroContent}>
             <Divider className={classes.divider} />
             <Typography
-              component="h1"
+              component="h2"
               variant="h2"
               align="center"
               color="textPrimary"
@@ -99,7 +99,7 @@ export default function FrontPageUpdates({ updates }) {
             <Paper className={classes.paper} elevation={3}>
               {updates.map((update) => (
                 <>
-                  <Box className={classes.box} key={update.id} mb={4}>
+                  <Box className={classes.box} key={update.id}>
                     {update.title && (
                       <Typography variant="h6" align={align}>
                         {update.title}

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Motel_Logo from "../../public/Petoskey-Area-Logo-Green.png";
+import Markdown from "markdown-to-jsx";
+import { fromImageToUrl } from "../../utils/urls";
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -21,32 +22,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Motel() {
+export default function Motel({ motel }) {
   const classes = useStyles();
 
+  // console.log("URL:", motel.media);
   return (
     <React.Fragment>
       <Container maxWidth="md">
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          pt={3}
-        >
-          <Typography variant="h6">
-            Please book hotel rooms well in advance of the summer softball
-            season. At this time, we are unable to secure discounted rates for
-            our softball teams at any of the local hotels. Feel free to
-            negotiate with each hotel on your own.
-          </Typography>
-        </Box>
-        <Box display="flex" justifyContent="center" className={classes.logo}>
-          <a target="_blank" href="https://www.petoskeyarea.com/stay/">
-            <Image src={Motel_Logo} alt="Link to local Motels"></Image>
-            <Typography variant="caption">
-              Petoskey Area Hotel Listings
-            </Typography>
-          </a>
+        <Box display="flex" flexDirection="column" justifyContent="center">
+          {motel ? (
+            <>
+              <Box>
+                <Typography variant="h2" align="center">
+                  {motel.title}
+                </Typography>
+                <Typography variant="h6" align="center">
+                  <Markdown>{motel.content}</Markdown>
+                </Typography>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                className={classes.logo}
+              >
+                <a target="_blank" href={motel.url}>
+                  <Image
+                    src={fromImageToUrl(motel.media)}
+                    alt="Link to local Motels"
+                    height={motel.media.height}
+                    width={motel.media.width}
+                  ></Image>
+                  <Typography variant="caption">
+                    Petoskey Area Hotel Listings
+                  </Typography>
+                </a>
+              </Box>
+            </>
+          ) : (
+            <Box>
+              <Typography>Currently no motel info right now.</Typography>
+            </Box>
+          )}
         </Box>
       </Container>
     </React.Fragment>
