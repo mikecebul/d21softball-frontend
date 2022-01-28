@@ -90,7 +90,7 @@ export default function Umpire({ umpires }) {
                 <Box>
                   {umpires.links.map((link) => (
                     <>
-                      <Box className={classes.box} key={link.id}>
+                      <Box className={classes.box} key={link.title}>
                         {link.title && (
                           <Typography variant="h6" align={align}>
                             {link.title}

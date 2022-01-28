@@ -26,14 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Info({ miscInformation, infoPage, sponsors }) {
+export default function Info({ infoPage, sponsors }) {
   const classes = useStyles();
   const [page, setPage] = useState("Motel Info");
 
   // console.log("Misc Info:", miscInformation[0]);
-  const local_leagues = miscInformation[0].local_leagues;
+  // const local_leagues = miscInformation[0].local_leagues;
   const umpires = infoPage.umpires;
-  const pitcherClassification = miscInformation[0].pitcher_classification;
+  // const pitcherClassification = miscInformation[0].pitcher_classification;
 
   return (
     <React.Fragment>
@@ -122,9 +122,6 @@ export default function Info({ miscInformation, infoPage, sponsors }) {
   );
 }
 export async function getStaticProps() {
-  const miscInformation_res = await fetch(`${API_URL}/misc-informations/`);
-  const miscInformation = await miscInformation_res.json();
-
   const infoPage_res = await fetch(`${API_URL}/info-page/`);
   const infoPage = await infoPage_res.json();
 
@@ -133,7 +130,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      miscInformation,
       infoPage,
       sponsors,
     },

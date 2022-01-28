@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "../src/Link";
+import Image from "next/image";
+import { API_URL } from "../utils/urls";
 import Copyright from "../src/Copyright";
 
 import Container from "@material-ui/core/Container";
@@ -32,9 +34,24 @@ const StickyFooter = () => {
 
   return (
     <footer className={classes.foot}>
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Grid container spacing={5}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
+            <Box display="flex" justifyContent="center">
+              <a target="_blank" href="https://www.usasoftballmi.org/</Grid>">
+                <Image
+                  src={`${API_URL}/uploads/USA_Softball_Logo_Tall_4dbcb2e49c.jpg`}
+                  alt="Link to USA Softball of Michigan"
+                  height={240}
+                  width={195}
+                ></Image>
+                {/* <Typography variant="caption">
+                Petoskey Area Hotel Listings
+              </Typography> */}
+              </a>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={4}>
             <Box borderBottom={2}>
               <Typography variant="h6">
                 District Commissioner - Scott Kelly
@@ -70,7 +87,7 @@ const StickyFooter = () => {
               </Link>
             </List>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <Box borderBottom={2}>
               <Typography variant="h6">Links</Typography>
             </Box>
