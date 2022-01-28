@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
-
-import axios from "axios";
 import Link from "../src/Link";
-import Moment from "react-moment";
-import { useRouter } from "next/router";
+import { sortSponsors } from "../utils/sort";
 
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -58,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Sponsors({ sponsors }) {
   const classes = useStyles();
 
+  const sortedSponsors = sortSponsors(sponsors);
+
+  // console.log("Sorted Sponsors:", sortedSponsors);
+
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -86,7 +85,7 @@ export default function Sponsors({ sponsors }) {
         </div>
         <Container maxWidth="md">
           <Grid container spacing={4} justifyContent="center">
-            {sponsors.map((sponsor) => (
+            {sortedSponsors.map((sponsor) => (
               <Grid item key={sponsor.name} xs={10} sm={5} md={4}>
                 <Card className={classes.card} raised>
                   <CardActionArea>

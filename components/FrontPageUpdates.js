@@ -78,6 +78,8 @@ export default function FrontPageUpdates({ updates }) {
 
   const align = matches ? "left" : "center";
 
+  // console.log("Updates:", updates);
+
   return (
     <>
       {updates && (
@@ -99,7 +101,7 @@ export default function FrontPageUpdates({ updates }) {
             <Paper className={classes.paper} elevation={3}>
               {updates.map((update) => (
                 <>
-                  <Box className={classes.box} key={update.id}>
+                  <Box className={classes.box} key={update.title}>
                     {update.title && (
                       <Typography variant="h6" align={align}>
                         {update.title}

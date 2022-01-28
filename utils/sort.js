@@ -57,3 +57,9 @@ export const compareDate = (mostRecentTournamentYear) => {
   // Otherwise display most recent list of tournaments
   return { warning: false, dateYear };
 };
+
+// Sort Sponsors in order
+export const sortSponsors = (x) => {
+  const sorted = x.sort((a, b) => (a.list_order > b.list_order ? 1 : -1));
+  return sorted;
+};
