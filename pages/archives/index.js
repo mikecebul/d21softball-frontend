@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Archives = ({ tournaments, hallOfFames, sponsors }) => {
+const Archives = ({ tournaments, hallOfFame, sponsors }) => {
   const classes = useStyles();
 
   // Do I show Hall Of Fame List?
@@ -157,7 +157,7 @@ const Archives = ({ tournaments, hallOfFames, sponsors }) => {
         {/* End hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
           {showHallOfFame ? (
-            <HallOfFame hallOfFames={hallOfFames} />
+            <HallOfFame hallOfFame={hallOfFame} />
           ) : (
             <Grid container spacing={4} justifyContent="center">
               {filteredTournaments.map((tournament) => (
@@ -210,8 +210,8 @@ export async function getStaticProps() {
   const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
   const tournaments = await tournament_res.json();
 
-  const hallOfFame_res = await fetch(`${API_URL}/hall-of-fames/`);
-  const hallOfFames = await hallOfFame_res.json();
+  const hallOfFame_res = await fetch(`${API_URL}/hall-of-fame/`);
+  const hallOfFame = await hallOfFame_res.json();
 
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
   const sponsors = await sponsor_res.json();
@@ -219,7 +219,7 @@ export async function getStaticProps() {
   return {
     props: {
       tournaments,
-      hallOfFames,
+      hallOfFame,
       sponsors,
     },
   };
