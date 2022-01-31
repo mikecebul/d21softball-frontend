@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Motel({ motel, sponsors }) {
   const classes = useStyles();
 
-  const info = motel.motel;
+  const info = motel.info;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
 
