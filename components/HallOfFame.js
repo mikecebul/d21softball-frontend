@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HallOfFame({ hallOfFame }) {
   const classes = useStyles();
-  console.log("Hall of Fame:", hallOfFame.table);
+  // console.log("Hall of Fame:", hallOfFame.table);
   return (
     <React.Fragment>
       <Container className={classes.fameContent} maxWidth="md">
@@ -98,17 +98,21 @@ export default function HallOfFame({ hallOfFame }) {
                     <TableCell>{member.location}</TableCell>
                     <TableCell>{member.year}</TableCell>
                     <TableCell>
-                      <IconButton
-                        color="primary"
-                        aria-label="upload picture"
-                        component={Link}
-                        target="_blank"
-                        href={
-                          member.url ? member.url : fromImageToUrl(member.media)
-                        }
-                      >
-                        <AttachmentIcon />
-                      </IconButton>
+                      {(member.url || member.media) && (
+                        <IconButton
+                          color="primary"
+                          aria-label="upload picture"
+                          component={Link}
+                          target="_blank"
+                          href={
+                            member.url
+                              ? member.url
+                              : fromImageToUrl(member.media)
+                          }
+                        >
+                          <AttachmentIcon />
+                        </IconButton>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
