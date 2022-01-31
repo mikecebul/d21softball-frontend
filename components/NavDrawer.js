@@ -139,7 +139,7 @@ const NavDrawer = () => {
             </ListItem>
           </Link>
           {/* Motel */}
-          <Link href="/info" color="inherit">
+          <Link href="/motel" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
                 <HotelOutlinedIcon />
