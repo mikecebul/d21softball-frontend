@@ -19,12 +19,25 @@ import MenuIcon from "@material-ui/icons/Menu";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
+import SportsHandballOutlinedIcon from "@material-ui/icons/SportsHandballOutlined";
 import Link from "../src/Link";
+
+import Collapse from "@material-ui/core/Collapse";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import DraftsIcon from "@material-ui/icons/Drafts";
+import SendIcon from "@material-ui/icons/Send";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import HotelOutlinedIcon from "@material-ui/icons/HotelOutlined";
+import { Divider, ListSubheader } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2),
+  },
+  subMenuButton: {
+    paddingLeft: theme.spacing(4),
   },
 }));
 
@@ -34,7 +47,13 @@ const NavDrawer = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatchCurrentUser();
   const user = useCurrentUser();
-  const router = useRouter();
+
+  // Nested List ----------------------
+  // const [openList, setOpenList] = useState(false);
+
+  // const handleClick = () => {
+  //   setOpenList(!openList);
+  // };
 
   // Logout User ----------------------
   const handleLogout = async () => {
@@ -65,6 +84,14 @@ const NavDrawer = () => {
       </IconButton>
       <Drawer open={open} onClose={() => setOpen(false)}>
         <List>
+          {/* Header */}
+          <ListSubheader
+            component="h2"
+            align="center"
+            id="nested-list-subheader"
+          >
+            District 21 Softball
+          </ListSubheader>
           {/* Home */}
           <Link href="/" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
@@ -92,6 +119,15 @@ const NavDrawer = () => {
               <ListItemText primary="Development Workshops" />
             </ListItem>
           </Link>
+          {/* Pitchers */}
+          <Link href="/pitcher-classification" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <SportsHandballOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Pitchers" />
+            </ListItem>
+          </Link>
           {/* Archives */}
           <Link href="/archives" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
@@ -101,15 +137,36 @@ const NavDrawer = () => {
               <ListItemText primary="Archives" />
             </ListItem>
           </Link>
-          {/* Info */}
+          {/* Motel */}
           <Link href="/info" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
-                <InfoOutlinedIcon />
+                <HotelOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Info" />
+              <ListItemText primary="Motel" />
             </ListItem>
           </Link>
+          {/* Nested List Item */}
+          {/* <ListItem button onClick={handleClick}>
+            <ListItemIcon>
+              <InfoOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="More Info" />
+            {openList ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openList} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <Link href="/info" color="inherit">
+                <ListItem button className={classes.subMenuButton}>
+                  <ListItemIcon>
+                    <HotelOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Motel" />
+                </ListItem>
+              </Link>
+            </List>
+          </Collapse> */}
+          <Divider />
           {!user.isAuthenticated ? (
             <Link href="/login" color="inherit">
               <ListItem button onClick={() => setOpen(false)}>

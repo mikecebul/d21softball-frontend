@@ -28,10 +28,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 2),
   },
+  content: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
   outterBox: {
-    margin: theme.spacing(4, 0, 4, 0),
+    margin: theme.spacing(4, 0, 8, 0),
   },
   paper: {
+    margin: theme.spacing(0, 0, 4, 0),
     padding: theme.spacing(4, 8, 4, 8),
     [theme.breakpoints.down("xs")]: {
       padding: theme.spacing(2, 0, 2, 0),
@@ -51,9 +56,6 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "center",
     },
-  },
-  content: {
-    margin: theme.spacing(2, 0, 0, 0),
   },
   linkButton: {
     margin: theme.spacing(4, 0, 0, 0),
@@ -104,56 +106,59 @@ export default function PitcherClassification({ pitchers, sponsors }) {
         {/* End Hero Unit */}
         <Container maxWidth="md">
           {/* Link to Pitcher Classification List */}
-
           <Box className={classes.outterBox}>
             <Paper className={classes.paper} elevation={3}>
               <Box className={classes.box}>
-                {pitchers.link.title && (
-                  <Typography variant="h6" align={align}>
-                    {pitchers.link.title}
-                  </Typography>
-                )}
-                {pitchers.link.content && (
-                  <Typography>
-                    <Markdown className={classes.content} align={align}>
-                      {pitchers.link.content}
-                    </Markdown>
-                  </Typography>
-                )}
-                {pitchers.link.media && (
-                  <Button
-                    className={classes.linkButton}
-                    size="small"
-                    endIcon={<ArrowRightIcon />}
-                    color="primary"
-                    variant="contained"
-                    component={Link}
-                    href={fromImageToUrl(pitchers.link.media)}
-                  >
-                    Check it out
-                  </Button>
-                )}
-                {pitchers.link.url && (
-                  <a
-                    href={pitchers.link.url}
-                    target="_blank"
-                    className={classes.url}
-                  >
-                    <Button
-                      className={classes.linkButton}
-                      size="small"
-                      endIcon={<ArrowRightIcon />}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Check it out
-                    </Button>
-                  </a>
+                {pitchers && (
+                  <>
+                    {pitchers.link.title && (
+                      <Typography variant="h6" align={align}>
+                        {pitchers.link.title}
+                      </Typography>
+                    )}
+                    {pitchers.link.content && (
+                      <Typography>
+                        <Markdown className={classes.content} align={align}>
+                          {pitchers.link.content}
+                        </Markdown>
+                      </Typography>
+                    )}
+                    {pitchers.link.media && (
+                      <Button
+                        className={classes.linkButton}
+                        size="small"
+                        endIcon={<ArrowRightIcon />}
+                        color="primary"
+                        variant="contained"
+                        component={Link}
+                        href={fromImageToUrl(pitchers.link.media)}
+                      >
+                        Check it out
+                      </Button>
+                    )}
+                    {pitchers.link.url && (
+                      <a
+                        href={pitchers.link.url}
+                        target="_blank"
+                        className={classes.url}
+                      >
+                        <Button
+                          className={classes.linkButton}
+                          size="small"
+                          endIcon={<ArrowRightIcon />}
+                          color="primary"
+                          variant="contained"
+                        >
+                          Check it out
+                        </Button>
+                      </a>
+                    )}
+                  </>
                 )}
               </Box>
             </Paper>
+            <Sponsors sponsors={sponsors} />
           </Box>
-          <Sponsors sponsors={sponsors} />
         </Container>
       </main>
     </React.Fragment>

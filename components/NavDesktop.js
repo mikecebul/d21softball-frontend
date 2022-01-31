@@ -1,9 +1,22 @@
 import React from "react";
 import { useCurrentUser } from "../context/CurrentUser";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "../src/Link";
-import { Box, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Box,
+  ClickAwayListener,
+  Grow,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  MenuList,
+  MenuItem,
+  Paper,
+  Popper,
+} from "@material-ui/core";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
@@ -34,6 +47,28 @@ export default function NavDesktop() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
 
+  // Drop Down Menu ---------------------------
+  // const [open, setOpen] = React.useState(false);
+  // const anchorRef = React.useRef(null);
+
+  // const handleToggle = () => {
+  //   setOpen((prevOpen) => !prevOpen);
+  // };
+
+  // const handleClose = (event) => {
+  //   if (anchorRef.current && anchorRef.current.contains(event.target)) {
+  //     return;
+  //   }
+  //   setOpen(false);
+  // };
+
+  // function handleListKeyDown(event) {
+  //   if (event.key === "Tab") {
+  //     event.preventDefault();
+  //     setOpen(false);
+  //   }
+  // }
+
   return (
     <Box display="flex" flexGrow={1} alignItems="center">
       <List disablePadding={true}>
@@ -63,6 +98,13 @@ export default function NavDesktop() {
         </Link>
       </List>
       <List>
+        <Link href="/pitcher-classification" color="inherit">
+          <ListItem button>
+            <ListItemText primary="Pitchers" />
+          </ListItem>
+        </Link>
+      </List>
+      <List>
         <Link href="/archives" color="inherit">
           <ListItem button>
             <ListItemText primary="Archives" />
@@ -70,12 +112,61 @@ export default function NavDesktop() {
         </Link>
       </List>
       <List>
-        <Link href="/info" color="inherit">
+        <Link href="/motel" color="inherit">
           <ListItem button>
-            <ListItemText primary="Info" />
+            <ListItemText primary="Motel" />
           </ListItem>
         </Link>
       </List>
+      {/* drop down menu */}
+      {/* <List
+        Button
+        ref={anchorRef}
+        aria-controls={open ? "menu-list-grow" : undefined}
+        aria-haspopup="true"
+        onClick={handleToggle}
+      >
+        <ListItem button>
+          <ListItemText primary="Info" />
+          <ListItemIcon>
+            <KeyboardArrowDownIcon />
+          </ListItemIcon>
+        </ListItem>
+      </List>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  autoFocusItem={open}
+                  id="menu-list-grow"
+                  onKeyDown={handleListKeyDown}
+                >
+                  <Link href="/info" color="textPrimary">
+                    <MenuItem onClick={handleClose}>Motels</MenuItem>
+                  </Link>
+                  <Link href="/info" color="textPrimary">
+                    <MenuItem onClick={handleClose}>Umpires</MenuItem>
+                  </Link>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper> */}
     </Box>
   );
 }
