@@ -114,7 +114,14 @@ export default function NavDesktop() {
       <List>
         <Link href="/motel" color="inherit">
           <ListItem button>
-            <ListItemText primary="Motel" />
+            <ListItemText primary="Motels" />
+          </ListItem>
+        </Link>
+      </List>
+      <List>
+        <Link href="/local-leagues" color="inherit">
+          <ListItem button>
+            <ListItemText primary="Leagues" />
           </ListItem>
         </Link>
       </List>

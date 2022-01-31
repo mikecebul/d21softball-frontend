@@ -52,16 +52,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 0, 4, 0),
     padding: theme.spacing(4, 8, 4, 8),
     [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(2, 0, 2, 0),
-    },
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  paper: {
-    padding: theme.spacing(4, 8, 4, 8),
-    [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(2, 0, 2, 0),
+      padding: theme.spacing(2, 2, 2, 2),
     },
     height: "100%",
     display: "flex",
@@ -69,12 +60,12 @@ const useStyles = makeStyles((theme) => ({
   },
   box: {
     flexDirection: "column",
-    margin: theme.spacing(2, 0, 4, 0),
+    margin: theme.spacing(4, 0, 0, 0),
     [theme.breakpoints.down("xs")]: {
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "flex",
       alignItems: "center",
     },
@@ -82,11 +73,11 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(4),
   },
-  updateButton: {
-    margin: theme.spacing(4, 0, 0, 0),
-    // [theme.breakpoints.down("md")]: {
-    //   alignSelf: "center",
-    // },
+  linkButton: {
+    // margin: theme.spacing(4, 0, 0, 0),
+    //   [theme.breakpoints.down("md")]: {
+    //     alignSelf: "center",
+    //   },
   },
   link: {
     textDecoration: "none",
@@ -97,8 +88,10 @@ export default function Motel({ leagues, sponsors }) {
   const classes = useStyles();
 
   const info = leagues.league;
+
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const align = matches ? "left" : "center";
 
   console.log("Leagues:", leagues);
   return (
@@ -135,23 +128,24 @@ export default function Motel({ leagues, sponsors }) {
                       <React.Fragment key={league.id}>
                         <Box>
                           {league.league_name && (
-                            <Typography variant="h4" align="center">
+                            <Typography variant="h4" align={align}>
                               {league.league_name}
                             </Typography>
                           )}
 
                           {league.location && (
-                            <Typography variant="h5" align="center">
+                            <Typography variant="h5" align={align}>
                               {league.location}
                             </Typography>
                           )}
+                          <Box p={1} />
                           {league.contact_name && (
-                            <Typography variant="body1" align="center">
+                            <Typography variant="body1" align={align}>
                               {league.contact_name}
                             </Typography>
                           )}
                           {league.contact_position && (
-                            <Typography variant="body2" align="center">
+                            <Typography variant="body2" align={align}>
                               {league.contact_position}
                             </Typography>
                           )}
@@ -161,7 +155,7 @@ export default function Motel({ leagues, sponsors }) {
                               href={`tel:${league.contact_phone}`}
                               color="default"
                             >
-                              <Typography variant="body2" align="center">
+                              <Typography variant="body2" align={align}>
                                 {league.contact_phone}
                               </Typography>
                             </Link>
@@ -171,7 +165,7 @@ export default function Motel({ leagues, sponsors }) {
                               href={`mailto:${league.contact_email}`}
                               color="default"
                             >
-                              <Typography variant="body2" align="center">
+                              <Typography variant="body2" align={align}>
                                 {league.contact_email}
                               </Typography>
                             </Link>
@@ -181,7 +175,7 @@ export default function Motel({ leagues, sponsors }) {
                               <>
                                 {link.media && (
                                   <Button
-                                    className={classes.updateButton}
+                                    className={classes.linkButton}
                                     size="small"
                                     endIcon={<ArrowRightIcon />}
                                     color="primary"
@@ -199,7 +193,7 @@ export default function Motel({ leagues, sponsors }) {
                                     className={classes.link}
                                   >
                                     <Button
-                                      className={classes.updateButton}
+                                      className={classes.linkButton}
                                       size="small"
                                       endIcon={<ArrowRightIcon />}
                                       color="primary"
@@ -219,24 +213,6 @@ export default function Motel({ leagues, sponsors }) {
                         </Box>
                       </React.Fragment>
                     ))}
-                    {/* <Box
-                      display="flex"
-                      flexDirection="column"
-                      justifyContent="center"
-                      className={classes.logo}
-                    >
-                      <a target="_blank" href={info.url}>
-                        <Image
-                          src={fromImageToUrl(info.media)}
-                          alt="Link to local Motels"
-                          height={info.media.height}
-                          width={info.media.width}
-                        ></Image>
-                        <Typography variant="caption">
-                          Petoskey Area Hotel Listings
-                        </Typography>
-                      </a>
-                    </Box> */}
                   </Paper>
                 </Box>
               </>

@@ -29,6 +29,7 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import HotelOutlinedIcon from "@material-ui/icons/HotelOutlined";
+import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import { Divider, ListSubheader } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -143,7 +144,16 @@ const NavDrawer = () => {
               <ListItemIcon>
                 <HotelOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Motel" />
+              <ListItemText primary="Motels" />
+            </ListItem>
+          </Link>
+          {/* Leagues */}
+          <Link href="/local-leagues" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <PeopleOutlineIcon />
+              </ListItemIcon>
+              <ListItemText primary="Leagues" />
             </ListItem>
           </Link>
           {/* Nested List Item */}
