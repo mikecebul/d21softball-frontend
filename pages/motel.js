@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
-import Link from "../src/Link";
 import Sponsors from "../components/sponsors";
 
 import {
   Box,
   Container,
   Typography,
-  Button,
-  Divider,
   Paper,
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
