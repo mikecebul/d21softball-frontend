@@ -73,6 +73,14 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
               <Moment format="YYYY">{sortedcamps[0].date_from}</Moment>{" "}
               Development Workshops
             </Typography>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
+              Get prepared for the upcomming season
+            </Typography>
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">

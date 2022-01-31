@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   outterBox: {
-    margin: theme.spacing(4, 0, 8, 0),
+    margin: theme.spacing(8, 0, 8, 0),
   },
   paper: {
     margin: theme.spacing(0, 0, 4, 0),
