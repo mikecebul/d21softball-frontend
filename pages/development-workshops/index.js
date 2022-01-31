@@ -16,7 +16,11 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import { fromImageToUrl, API_URL } from "../../utils/urls";
+import {
+  fromImageToUrl,
+  API_URL,
+  fromImageToUrlThumbnail,
+} from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 
 const useStyles = makeStyles((theme) => ({
@@ -97,7 +101,7 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
                     >
                       <CardMedia
                         className={classes.cardMedia}
-                        image={fromImageToUrl(camp.image)}
+                        image={fromImageToUrlThumbnail(camp.image)}
                         title={camp.meta_title}
                       />
                       <CardContent className={classes.cardContent}>

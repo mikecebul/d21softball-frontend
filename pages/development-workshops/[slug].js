@@ -6,20 +6,27 @@ import Sponsors from "../../components/sponsors";
 import moment from "moment";
 
 import Moment from "react-moment";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  useMediaQuery,
+  useTheme,
+  Paper,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button,
+  Container,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { fromImageToUrl, API_URL } from "../../utils/urls";
+import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
 
@@ -53,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
 
 const DevelopmentWorkshops = ({ camp, sponsors }) => {
   const classes = useStyles();
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+
   const [type, setType] = useState("");
   const [selected, setSelected] = useState(false);
 
@@ -83,7 +94,11 @@ const DevelopmentWorkshops = ({ camp, sponsors }) => {
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
-            image={fromImageToUrl(camp.image)}
+            image={
+              matches
+                ? fromImageToUrlSmall(camp.image)
+                : fromImageToUrl(camp.image)
+            }
             title={camp.meta_title}
           />
           <CardContent className={classes.cardContent}>

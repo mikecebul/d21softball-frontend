@@ -16,7 +16,11 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import { fromImageToUrl, API_URL } from "../../utils/urls";
+import {
+  fromImageToUrl,
+  API_URL,
+  fromImageToUrlThumbnail,
+} from "../../utils/urls";
 import {
   filteredItems,
   uniqueYears,
@@ -125,7 +129,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
                       >
                         <CardMedia
                           className={classes.cardMedia}
-                          image={fromImageToUrl(tournament.image)}
+                          image={fromImageToUrlThumbnail(tournament.image)}
                           title={tournament.meta_title}
                         />
                         <CardContent className={classes.cardContent}>

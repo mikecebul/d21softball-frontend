@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_URL, fromImageToUrl } from "../utils/urls";
+import { API_URL, fromImageToUrlSmall } from "../utils/urls";
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
 import Sponsors from "../components/sponsors";
@@ -132,7 +132,7 @@ export default function Motel({ motel, sponsors }) {
                     >
                       <a target="_blank" href={info.url}>
                         <Image
-                          src={fromImageToUrl(info.media)}
+                          src={fromImageToUrlSmall(info.media)}
                           alt="Link to local Motels"
                           height={info.media.height}
                           width={info.media.width}

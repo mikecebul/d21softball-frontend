@@ -2,21 +2,25 @@ import React from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
 import Markdown from "markdown-to-jsx";
-import { fromImageToUrl, API_URL } from "../../utils/urls";
+import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
 import Sponsors from "../../components/sponsors";
 
 import Moment from "react-moment";
-import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
+import {
+  useMediaQuery,
+  useTheme,
+  Paper,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button,
+  Container,
+} from "@material-ui/core";
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
@@ -68,6 +72,11 @@ const Tournament = ({ tournament, sponsors }) => {
   const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
 
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+
+  // console.log("Matches?", matches);
+
   return (
     <>
       <Head>
@@ -84,7 +93,11 @@ const Tournament = ({ tournament, sponsors }) => {
           {tournament.image && (
             <CardMedia
               className={classes.cardMedia}
-              image={fromImageToUrl(tournament.image)}
+              image={
+                matches
+                  ? fromImageToUrlSmall(tournament.image)
+                  : fromImageToUrl(tournament.image)
+              }
               title={tournament.meta_title}
             />
           )}
