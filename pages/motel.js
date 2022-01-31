@@ -32,9 +32,13 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(5),
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("md")]: {
       paddingLeft: theme.spacing(35),
       paddingRight: theme.spacing(35),
+    },
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: theme.spacing(15),
+      paddingRight: theme.spacing(15),
     },
     [theme.breakpoints.down("xs")]: {
       paddingLeft: theme.spacing(5),
@@ -48,16 +52,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 0, 4, 0),
     padding: theme.spacing(4, 8, 4, 8),
     [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(2, 0, 2, 0),
-    },
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  paper: {
-    padding: theme.spacing(4, 8, 4, 8),
-    [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(2, 0, 2, 0),
+      padding: theme.spacing(4, 2, 4, 2),
     },
     height: "100%",
     display: "flex",
@@ -66,13 +61,13 @@ const useStyles = makeStyles((theme) => ({
   box: {
     flexDirection: "column",
     margin: theme.spacing(2, 0, 4, 0),
-    [theme.breakpoints.down("xs")]: {
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-    },
     [theme.breakpoints.down("md")]: {
       display: "flex",
       alignItems: "center",
+    },
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
   },
   divider: {

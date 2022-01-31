@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 2),
   },
-  content: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+  linkContent: {
+    padding: theme.spacing(2, 0),
   },
   outterBox: {
     margin: theme.spacing(8, 0, 8, 0),
@@ -118,7 +117,7 @@ export default function PitcherClassification({ pitchers, sponsors }) {
                     )}
                     {pitchers.link.content && (
                       <Typography>
-                        <Markdown className={classes.content} align={align}>
+                        <Markdown className={classes.linkContent} align={align}>
                           {pitchers.link.content}
                         </Markdown>
                       </Typography>
