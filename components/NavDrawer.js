@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { API_URL } from "../utils/urls";
-import { useRouter } from "next/router";
 
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -16,20 +15,21 @@ import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import SportsHandballOutlinedIcon from "@material-ui/icons/SportsHandballOutlined";
 import Link from "../src/Link";
 
-import Collapse from "@material-ui/core/Collapse";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+// import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+// import Collapse from "@material-ui/core/Collapse";
+// import InboxIcon from "@material-ui/icons/MoveToInbox";
+// import DraftsIcon from "@material-ui/icons/Drafts";
+// import SendIcon from "@material-ui/icons/Send";
+// import ExpandLess from "@material-ui/icons/ExpandLess";
+// import ExpandMore from "@material-ui/icons/ExpandMore";
 import HotelOutlinedIcon from "@material-ui/icons/HotelOutlined";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
+import SportsIcon from "@material-ui/icons/Sports";
 import { Divider, ListSubheader } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -154,6 +154,15 @@ const NavDrawer = () => {
                 <PeopleOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="Leagues" />
+            </ListItem>
+          </Link>
+          {/* Umpires */}
+          <Link href="/umpire" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <SportsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Umpires" />
             </ListItem>
           </Link>
           {/* Nested List Item */}

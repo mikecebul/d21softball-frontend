@@ -46,10 +46,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   outterBox: {
-    margin: theme.spacing(0, 0, 4, 0),
+    // margin: theme.spacing(0, 0, 4, 0),
   },
   paper: {
-    margin: theme.spacing(0, 0, 4, 0),
+    // margin: theme.spacing(0, 0, 4, 0),
     padding: theme.spacing(4, 8, 4, 8),
     [theme.breakpoints.down("xs")]: {
       padding: theme.spacing(4, 2, 4, 2),

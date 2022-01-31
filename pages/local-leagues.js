@@ -93,7 +93,7 @@ export default function Motel({ leagues, sponsors }) {
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const align = matches ? "left" : "center";
 
-  console.log("Leagues:", leagues);
+  // console.log("Leagues:", leagues);
   return (
     <React.Fragment>
       <main className={classes.root}>

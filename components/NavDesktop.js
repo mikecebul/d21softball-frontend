@@ -125,6 +125,13 @@ export default function NavDesktop() {
           </ListItem>
         </Link>
       </List>
+      <List>
+        <Link href="/umpire" color="inherit">
+          <ListItem button>
+            <ListItemText primary="Umpires" />
+          </ListItem>
+        </Link>
+      </List>
       {/* drop down menu */}
       {/* <List
         Button
