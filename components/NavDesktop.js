@@ -36,7 +36,7 @@ export default function NavDesktop() {
 
   return (
     <Box display="flex" flexGrow={1} alignItems="center">
-      <List>
+      <List disablePadding={true}>
         <Link href="/" color="inherit">
           <ListItem button>
             <ListItemText className={classes.logo} primary="D21 Softball" />

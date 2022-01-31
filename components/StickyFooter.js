@@ -3,6 +3,8 @@ import Link from "../src/Link";
 import Image from "next/image";
 import { API_URL } from "../utils/urls";
 import Copyright from "../src/Copyright";
+import USATallLogo from "../public/USA_Michigan_Primary_-_Blue_small.jpg";
+import USAWideLogo from "../public/USA-Michigan-Secondary---Blue_small.png";
 
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -14,9 +16,13 @@ import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import PhoneOutlinedIcon from "@material-ui/icons/PhoneOutlined";
 import FacebookIcon from "@material-ui/icons/Facebook";
+import LanguageOutlinedIcon from "@material-ui/icons/LanguageOutlined";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   foot: {
@@ -24,34 +30,41 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 2),
     backgroundColor: theme.palette.grey[200],
   },
-  noIcon: {
-    paddingLeft: theme.spacing(9),
-  },
 }));
 
 const StickyFooter = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const roomForLogo = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <footer className={classes.foot}>
       <Container maxWidth="xl">
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={4}>
+        <Grid container spacing={5} spacing={2}>
+          <Grid item xs={12} md={4}>
             <Box display="flex" justifyContent="center">
-              <a target="_blank" href="https://www.usasoftballmi.org/</Grid>">
-                <Image
-                  src={`${API_URL}/uploads/USA_Softball_Logo_Tall_4dbcb2e49c.jpg`}
-                  alt="Link to USA Softball of Michigan"
-                  height={240}
-                  width={195}
-                ></Image>
-                {/* <Typography variant="caption">
-                Petoskey Area Hotel Listings
-              </Typography> */}
-              </a>
+              {!roomForLogo ? (
+                <a target="_blank" href="https://www.usasoftballmi.org/">
+                  <Image
+                    src={USAWideLogo}
+                    alt="Link to USA Softball of Michigan"
+                    height={78}
+                    width={240}
+                  ></Image>
+                </a>
+              ) : (
+                <a target="_blank" href="https://www.usasoftballmi.org/">
+                  <Image
+                    src={USATallLogo}
+                    alt="Link to USA Softball of Michigan"
+                    height={240}
+                    width={195}
+                  ></Image>
+                </a>
+              )}
             </Box>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             <Box borderBottom={2}>
               <Typography variant="h6">
                 District Commissioner - Scott Kelly
@@ -87,7 +100,7 @@ const StickyFooter = () => {
               </Link>
             </List>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} md={4}>
             <Box borderBottom={2}>
               <Typography variant="h6">Links</Typography>
             </Box>
@@ -111,7 +124,10 @@ const StickyFooter = () => {
                 target="_blank"
                 color="inherit"
               >
-                <ListItem className={classes.noIcon} button>
+                <ListItem button>
+                  <ListItemIcon>
+                    <LanguageOutlinedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="USA Softball MI" />
                 </ListItem>
               </Link>
@@ -121,7 +137,10 @@ const StickyFooter = () => {
                 target="_blank"
                 color="inherit"
               >
-                <ListItem className={classes.noIcon} button>
+                <ListItem button>
+                  <ListItemIcon>
+                    <LanguageOutlinedIcon />
+                  </ListItemIcon>
                   <ListItemText primary="BASES Recovery Center" />
                 </ListItem>
               </Link>

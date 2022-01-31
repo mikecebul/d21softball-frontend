@@ -66,13 +66,13 @@ const Index = ({ frontPage, sponsors }) => {
         />
       </Head>
       {/* Hero unit */}
-      <div className={classes.heroContent}>
+      {/* <div className={classes.heroContent}>
         <Container maxWidth="sm">
           <Box display="flex" justifyContent="center">
             <Image src={logo} alt="Site Logo" />
           </Box>
         </Container>
-      </div>
+      </div> */}
       {/* End hero unit */}
       <Container maxWidth="md">
         <FrontPageNews news={frontPage.news} />

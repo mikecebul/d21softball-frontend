@@ -1,6 +1,9 @@
 import React from "react";
 import { useCurrentUser } from "../context/CurrentUser";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import USAWideLogo from "../public/USA-Michigan-Secondary---Blue_small.png";
+
 import NavDrawer from "./NavDrawer";
 import NavDesktop from "./NavDesktop";
 import AccountMenu from "./AccountMenu";
@@ -46,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "start",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1.5),
+      paddingLeft: theme.spacing(1),
     },
     [theme.breakpoints.down("xs")]: {
       justifyContent: "center",
@@ -79,7 +83,7 @@ export default function Navbar() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const tinyMobile = useMediaQuery("(min-width:360px)");
-  const mobile = useMediaQuery("(min-width:425px)");
+  const roomForLogo = useMediaQuery("(min-width:750px)");
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -96,28 +100,36 @@ export default function Navbar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Box display="flex" className={classes.navbar}>
-            {tinyMobile && (
-              <Box display="flex" className={classes.navItems}>
-                <List dense className={classes.horizMenu}>
-                  <Link href="mailto:scott@masad21.org" color="inherit">
-                    <ListItem button className={classes.button}>
-                      <ListItemIcon className={classes.icon}>
-                        <EmailOutlinedIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText primary="scott@d21softball.org" />
-                    </ListItem>
-                  </Link>
-                  <Link href="tel:123-547-1144" color="inherit">
-                    <ListItem button className={classes.button}>
-                      <ListItemIcon className={classes.icon}>
-                        <PhoneOutlinedIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText primary="(231) 547-1144" />
-                    </ListItem>
-                  </Link>
-                </List>
-              </Box>
-            )}
+            <Box display="flex" className={classes.navItems}>
+              {roomForLogo && (
+                <a target="_blank" href="https://www.usasoftballmi.org/">
+                  <Image
+                    src={USAWideLogo}
+                    alt="Link to USA Softball of Michigan"
+                    height={78}
+                    width={240}
+                  ></Image>
+                </a>
+              )}
+              <List dense className={classes.horizMenu}>
+                <Link href="mailto:scott@masad21.org" color="inherit">
+                  <ListItem button className={classes.button}>
+                    <ListItemIcon className={classes.icon}>
+                      <EmailOutlinedIcon className={classes.icon} />
+                    </ListItemIcon>
+                    <ListItemText primary="scott@d21softball.org" />
+                  </ListItem>
+                </Link>
+                <Link href="tel:123-547-1144" color="inherit">
+                  <ListItem button className={classes.button}>
+                    <ListItemIcon className={classes.icon}>
+                      <PhoneOutlinedIcon className={classes.icon} />
+                    </ListItemIcon>
+                    <ListItemText primary="(231) 547-1144" />
+                  </ListItem>
+                </Link>
+              </List>
+            </Box>
             <Toolbar>
               {matches ? (
                 <NavDesktop />

@@ -30,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.getContrastText(blueGrey[100]),
       backgroundColor: blueGrey[100],
     },
+
+    [theme.breakpoints.down("sm")]: {
+      width: "32px",
+      height: "32px",
+    },
   },
 }));
 

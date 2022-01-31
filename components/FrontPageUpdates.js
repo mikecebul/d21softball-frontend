@@ -100,8 +100,8 @@ export default function FrontPageUpdates({ updates }) {
           <Box className={classes.outterBox}>
             <Paper className={classes.paper} elevation={3}>
               {updates.map((update) => (
-                <>
-                  <Box className={classes.box} key={update.title}>
+                <React.Fragment key={update.id}>
+                  <Box className={classes.box}>
                     {update.title && (
                       <Typography variant="h6" align={align}>
                         {update.title}
@@ -146,7 +146,7 @@ export default function FrontPageUpdates({ updates }) {
                     )}
                   </Box>
                   <Divider className={classes.divider} />
-                </>
+                </React.Fragment>
               ))}
             </Paper>
           </Box>
