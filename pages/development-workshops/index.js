@@ -88,7 +88,7 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
 
           <Grid container spacing={4} justifyContent="center">
             {sortedcamps.map((camp) => (
-              <Grid item key={camp.name} xs={12} sm={6} md={4}>
+              <Grid item key={camp.name} xs={10} sm={5} md={4}>
                 <Card className={classes.card} raised>
                   <CardActionArea>
                     <Link

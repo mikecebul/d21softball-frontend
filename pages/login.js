@@ -17,7 +17,8 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    // marginTop: theme.spacing(8),
+    padding: theme.spacing(8, 0),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
