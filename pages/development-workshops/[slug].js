@@ -125,7 +125,7 @@ const DevelopmentWorkshops = ({ camp, sponsors }) => {
             </FormControl>
           </Box>
           <CardActions>
-            <Link href={`/camps/${camp.slug}`}>
+            <Link href={`/development-workshops/${camp.slug}`}>
               <BuyButton
                 variant="contained"
                 camp={camp}

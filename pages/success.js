@@ -13,10 +13,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(6),
-    paddingRight: theme.spacing(6),
+    padding: theme.spacing(2, 6, 2, 6),
+    // paddingTop: theme.spacing(2),
+    // paddingBottom: theme.spacing(2),
+    // paddingLeft: theme.spacing(6),
+    // paddingRight: theme.spacing(6),
+    margin: theme.spacing(0, 4, 8, 4),
   },
 }));
 
@@ -67,9 +69,11 @@ export default function Success() {
         <title>Thank you for registering!</title>
         <meta name="description" content="thank you for registering!" />
       </Head>
-      <Typography variant="h2" align="center">
-        Success!
-      </Typography>
+      <Box p={(2, 4)}>
+        <Typography variant="h2" align="center">
+          Success
+        </Typography>
+      </Box>
       {loading && (
         <Typography variant="subtitle1" align="center">
           Loading...
@@ -80,17 +84,25 @@ export default function Success() {
           <Box display="flex" justifyContent="center">
             <Paper className={classes.paper}>
               <Typography display="block" variant="subtitle1" align="center">
-                Your order of
+                Your order of{" "}
+                <strong>
+                  {order.tournament?.name}
+                  {order.camp?.name}{" "}
+                </strong>
+                with <strong>order number: {order.id}</strong> is complete!
               </Typography>
-              <Typography display="block" variant="h6" align="center">
+              {/* <Typography display="block" variant="h6" align="center">
                 {order.tournament?.name}
                 {order.camp?.name}
               </Typography>
               <Typography display="block" variant="subtitle1" align="center">
                 with order number: {order.id}
               </Typography>
+              <Typography display="block" variant="subtitle1" align="center">
+                is complete
+              </Typography> */}
               <Box display="flex" justifyContent="center" mt={2}>
-                <Typography>
+                <Typography variant="caption" align="center">
                   You will be recieving an email from the District Commissioner
                   soon
                 </Typography>

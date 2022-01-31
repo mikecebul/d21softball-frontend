@@ -13,6 +13,12 @@ import {
   Paper,
   useMediaQuery,
   useTheme,
+  TableContainer,
+  Table,
+  TableRow,
+  TableCell,
+  TableHead,
+  TableBody,
 } from "@material-ui/core";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(8, 4, 2, 4),
   },
   linkContent: {
-    padding: theme.spacing(2, 0),
+    padding: theme.spacing(4, 0, 0, 0),
+    margin: theme.spacing(0, 0, 0, 0),
   },
   outterBox: {
     margin: theme.spacing(8, 0, 8, 0),
@@ -68,6 +75,17 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(4),
   },
+  table: {
+    minWidth: 340,
+  },
+  tableContaner: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
 }));
 
 export default function PitcherClassification({ pitchers, sponsors }) {
@@ -77,7 +95,7 @@ export default function PitcherClassification({ pitchers, sponsors }) {
 
   const align = matches ? "left" : "center";
 
-  // console.log("Pitchers :", pitchers.link);
+  // console.log("Pitchers :", pitchers);
   return (
     <React.Fragment>
       <main className={classes.root}>
@@ -106,10 +124,10 @@ export default function PitcherClassification({ pitchers, sponsors }) {
         <Container maxWidth="md">
           {/* Link to Pitcher Classification List */}
           <Box className={classes.outterBox}>
-            <Paper className={classes.paper} elevation={3}>
-              <Box className={classes.box}>
-                {pitchers && (
-                  <>
+            {pitchers.link && (
+              <>
+                <Paper className={classes.paper} elevation={3}>
+                  <Box className={classes.box}>
                     {pitchers.link.title && (
                       <Typography variant="h6" align={align}>
                         {pitchers.link.title}
@@ -152,10 +170,64 @@ export default function PitcherClassification({ pitchers, sponsors }) {
                         </Button>
                       </a>
                     )}
+                  </Box>
+                </Paper>
+              </>
+            )}
+            <Box p={2} />
+            <Divider />
+            <Box p={4} />
+            {/* Table of Committee Members */}
+            {pitchers.committee_members && (
+              <TableContainer
+                component={Paper}
+                elevation={3}
+                className={classes.tableContainer}
+              >
+                {pitchers.title ? (
+                  <>
+                    <Box p={(2, 6)}>
+                      <Typography variant="h4" align="center">
+                        {pitchers.title}
+                      </Typography>
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    <Box p={(2, 4)}>
+                      <Typography variant="h4" align="center">
+                        Fast Pitch Classification Committee Members
+                      </Typography>
+                    </Box>
                   </>
                 )}
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={classes.head}>Name</TableCell>
+                      <TableCell className={classes.head}>Position</TableCell>
+                      <TableCell className={classes.head}>Location</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {pitchers.committee_members.map((member) => (
+                      <TableRow key={member.id}>
+                        <TableCell>{member.name}</TableCell>
+                        <TableCell>{member.position}</TableCell>
+                        <TableCell>{member.location}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+            {pitchers.appeal_process && (
+              <Box p={(0, 4)}>
+                <Typography variant="caption">
+                  <Markdown>{pitchers.appeal_process}</Markdown>
+                </Typography>
               </Box>
-            </Paper>
+            )}
             <Sponsors sponsors={sponsors} />
           </Box>
         </Container>

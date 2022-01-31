@@ -18,7 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    minWidth: 600,
+    minWidth: 340,
   },
   paper: {
     marginTop: theme.spacing(4),
