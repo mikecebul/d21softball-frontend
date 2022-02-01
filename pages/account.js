@@ -72,13 +72,6 @@ export default function Account() {
         </div>
       ) : (
         <div>
-          <Head>
-            <title>Account Page</title>
-            <meta
-              name="description"
-              content="The Account page to view you MASA D21 activity"
-            />
-          </Head>
           <Container maxWidth="md">
             <Typography variant="h2" align="center">
               Account
