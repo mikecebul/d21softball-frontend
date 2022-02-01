@@ -66,18 +66,20 @@ const Index = ({ frontPage, sponsors }) => {
         />
       </Head>
       {/* Hero unit */}
-      <div className={classes.heroContent}>
-        <Box display="flex" justifyContent="center">
-          <Image
-            src={fromImageToUrl(frontPage.hero_image)}
-            width={frontPage.hero_image.width}
-            height={frontPage.hero_image.height}
-            // layout="fill"
-            objectFit="cover"
-            alt="Site Logo"
-          />
-        </Box>
-      </div>
+      {frontPage.hero_image && (
+        <div className={classes.heroContent}>
+          <Box display="flex" justifyContent="center">
+            <Image
+              src={fromImageToUrl(frontPage.hero_image)}
+              width={frontPage.hero_image.width}
+              height={frontPage.hero_image.height}
+              // layout="fill"
+              objectFit="cover"
+              alt="Site Logo"
+            />
+          </Box>
+        </div>
+      )}
       {/* End hero unit */}
       <Container maxWidth="md">
         <FrontPageNews news={frontPage.news} />
