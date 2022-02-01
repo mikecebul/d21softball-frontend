@@ -2,15 +2,23 @@ import React from "react";
 import Markdown from "markdown-to-jsx";
 import moment from "moment";
 
-import { Typography, Paper, Divider, Box } from "@material-ui/core";
+import {
+  Typography,
+  Paper,
+  useMediaQuery,
+  useTheme,
+  Box,
+} from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     // backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(4, 0, 2),
-    marginTop: theme.spacing(2),
+    padding: theme.spacing(6, 0, 2, 0),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(6, 0, 0, 0),
+    },
   },
   paper: {
     padding: theme.spacing(4, 8, 4, 8),
@@ -29,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   outterBox: {
-    margin: theme.spacing(4, 0, 4, 0),
+    margin: theme.spacing(4, 0, 0, 0),
   },
   date: {
     paddingBottom: theme.spacing(3),
@@ -47,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FrontPageUpdates({ news }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
     <>
@@ -54,7 +64,7 @@ export default function FrontPageUpdates({ news }) {
       <div className={classes.heroContent}>
         <Typography
           component="h1"
-          variant="h2"
+          variant={mobile ? "h4" : "h2"}
           align="center"
           color="textPrimary"
           gutterBottom

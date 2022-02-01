@@ -68,7 +68,7 @@ export default function AccountMenu() {
       .post(`${API_URL}/logout`, {}, { withCredentials: true })
       .then((response) => {
         // Handle success.
-        console.log("Data: ", response.data);
+        // console.log("Data: ", response.data);
         dispatch({ type: "LOGOUT" });
         router.push("/");
       })

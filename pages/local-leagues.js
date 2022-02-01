@@ -28,29 +28,19 @@ const useStyles = makeStyles((theme) => ({
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 4, 2, 4),
+    padding: theme.spacing(8, 2, 2, 2),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(6, 2, 2, 2),
+    },
   },
   content: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-  },
-  logo: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(5),
-    [theme.breakpoints.up("xs")]: {
-      paddingLeft: theme.spacing(35),
-      paddingRight: theme.spacing(35),
-    },
     [theme.breakpoints.down("xs")]: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      paddingTop: theme.spacing(5),
     },
-  },
-  outterBox: {
-    margin: theme.spacing(0, 0, 4, 0),
   },
   paper: {
-    margin: theme.spacing(0, 0, 4, 0),
     padding: theme.spacing(4, 8, 4, 8),
     [theme.breakpoints.down("xs")]: {
       padding: theme.spacing(2, 2, 2, 2),
@@ -92,6 +82,7 @@ export default function Motel({ leagues, sponsors }) {
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
   const align = matches ? "left" : "center";
 
   // console.log("Leagues:", leagues);
@@ -109,7 +100,7 @@ export default function Motel({ leagues, sponsors }) {
         <div className={classes.heroContent}>
           <Typography
             component="h1"
-            variant="h2"
+            variant={mobile ? "h4" : "h2"}
             align="center"
             color="textPrimary"
             gutterBottom
@@ -117,7 +108,7 @@ export default function Motel({ leagues, sponsors }) {
             Local Softball Leagues
           </Typography>
           <Typography
-            variant="h5"
+            variant={mobile ? "body1" : "h5"}
             align="center"
             color="textSecondary"
             paragraph
@@ -130,7 +121,7 @@ export default function Motel({ leagues, sponsors }) {
           <Box display="flex" flexDirection="column" justifyContent="center">
             {info ? (
               <>
-                <Box className={classes.outterBox}>
+                <Box>
                   <Paper className={classes.paper} elevation={3}>
                     {info.map((league) => (
                       <React.Fragment key={league.id}>

@@ -30,7 +30,7 @@ export default function BuyButton({ tournament, camp, selected }) {
         { withCredentials: true }
       )
       .then((resp) => {
-        console.log("handle buy respone:", resp.data);
+        // console.log("handle buy respone:", resp.data);
         const session = resp.data;
         const result = stripe.redirectToCheckout({
           sessionId: session.id,

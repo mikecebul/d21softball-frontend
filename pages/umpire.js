@@ -29,11 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 4, 2, 4),
+    padding: theme.spacing(8, 2, 2, 2),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(6, 2, 2, 2),
+    },
   },
   content: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
+    [theme.breakpoints.down("xs")]: {
+      paddingTop: theme.spacing(5),
+    },
   },
   outterBox: {
     margin: theme.spacing(0, 0, 0, 0),
@@ -82,6 +88,7 @@ export default function Motel({ umpire, sponsors }) {
   const info = umpire.umpire;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
 
   const align = matches ? "left" : "center";
 
@@ -101,7 +108,7 @@ export default function Motel({ umpire, sponsors }) {
         <div className={classes.heroContent}>
           <Typography
             component="h1"
-            variant="h2"
+            variant={mobile ? "h4" : "h2"}
             align="center"
             color="textPrimary"
             gutterBottom
@@ -109,7 +116,7 @@ export default function Motel({ umpire, sponsors }) {
             {info.header}
           </Typography>
           <Typography
-            variant="h5"
+            variant={mobile ? "body1" : "h5"}
             align="center"
             color="textSecondary"
             paragraph

@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  content: {
+    padding: theme.spacing(4, 2, 0, 2),
+  },
 }));
 
 export default function Account() {
@@ -71,7 +74,7 @@ export default function Account() {
         </div>
       ) : (
         <div>
-          <Container maxWidth="md">
+          <Container maxWidth="md" className={classes.content}>
             <Typography variant="h2" align="center">
               Account
             </Typography>

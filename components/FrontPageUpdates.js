@@ -21,8 +21,10 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     // backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(4, 0, 2),
-    marginTop: theme.spacing(2),
+    padding: theme.spacing(6, 0, 2, 0),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(6, 0, 0, 0),
+    },
   },
   paper: {
     padding: theme.spacing(4, 8, 4, 8),
@@ -75,6 +77,7 @@ export default function FrontPageUpdates({ updates }) {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
 
   const align = matches ? "left" : "center";
 
@@ -89,7 +92,7 @@ export default function FrontPageUpdates({ updates }) {
             <Divider className={classes.divider} />
             <Typography
               component="h2"
-              variant="h2"
+              variant={mobile ? "h4" : "h2"}
               align="center"
               color="textPrimary"
               gutterBottom
