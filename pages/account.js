@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
-import Head from "next/head";
 import axios from "axios";
 import { API_URL } from "../utils/urls";
 import { useRouter } from "next/router";
