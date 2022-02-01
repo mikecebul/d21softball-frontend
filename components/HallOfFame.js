@@ -1,7 +1,7 @@
 import React from "react";
 import Markdown from "markdown-to-jsx";
 import { fromImageToUrl, API_URL } from "../utils/urls";
-import { Link } from "../src/Link";
+import Link from "../src/Link";
 
 import {
   Box,
