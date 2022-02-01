@@ -20,6 +20,7 @@ import {
   TableHead,
   TableBody,
 } from "@material-ui/core";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 // import NewspaperIcon from "@material-ui/icons/Newspaper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -48,10 +49,43 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
+  outterBox: {
+    margin: theme.spacing(4, 0, 4, 0),
+  },
+  paper: {
+    padding: theme.spacing(4, 8, 4, 8),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(2, 0, 2, 0),
+    },
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  updateButton: {
+    margin: theme.spacing(4, 0, 0, 0),
+    // [theme.breakpoints.down("md")]: {
+    //   alignSelf: "center",
+    // },
+  },
+  link: {
+    textDecoration: "none",
+  },
+  content: {
+    margin: theme.spacing(2, 0, 0, 0),
+  },
+  divider: {
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
+  },
 }));
 
 export default function HallOfFame({ hallOfFame }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+  const align = matches ? "left" : "center";
   // console.log("Hall of Fame:", hallOfFame.table);
   return (
     <React.Fragment>
@@ -120,6 +154,78 @@ export default function HallOfFame({ hallOfFame }) {
             </Table>
           </TableContainer>
         )}
+        <>
+          {hallOfFame.links && (
+            <>
+              {/* Hero unit */}
+              {/* <div className={classes.heroContent}>
+            <Divider className={classes.divider} />
+            <Typography
+              component="h2"
+              variant={mobile ? "h4" : "h2"}
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
+              Updates
+            </Typography>
+          </div> */}
+              <Box className={classes.outterBox}>
+                <Paper className={classes.paper} elevation={3}>
+                  {hallOfFame.links.map((link) => (
+                    <React.Fragment key={link.id}>
+                      <Box className={classes.box}>
+                        {link.title && (
+                          <Typography variant="h6" align={align}>
+                            {link.title}
+                          </Typography>
+                        )}
+                        {link.content && (
+                          <Typography>
+                            <Markdown className={classes.content} align={align}>
+                              {link.content}
+                            </Markdown>
+                          </Typography>
+                        )}
+                        {link.media && (
+                          <Button
+                            className={classes.updateButton}
+                            size="small"
+                            endIcon={<ArrowRightIcon />}
+                            color="primary"
+                            variant="contained"
+                            component={Link}
+                            href={API_URL + link.media.url}
+                          >
+                            Check it out
+                          </Button>
+                        )}
+                        {link.link && (
+                          <a
+                            href={link.link}
+                            target="_blank"
+                            className={classes.link}
+                          >
+                            <Button
+                              className={classes.updateButton}
+                              size="small"
+                              endIcon={<ArrowRightIcon />}
+                              color="primary"
+                              variant="contained"
+                            >
+                              Check it out
+                            </Button>
+                          </a>
+                        )}
+                      </Box>
+                      <Divider className={classes.divider} />
+                    </React.Fragment>
+                  ))}
+                </Paper>
+              </Box>
+            </>
+          )}
+        </>
       </Container>
     </React.Fragment>
   );
