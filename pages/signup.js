@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -127,106 +128,115 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="first-name"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                error={Boolean(errorMsg?.firstName)}
-                helperText={errorMsg?.firstName}
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
+    <>
+      <Head>
+        <title>Register Your Profile</title>
+        <meta
+          name="description"
+          content="Register your account for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="first-name"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  error={Boolean(errorMsg?.firstName)}
+                  helperText={errorMsg?.firstName}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="last-name"
+                  error={Boolean(errorMsg?.lastName)}
+                  helperText={errorMsg?.lastName}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  error={Boolean(errorMsg?.email)}
+                  helperText={errorMsg?.email}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  error={Boolean(errorMsg?.password)}
+                  helperText={errorMsg?.password}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="last-name"
-                error={Boolean(errorMsg?.lastName)}
-                helperText={errorMsg?.lastName}
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Already have an account? Login
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                error={Boolean(errorMsg?.email)}
-                helperText={errorMsg?.email}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                error={Boolean(errorMsg?.password)}
-                helperText={errorMsg?.password}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e) => handleSubmit(e)}
-          >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link href="/login" variant="body2">
-                Already have an account? Login
-              </Link>
-            </Grid>
-          </Grid>
-          {errorMsg && (
-            <Box pt={2}>
-              <Typography align="center" variant="subtitle2" color="error">
-                {errorMsg.register}
-              </Typography>
-            </Box>
-          )}
-        </form>
-      </div>
-    </Container>
+            {errorMsg && (
+              <Box pt={2}>
+                <Typography align="center" variant="subtitle2" color="error">
+                  {errorMsg.register}
+                </Typography>
+              </Box>
+            )}
+          </form>
+        </div>
+      </Container>
+    </>
   );
 }

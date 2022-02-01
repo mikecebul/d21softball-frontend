@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import Link from "../../src/Link";
 import Image from "next/image";
 import Sponsors from "../../components/sponsors";
@@ -16,11 +17,7 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import {
-  fromImageToUrl,
-  API_URL,
-  fromImageToUrlThumbnail,
-} from "../../utils/urls";
+import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +60,13 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
   );
   return (
     <React.Fragment>
+      <Head>
+        <title>Development Workshops</title>
+        <meta
+          name="description"
+          content="Development workshops for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -101,7 +105,7 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
                     >
                       <CardMedia
                         className={classes.cardMedia}
-                        image={fromImageToUrlThumbnail(camp.image)}
+                        image={fromImageToUrlSmall(camp.image)}
                         title={camp.meta_title}
                       />
                       <CardContent className={classes.cardContent}>

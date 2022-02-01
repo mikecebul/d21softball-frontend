@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import { API_URL, fromImageToUrlSmall } from "../utils/urls";
 import Markdown from "markdown-to-jsx";
 import Image from "next/image";
@@ -88,6 +89,13 @@ export default function Motel({ motel, sponsors }) {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>Motel Information</title>
+        <meta
+          name="description"
+          content="Motel information for staying in Petoskey while attending events for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>

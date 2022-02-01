@@ -6,7 +6,7 @@ import Sponsors from "../components/sponsors";
 import FrontPageUpdates from "../components/FrontPageUpdates";
 import FrontPageNews from "../components/FrontPageNews";
 
-import { API_URL } from "../utils/urls";
+import { API_URL, fromImageToUrl } from "../utils/urls";
 import Image from "next/image";
 import logo from "../public/logo.svg";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,10 +14,10 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 4, 8, 4),
-    [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(4, 4, 4, 4),
-    },
+    // padding: theme.spacing(8, 4, 8, 4),
+    // [theme.breakpoints.down("xs")]: {
+    //   padding: theme.spacing(4, 4, 4, 4),
+    // },
   },
   paper: {
     padding: theme.spacing(4, 8, 4, 8),
@@ -59,20 +59,25 @@ const Index = ({ frontPage, sponsors }) => {
   return (
     <>
       <Head>
-        <title>D21 Softball Home Page</title>
+        <title>D21 Softball</title>
         <meta
           name="description"
           content="Men's fastpitch softball in distrct 21 of Northern Michigan."
         />
       </Head>
       {/* Hero unit */}
-      {/* <div className={classes.heroContent}>
-        <Container maxWidth="sm">
-          <Box display="flex" justifyContent="center">
-            <Image src={logo} alt="Site Logo" />
-          </Box>
-        </Container>
-      </div> */}
+      <div className={classes.heroContent}>
+        <Box display="flex" justifyContent="center">
+          <Image
+            src={fromImageToUrl(frontPage.hero_image)}
+            width={frontPage.hero_image.width}
+            height={frontPage.hero_image.height}
+            // layout="fill"
+            objectFit="cover"
+            alt="Site Logo"
+          />
+        </Box>
+      </div>
       {/* End hero unit */}
       <Container maxWidth="md">
         <FrontPageNews news={frontPage.news} />

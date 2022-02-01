@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import Link from "../../src/Link";
 import Moment from "react-moment";
 import Sponsors from "../../components/sponsors";
@@ -16,11 +17,7 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import {
-  fromImageToUrl,
-  API_URL,
-  fromImageToUrlThumbnail,
-} from "../../utils/urls";
+import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import {
   uniqueYears,
   sortIncrement,
@@ -91,6 +88,13 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>Tournament Archives</title>
+        <meta
+          name="description"
+          content="Archives of past tournaments and Hall of Fame records for men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -170,7 +174,7 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
                       >
                         <CardMedia
                           className={classes.cardMedia}
-                          image={fromImageToUrlThumbnail(tournament.image)}
+                          image={fromImageToUrlSmall(tournament.image)}
                           title={tournament.meta_title}
                         />
                         <CardContent className={classes.cardContent}>

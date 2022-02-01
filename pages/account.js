@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import Head from "next/head";
 import axios from "axios";
@@ -58,6 +59,13 @@ export default function Account() {
 
   return (
     <>
+      <Head>
+        <title>Account Page</title>
+        <meta
+          name="description"
+          content="Account page where you can view payment history for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       {!user.isAuthenticated ? (
         <div>
           <Typography>Please login or register</Typography>

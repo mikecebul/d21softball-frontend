@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { useCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -105,54 +106,63 @@ export default function Login() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Reset Password
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="password"
-            value={password}
-            error={Boolean(errorMsg?.password)}
-            helperText={errorMsg?.password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e) => handleSubmit(e)}
-          >
-            Submit Password
-          </Button>
-          <Box display="flex" justifyContent="flex-end">
-            <Link href="/login" variant="body2">
-              {"Return to login"}
-            </Link>
-          </Box>
-          {errorMsg && (
-            <Box pt={2}>
-              <Typography align="center" variant="subtitle2" color="error">
-                {errorMsg.reset}
-              </Typography>
+    <>
+      <Head>
+        <title>Reset Your Password</title>
+        <meta
+          name="description"
+          content="Reset your account password for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Reset Password
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="password"
+              value={password}
+              error={Boolean(errorMsg?.password)}
+              helperText={errorMsg?.password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Submit Password
+            </Button>
+            <Box display="flex" justifyContent="flex-end">
+              <Link href="/login" variant="body2">
+                {"Return to login"}
+              </Link>
             </Box>
-          )}
-        </form>
-      </div>
-    </Container>
+            {errorMsg && (
+              <Box pt={2}>
+                <Typography align="center" variant="subtitle2" color="error">
+                  {errorMsg.reset}
+                </Typography>
+              </Box>
+            )}
+          </form>
+        </div>
+      </Container>
+    </>
   );
 }

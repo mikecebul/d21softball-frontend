@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import Link from "../../src/Link";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
@@ -16,11 +17,7 @@ import Container from "@material-ui/core/Container";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 
-import {
-  fromImageToUrl,
-  API_URL,
-  fromImageToUrlThumbnail,
-} from "../../utils/urls";
+import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import {
   filteredItems,
   uniqueYears,
@@ -77,6 +74,13 @@ const Tournaments = ({ tournaments, sponsors }) => {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>Tournaments</title>
+        <meta
+          name="description"
+          content="Tournaments for men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -129,7 +133,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
                       >
                         <CardMedia
                           className={classes.cardMedia}
-                          image={fromImageToUrlThumbnail(tournament.image)}
+                          image={fromImageToUrlSmall(tournament.image)}
                           title={tournament.meta_title}
                         />
                         <CardContent className={classes.cardContent}>

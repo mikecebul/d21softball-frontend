@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Markdown from "markdown-to-jsx";
 import Link from "../src/Link";
@@ -34,50 +35,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
-  // logo: {
-  //   marginTop: theme.spacing(1),
-  //   marginBottom: theme.spacing(5),
-  //   [theme.breakpoints.up("md")]: {
-  //     paddingLeft: theme.spacing(35),
-  //     paddingRight: theme.spacing(35),
-  //   },
-  //   [theme.breakpoints.down("sm")]: {
-  //     paddingLeft: theme.spacing(15),
-  //     paddingRight: theme.spacing(15),
-  //   },
-  //   [theme.breakpoints.down("xs")]: {
-  //     paddingLeft: theme.spacing(5),
-  //     paddingRight: theme.spacing(5),
-  //   },
-  // },
-  // outterBox: {
-  //   margin: theme.spacing(0, 0, 4, 0),
-  // },
-  // paper: {
-  //   margin: theme.spacing(0, 0, 4, 0),
-  //   padding: theme.spacing(4, 8, 4, 8),
-  //   [theme.breakpoints.down("xs")]: {
-  //     padding: theme.spacing(4, 2, 4, 2),
-  //   },
-  //   height: "100%",
-  //   display: "flex",
-  //   flexDirection: "column",
-  // },
-  // box: {
-  //   flexDirection: "column",
-  //   margin: theme.spacing(2, 0, 4, 0),
-  //   [theme.breakpoints.down("md")]: {
-  //     display: "flex",
-  //     alignItems: "center",
-  //   },
-  //   [theme.breakpoints.down("xs")]: {
-  //     paddingLeft: theme.spacing(3),
-  //     paddingRight: theme.spacing(3),
-  //   },
-  // },
-  // divider: {
-  //   marginBottom: theme.spacing(4),
-  // },
   outterBox: {
     margin: theme.spacing(0, 0, 0, 0),
   },
@@ -132,6 +89,13 @@ export default function Motel({ umpire, sponsors }) {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>Umpire Information</title>
+        <meta
+          name="description"
+          content="Umpire registration information for men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>

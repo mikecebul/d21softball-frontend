@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Markdown from "markdown-to-jsx";
 import Link from "../src/Link";
@@ -98,6 +99,13 @@ export default function PitcherClassification({ pitchers, sponsors }) {
   // console.log("Pitchers :", pitchers);
   return (
     <React.Fragment>
+      <Head>
+        <title>Pitcher Clasification</title>
+        <meta
+          name="description"
+          content="Pitcher classifications and committee members for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
       <main className={classes.root}>
         {/* Hero unit */}
         <div className={classes.heroContent}>

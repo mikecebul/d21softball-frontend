@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { useCurrentUser, useDispatchCurrentUser } from "../context/CurrentUser";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -158,80 +159,89 @@ export default function Login() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            error={Boolean(errorMsg?.email)}
-            helperText={errorMsg?.email}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="password"
-            error={Boolean(errorMsg?.password)}
-            helperText={errorMsg?.password}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e) => handleSubmit(e)}
-          >
+    <>
+      <Head>
+        <title>Login to your Account</title>
+        <meta
+          name="description"
+          content="Login to your account for Men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
+      </Head>
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Login
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                href="#"
-                variant="body2"
-                onClick={(e) => handleForgotPassword(e)}
-              >
-                Forgot password?
-              </Link>
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              error={Boolean(errorMsg?.email)}
+              helperText={errorMsg?.email}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="password"
+              error={Boolean(errorMsg?.password)}
+              helperText={errorMsg?.password}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Login
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link
+                  href="#"
+                  variant="body2"
+                  onClick={(e) => handleForgotPassword(e)}
+                >
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-          {errorMsg && (
-            <Box pt={2}>
-              <Typography align="center" variant="subtitle2" color="error">
-                {errorMsg?.login}
-              </Typography>
-            </Box>
-          )}
-        </form>
-      </div>
-    </Container>
+            {errorMsg && (
+              <Box pt={2}>
+                <Typography align="center" variant="subtitle2" color="error">
+                  {errorMsg?.login}
+                </Typography>
+              </Box>
+            )}
+          </form>
+        </div>
+      </Container>
+    </>
   );
 }

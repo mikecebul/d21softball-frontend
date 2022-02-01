@@ -67,7 +67,10 @@ export default function Success() {
     <div>
       <Head>
         <title>Thank you for registering!</title>
-        <meta name="description" content="thank you for registering!" />
+        <meta
+          name="description"
+          content="Thank you for registering for men's fastpitch softball in distrct 21 of Northern Michigan."
+        />
       </Head>
       <Box p={(2, 4)}>
         <Typography variant="h2" align="center">
