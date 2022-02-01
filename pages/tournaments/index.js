@@ -146,7 +146,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
                       >
                         <CardMedia
                           className={classes.cardMedia}
-                          image={fromImageToUrlSmall(tournament.image)}
+                          image={fromImageToUrl(tournament.image)}
                           title={tournament.meta_title}
                         />
                         <CardContent className={classes.cardContent}>

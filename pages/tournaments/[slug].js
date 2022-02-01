@@ -9,8 +9,6 @@ import Sponsors from "../../components/sponsors";
 
 import Moment from "react-moment";
 import {
-  useMediaQuery,
-  useTheme,
   Paper,
   Card,
   CardActions,
@@ -72,8 +70,8 @@ const Tournament = ({ tournament, sponsors }) => {
   const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
 
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+  // const theme = useTheme();
+  // const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
   // console.log("Matches?", matches);
 
@@ -93,11 +91,7 @@ const Tournament = ({ tournament, sponsors }) => {
           {tournament.image && (
             <CardMedia
               className={classes.cardMedia}
-              image={
-                matches
-                  ? fromImageToUrlSmall(tournament.image)
-                  : fromImageToUrl(tournament.image)
-              }
+              image={fromImageToUrl(tournament.image)}
               title={tournament.meta_title}
             />
           )}

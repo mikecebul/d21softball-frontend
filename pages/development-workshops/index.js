@@ -112,7 +112,7 @@ const DevelopmentWorkshops = ({ camps, sponsors }) => {
                     >
                       <CardMedia
                         className={classes.cardMedia}
-                        image={fromImageToUrlSmall(camp.image)}
+                        image={fromImageToUrl(camp.image)}
                         title={camp.meta_title}
                       />
                       <CardContent className={classes.cardContent}>

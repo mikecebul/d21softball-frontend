@@ -8,8 +8,8 @@ import BuyButton from "../../components/BuyButton";
 
 import Moment from "react-moment";
 import {
-  useMediaQuery,
-  useTheme,
+  // useMediaQuery,
+  // useTheme,
   Paper,
   Card,
   CardActions,
@@ -72,8 +72,8 @@ const Archives = ({ tournament, sponsors }) => {
   const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
 
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+  // const theme = useTheme();
+  // const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
     <>
@@ -91,11 +91,7 @@ const Archives = ({ tournament, sponsors }) => {
           {tournament.image && (
             <CardMedia
               className={classes.cardMedia}
-              image={
-                matches
-                  ? fromImageToUrlSmall(tournament.image)
-                  : fromImageToUrl(tournament.image)
-              }
+              image={fromImageToUrl(tournament.image)}
               title={tournament.meta_title}
             />
           )}

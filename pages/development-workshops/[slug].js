@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "../../src/Link";
 import Markdown from "markdown-to-jsx";
 import Sponsors from "../../components/sponsors";
-import moment from "moment";
 
 import Moment from "react-moment";
 
@@ -12,16 +11,12 @@ import {
   MenuItem,
   FormControl,
   Select,
-  useMediaQuery,
-  useTheme,
-  Paper,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Typography,
   Box,
-  Button,
   Container,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -61,8 +56,8 @@ const useStyles = makeStyles((theme) => ({
 const DevelopmentWorkshops = ({ camp, sponsors }) => {
   const classes = useStyles();
 
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("xs"));
+  // const theme = useTheme();
+  // const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
   const [type, setType] = useState("");
   const [selected, setSelected] = useState(false);
@@ -83,22 +78,11 @@ const DevelopmentWorkshops = ({ camp, sponsors }) => {
           <meta name="description" content="add {camp.meta_description}" />
         )}
       </Head>
-      {/* <Image
-        src={fromImageToUrl(camp.image)}
-        alt="camp Image"
-        width={1920}
-        height={1080}
-      /> */}
-
       <Container className={classes.content} maxWidth="md">
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}
-            image={
-              matches
-                ? fromImageToUrlSmall(camp.image)
-                : fromImageToUrl(camp.image)
-            }
+            image={fromImageToUrl(camp.image)}
             title={camp.meta_title}
           />
           <CardContent className={classes.cardContent}>
