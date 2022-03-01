@@ -1,30 +1,25 @@
-# Next.js example
-
-Live on Vercel
+# District 21 Softball of Michigan
+https://d21softball.org/
+### Frontend
+This website was created with Nextjs and Material UI.
+### Backend
+Strapi CMS on Digital Ocean Droplet.
+https://github.com/mikecebul/d21softball-backend
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+## Developing
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs
-cd nextjs
-```
+Once you've created a project and installed dependencies with `npm install`, start a development server:
 
-Install it and run:
-
-```sh
-npm install
+```bash
 npm run dev
 ```
 
-or:
+## Building
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/master/examples/nextjs)
+To create a production version of your app:
 
-## The idea behind the example
-
-[Next.js](https://github.com/zeit/next.js) is a framework for server-rendered React apps.
-
-clear this up---
-1/14/2022
+```bash
+npm run build
+```
