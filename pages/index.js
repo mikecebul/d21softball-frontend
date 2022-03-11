@@ -59,10 +59,10 @@ const Index = ({ frontPage, sponsors }) => {
   return (
     <>
       <Head>
-        <title>D21 Softball</title>
+        <title>District 21 Softball | Petoskey, MI</title>
         <meta
           name="description"
-          content="Men's fastpitch softball in distrct 21 of Northern Michigan."
+          content="Men's fast pitch softball of USA Softball of Michigan. Get updates and register for tournaments and development workshops."
         />
         <meta
           name="google-site-verification"
