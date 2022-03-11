@@ -64,6 +64,10 @@ const Index = ({ frontPage, sponsors }) => {
           name="description"
           content="Men's fastpitch softball in distrct 21 of Northern Michigan."
         />
+        <meta
+          name="google-site-verification"
+          content="rFyopppN7Dz2iS850yW4pWythrO2EXd6181KFBVapw8"
+        />
       </Head>
       {/* Hero unit */}
       {frontPage.hero_image && (
