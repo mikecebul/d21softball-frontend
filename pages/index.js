@@ -71,6 +71,10 @@ const Index = ({ frontPage, sponsors }) => {
           content="Men's fast pitch for USA Softball of Michigan in Charlevoix, Emmet, and Cheboygan counties. Get updates and register for tournaments and development workshops."
         />
         <meta
+          property="og:image"
+          content={fromImageToUrl(frontPage.hero_image)}
+        />
+        <meta
           name="google-site-verification"
           content="rFyopppN7Dz2iS850yW4pWythrO2EXd6181KFBVapw8"
         />
