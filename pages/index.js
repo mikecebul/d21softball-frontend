@@ -59,10 +59,10 @@ const Index = ({ frontPage, sponsors }) => {
   return (
     <>
       <Head>
-        <title>District 21 Softball | Petoskey, MI</title>
+        <title>District 21 Softball - Petoskey, MI</title>
         <meta
           name="description"
-          content="Men's fast pitch softball of USA Softball of Michigan. Get updates and register for tournaments and development workshops."
+          content="Men's fast pitch for USA Softball of Michigan in Charlevoix, Emmet, and Cheboygan counties. Get updates and register for tournaments and development workshops."
         />
         <meta
           name="google-site-verification"
@@ -75,11 +75,11 @@ const Index = ({ frontPage, sponsors }) => {
           <Box display="flex" justifyContent="center">
             <Image
               src={fromImageToUrl(frontPage.hero_image)}
+              alt="Softball tournament at dusk in Petoskey, MI"
               width={frontPage.hero_image.width}
               height={frontPage.hero_image.height}
               // layout="fill"
               objectFit="cover"
-              alt="Site Logo"
             />
           </Box>
         </div>

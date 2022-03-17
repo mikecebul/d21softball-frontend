@@ -22,6 +22,11 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+    "postbuild": "cross-env next-sitemap --config next-sitemap.config.js"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "next-sitemap": "^2.5.9"
   }
 }
