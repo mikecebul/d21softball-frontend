@@ -1,15 +1,18 @@
 import React from "react";
 import Head from "next/head";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Sponsors from "../components/sponsors";
+import dynamic from "next/dynamic";
+import useInView from "react-cool-inview";
 import FrontPageUpdates from "../components/FrontPageUpdates";
 import FrontPageNews from "../components/FrontPageNews";
 
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Image from "next/image";
-import logo from "../public/logo.svg";
+
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+
+const Sponsors = dynamic(() => import("../components/sponsors"));
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -56,6 +59,9 @@ const Index = ({ frontPage, sponsors }) => {
   const classes = useStyles();
   // console.log("Front Page:", API_URL + frontPage.updates[1].media.url);
   // console.log("error:", frontPage.news.content);
+
+  const { observe, inView } = useInView();
+
   return (
     <>
       <Head>
@@ -88,8 +94,8 @@ const Index = ({ frontPage, sponsors }) => {
       <Container maxWidth="md">
         <FrontPageNews news={frontPage.news} />
         <FrontPageUpdates updates={frontPage.updates} />
-        <Box className={classes.outterBox}>
-          <Sponsors sponsors={sponsors} />
+        <Box className={classes.outterBox} ref={observe}>
+          {inView && <Sponsors sponsors={sponsors} />}
         </Box>
       </Container>
     </>

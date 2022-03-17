@@ -14,6 +14,7 @@
     "postcss": "^8.3.6",
     "prop-types": "latest",
     "react": "latest",
+    "react-cool-inview": "^2.0.9",
     "react-dom": "latest",
     "react-moment": "^1.1.1",
     "react-swipeable-views": "^0.14.0"
