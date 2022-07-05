@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import Sponsors from "../../components/sponsors";
 
 import Moment from "react-moment";
@@ -95,9 +96,7 @@ const DevelopmentWorkshops = ({ camp, sponsors }) => {
               {" - "}
               <Moment format="MMMM D, YYYY">{camp.date_to}</Moment>
             </Typography>
-            <Box mt={4}>
-              <Markdown>{camp.content}</Markdown>
-            </Box>
+            <Box mt={4}>{parse(camp.content)}</Box>
           </CardContent>
           {/* Dropdown menu for type of Development Camp */}
           <Box ml={2} mb={2}>

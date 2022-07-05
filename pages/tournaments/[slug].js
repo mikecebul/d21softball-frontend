@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
@@ -70,12 +71,6 @@ const Tournament = ({ tournament, sponsors }) => {
   const tournamentDate = moment(tournament.date_from).format("YYYY-MM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
 
-  console.log("Bracket Results:", tournament.bracketResults);
-  console.log(
-    "Bracket Results with Markdown:",
-    <Markdown>{tournament.bracketResults}</Markdown>
-  );
-
   // const theme = useTheme();
   // const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -91,6 +86,7 @@ const Tournament = ({ tournament, sponsors }) => {
             content="add {tournament.meta_description}"
           />
         )}
+        <base href="http//:localhost:1337" />
       </Head>
       <Container className={classes.content} maxWidth="md">
         <Card className={classes.card}>
@@ -113,9 +109,7 @@ const Tournament = ({ tournament, sponsors }) => {
               <Moment format="MMMM D, YYYY">{tournament.date_to}</Moment>
             </Typography>
             {tournament.content && (
-              <Box mt={4}>
-                <Markdown>{tournament.content}</Markdown>
-              </Box>
+              <Box mt={4}>{parse(tournament.content)}</Box>
             )}
           </CardContent>
           {/* Only show Price and Registration if Tournament is in the future */}
@@ -156,9 +150,7 @@ const Tournament = ({ tournament, sponsors }) => {
               )}
               {/* Markdown of Tournament Results */}
               {tournament.bracketResults && (
-                <Box>
-                  <Markdown>{tournament.bracketResults}</Markdown>
-                </Box>
+                <Box>{parse(tournament.bracketResults)}</Box>
               )}
             </Box>
           </Paper>

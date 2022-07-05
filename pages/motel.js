@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { API_URL, fromImageToUrlSmall } from "../utils/urls";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Sponsors from "../components/sponsors";
 
@@ -136,7 +137,7 @@ export default function Motel({ motel, sponsors }) {
                         {info.title}
                       </Typography>
                       <Typography variant="body1" align="center">
-                        <Markdown>{info.content}</Markdown>
+                        {parse(info.content)}
                       </Typography>
                     </Box>
                     <Box

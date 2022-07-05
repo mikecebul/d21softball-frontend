@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { API_URL, fromImageToUrl } from "../utils/urls";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import Link from "../src/Link";
 import Sponsors from "../components/sponsors";
 
@@ -149,10 +150,8 @@ export default function PitcherClassification({ pitchers, sponsors }) {
                       </Typography>
                     )}
                     {pitchers.link.content && (
-                      <Typography>
-                        <Markdown className={classes.linkContent} align={align}>
-                          {pitchers.link.content}
-                        </Markdown>
+                      <Typography className={classes.linkContent} align={align}>
+                        {parse(pitchers.link.content)}
                       </Typography>
                     )}
                     {pitchers.link.media && (
@@ -239,7 +238,7 @@ export default function PitcherClassification({ pitchers, sponsors }) {
             {pitchers.appeal_process && (
               <Box p={(0, 4)}>
                 <Typography variant="caption">
-                  <Markdown>{pitchers.appeal_process}</Markdown>
+                  {parse(pitchers.appeal_process)}
                 </Typography>
               </Box>
             )}

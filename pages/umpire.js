@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { API_URL, fromImageToUrl } from "../utils/urls";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import Link from "../src/Link";
 import Image from "next/image";
 import Sponsors from "../components/sponsors";
@@ -142,13 +143,11 @@ export default function Motel({ umpire, sponsors }) {
                                 </Typography>
                               )}
                               {link.content && (
-                                <Typography>
-                                  <Markdown
-                                    className={classes.linkContent}
-                                    align={align}
-                                  >
-                                    {link.content}
-                                  </Markdown>
+                                <Typography
+                                  className={classes.linkContent}
+                                  align={align}
+                                >
+                                  {parse(link.content)}
                                 </Typography>
                               )}
                               <Box p={1} />

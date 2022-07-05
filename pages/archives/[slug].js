@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
@@ -107,9 +108,7 @@ const Archives = ({ tournament, sponsors }) => {
               <Moment format="MMMM D, YYYY">{tournament.date_to}</Moment>
             </Typography>
             {tournament.content && (
-              <Box mt={4}>
-                <Markdown>{tournament.content}</Markdown>
-              </Box>
+              <Box mt={4}>{parse(tournament.content)}</Box>
             )}
           </CardContent>
         </Card>
@@ -139,9 +138,7 @@ const Archives = ({ tournament, sponsors }) => {
               )}
               {/* Markdown of Tournament Results */}
               {tournament.bracketResults && (
-                <Box>
-                  <Markdown>{tournament.bracketResults}</Markdown>
-                </Box>
+                <Box>{parse(tournament.bracketResults)}</Box>
               )}
             </Box>
           </Paper>
