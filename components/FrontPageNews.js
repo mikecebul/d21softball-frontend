@@ -1,5 +1,6 @@
 import React from "react";
-import Markdown from "markdown-to-jsx";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import moment from "moment";
 
 import {
@@ -79,12 +80,10 @@ export default function FrontPageUpdates({ news }) {
               <Typography variant="h4" className={classes.date}>
                 {moment(news.date).format("LL")}
               </Typography>
-              <Typography>
-                <Markdown>{news.content}</Markdown>
-              </Typography>
-              <Typography variant="h6" className={classes.author}>
+              <Typography>{parse(news.content)}</Typography>
+              {/* <Typography variant="body1" className={classes.author}>
                 {news.from}
-              </Typography>
+              </Typography> */}
             </Box>
           </Paper>
         </Box>

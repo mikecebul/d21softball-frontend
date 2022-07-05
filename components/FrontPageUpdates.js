@@ -1,7 +1,7 @@
 import React from "react";
-import Markdown from "markdown-to-jsx";
-import moment from "moment";
-import { fromImageToUrl, API_URL } from "../utils/urls";
+// import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
+import { API_URL } from "../utils/urls";
 
 import Link from "../src/Link";
 
@@ -111,10 +111,8 @@ export default function FrontPageUpdates({ updates }) {
                       </Typography>
                     )}
                     {update.content && (
-                      <Typography>
-                        <Markdown className={classes.content} align={align}>
-                          {update.content}
-                        </Markdown>
+                      <Typography className={classes.content} align={align}>
+                        {parse(update.content)}
                       </Typography>
                     )}
                     {update.media && (
