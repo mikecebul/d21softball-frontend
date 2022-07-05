@@ -67,8 +67,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Tournament = ({ tournament, sponsors }) => {
   const classes = useStyles();
-  const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
+  const tournamentDate = moment(tournament.date_from).format("YYYY-MM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
+
+  console.log("Bracket Results:", tournament.bracketResults);
+  console.log(
+    "Bracket Results with Markdown:",
+    <Markdown>{tournament.bracketResults}</Markdown>
+  );
 
   // const theme = useTheme();
   // const matches = useMediaQuery(theme.breakpoints.down("xs"));
@@ -113,7 +119,7 @@ const Tournament = ({ tournament, sponsors }) => {
             )}
           </CardContent>
           {/* Only show Price and Registration if Tournament is in the future */}
-          {tournamentDate > currentDate && (
+          {currentDate < tournamentDate && (
             <CardActions>
               <Link href={`/tournaments/${tournament.slug}`}>
                 <BuyButton tournament={tournament}></BuyButton>

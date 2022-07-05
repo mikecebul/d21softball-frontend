@@ -112,17 +112,6 @@ const Archives = ({ tournament, sponsors }) => {
               </Box>
             )}
           </CardContent>
-          {/* Only show Price and Registration if Tournament is in the future */}
-          {tournamentDate > currentDate && (
-            <CardActions>
-              <Link href={`/tournaments/${tournament.slug}`}>
-                <BuyButton tournament={tournament}></BuyButton>
-              </Link>
-              <Typography variant="h6" className={classes.price}>
-                ${twoDecimals(tournament.price)}
-              </Typography>
-            </CardActions>
-          )}
         </Card>
 
         {(tournament.resultsMedia.length > 0 ||
