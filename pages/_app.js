@@ -6,9 +6,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import Layout from "../components/Layout";
 import { CurrentUserProvider } from "../context/CurrentUser";
+import Script from "next/script";
+import Router from "next/router";
 
 export default function MyApp(props) {
-  const { Component, pageProps } = props;
+  const { Component, pageProps, router } = props;
 
   // React.useEffect(() => {
   //   // Remove the server-side injected CSS.
@@ -20,6 +22,21 @@ export default function MyApp(props) {
 
   return (
     <React.Fragment>
+      {/*  Global site tag (gtag.js) - Google Analytics */}
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+      <Script strategy="lazyOnload">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+          page_path: window.location.pathname,
+          });
+        `}
+      </Script>
       <CurrentUserProvider>
         <Head>
           <title>D21 Softball</title>
