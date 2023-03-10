@@ -57,10 +57,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Index = ({ frontPage, sponsors }) => {
   const classes = useStyles();
-  // console.log("Front Page:", API_URL + frontPage.updates[1].media.url);
-  // console.log("error:", frontPage.news.content);
-
+  const { hero_image, news, updates } = frontPage.data.attributes;
   const { observe, inView } = useInView();
+
+  console.log("Hero Image URL:", hero_image.data.attributes);
 
   return (
     <>
@@ -72,7 +72,7 @@ const Index = ({ frontPage, sponsors }) => {
         />
         <meta
           property="og:image"
-          content={fromImageToUrl(frontPage.hero_image)}
+          content={fromImageToUrl(hero_image.data.attributes)}
         />
         <meta
           name="google-site-verification"
@@ -80,14 +80,14 @@ const Index = ({ frontPage, sponsors }) => {
         />
       </Head>
       {/* Hero unit */}
-      {frontPage.hero_image && (
+      {hero_image && (
         <div className={classes.heroContent}>
           <Box display="flex" justifyContent="center">
             <Image
-              src={fromImageToUrl(frontPage.hero_image)}
+              src={fromImageToUrl(hero_image.data.attributes)}
               alt="Softball tournament at dusk in Petoskey, MI"
-              width={frontPage.hero_image.width}
-              height={frontPage.hero_image.height}
+              width={hero_image.data.attributes.width}
+              height={hero_image.data.attributes.height}
               // layout="fill"
               objectFit="cover"
             />
@@ -96,10 +96,10 @@ const Index = ({ frontPage, sponsors }) => {
       )}
       {/* End hero unit */}
       <Container maxWidth="md">
-        <FrontPageNews news={frontPage.news} />
-        <FrontPageUpdates updates={frontPage.updates} />
+        <FrontPageNews news={news} />
+        <FrontPageUpdates updates={updates} />
         <Box className={classes.outterBox} ref={observe}>
-          {inView && <Sponsors sponsors={sponsors} />}
+          {inView && <Sponsors sponsors={sponsors.data} />}
         </Box>
       </Container>
     </>
@@ -107,10 +107,10 @@ const Index = ({ frontPage, sponsors }) => {
 };
 
 export async function getStaticProps() {
-  const frontPage_res = await fetch(`${API_URL}/front-page/`);
+  const frontPage_res = await fetch(`${API_URL}/front-page?populate=*`);
   const frontPage = await frontPage_res.json();
 
-  const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  const sponsor_res = await fetch(`${API_URL}/sponsors?populate=*`);
   const sponsors = await sponsor_res.json();
 
   return {

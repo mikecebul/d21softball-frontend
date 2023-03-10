@@ -54,8 +54,7 @@ export default function Sponsors({ sponsors }) {
   const classes = useStyles();
 
   const sortedSponsors = sortSponsors(sponsors);
-
-  // console.log("Sorted Sponsors:", sortedSponsors);
+  // console.log("Sponsor image:", sponsors[0].attributes.logo.data.attributes.url);
 
   return (
     <React.Fragment>
@@ -85,19 +84,19 @@ export default function Sponsors({ sponsors }) {
         </div>
         <Container maxWidth="md">
           <Grid container spacing={4} justifyContent="center">
-            {sortedSponsors.map((sponsor) => (
-              <Grid item key={sponsor.name} xs={10} sm={5} md={4}>
+            {sortedSponsors.map((sponsor, index) => (
+              <Grid item key={index} xs={10} sm={5} md={4}>
                 <Card className={classes.card} raised>
                   <CardActionArea>
-                    <Link color="textPrimary" href={sponsor.url}>
+                    <Link color="textPrimary" href={sponsor.attributes.url}>
                       <CardMedia
                         className={classes.cardMedia}
-                        image={fromImageToUrl(sponsor.logo)}
+                        image={fromImageToUrl(sponsor.attributes.logo.data.attributes)}
                         title={sponsor.name}
                       />
                       <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h3">
-                          {sponsor.name}
+                          {sponsor.attributes.name}
                         </Typography>
                       </CardContent>
                     </Link>

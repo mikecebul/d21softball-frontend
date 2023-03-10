@@ -40,7 +40,7 @@ const StickyFooter = () => {
   return (
     <footer className={classes.foot}>
       <Container maxWidth="xl">
-        <Grid container spacing={5} spacing={2}>
+        <Grid container spacing={5}>
           <Grid item xs={12} md={4}>
             <Box display="flex" justifyContent="center">
               {!roomForLogo ? (

@@ -60,6 +60,6 @@ export const compareDate = (mostRecentTournamentYear) => {
 
 // Sort Sponsors in order
 export const sortSponsors = (x) => {
-  const sorted = x.sort((a, b) => (a.list_order > b.list_order ? 1 : -1));
+  const sorted = x.sort((a, b) => (a.attributes.list_order > b.attributes.list_order ? 1 : -1));
   return sorted;
 };
