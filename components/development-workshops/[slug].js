@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "../../src/Link";
 // import Markdown from "markdown-to-jsx";
 import parse from "html-react-parser";
-import Sponsors from "../../components/sponsors";
+import Sponsors from "../sponsors";
 
 import Moment from "react-moment";
 
@@ -24,7 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
-import BuyButton from "../../components/BuyButton";
+import BuyButton from "../BuyButton";
 
 const useStyles = makeStyles((theme) => ({
   content: {

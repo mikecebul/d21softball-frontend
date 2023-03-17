@@ -7,7 +7,6 @@ import theme from "../src/theme";
 import Layout from "../components/Layout";
 import { CurrentUserProvider } from "../context/CurrentUser";
 import Script from "next/script";
-import Router from "next/router";
 
 export default function MyApp(props) {
   const { Component, pageProps, router } = props;

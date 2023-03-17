@@ -90,13 +90,13 @@ export default function NavDesktop() {
           </ListItem>
         </Link>
       </List>
-      <List>
+      {/* <List>
         <Link href="/development-workshops" color="inherit">
           <ListItem button>
             <ListItemText primary="Development Workshops" />
           </ListItem>
         </Link>
-      </List>
+      </List> */}
       <List>
         <Link href="/pitcher-classification" color="inherit">
           <ListItem button>
