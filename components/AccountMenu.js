@@ -23,14 +23,13 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginRight: theme.spacing(2),
   },
-  color: {
+  avatar: {
     color: theme.palette.getContrastText(grey[300]),
     backgroundColor: grey[300],
     "&:hover": {
       color: theme.palette.getContrastText(blueGrey[100]),
       backgroundColor: blueGrey[100],
     },
-
     [theme.breakpoints.down("sm")]: {
       width: "32px",
       height: "32px",
@@ -103,7 +102,7 @@ export default function AccountMenu() {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <Avatar className={classes.color}>
+        <Avatar className={classes.avatar}>
           {user.username.toUpperCase().charAt(0)}
         </Avatar>
       </Button>
