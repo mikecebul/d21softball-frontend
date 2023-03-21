@@ -32,12 +32,17 @@ const useStyles = makeStyles((theme) => ({
     "& span, & svg": {
       fontSize: "2rem",
     },
+    margin: 0,
   },
   navbar: {
     flexDirection: "column",
   },
   navItem: {
     flexDirection: "row",
+  },
+  logoButton: {
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 }));
 
@@ -73,17 +78,17 @@ export default function NavDesktop() {
     <Box display="flex" flexGrow={1} alignItems="center">
       <List disablePadding={true}>
         <Link href="/" color="inherit">
-          <ListItem button>
+          <ListItem button className={classes.logoButton}>
             <ListItemText className={classes.logo} primary="D21 Softball" />
           </ListItem>
         </Link>
       </List>
-      <List>
-        <ListItem>
+      <List disablePadding>
+        <ListItem pa>
           <ListItemText />
         </ListItem>
       </List>
-      <List>
+      <List disablePadding>
         <Link href="/tournaments" color="inherit">
           <ListItem button>
             <ListItemText primary="Tournaments" />
@@ -97,35 +102,35 @@ export default function NavDesktop() {
           </ListItem>
         </Link>
       </List> */}
-      <List>
+      <List disablePadding>
         <Link href="/pitcher-classification" color="inherit">
           <ListItem button>
             <ListItemText primary="Pitchers" />
           </ListItem>
         </Link>
       </List>
-      <List>
+      <List disablePadding>
         <Link href="/archives" color="inherit">
           <ListItem button>
             <ListItemText primary="Archives" />
           </ListItem>
         </Link>
       </List>
-      <List>
+      <List disablePadding>
         <Link href="/motel" color="inherit">
           <ListItem button>
             <ListItemText primary="Motels" />
           </ListItem>
         </Link>
       </List>
-      <List>
+      <List disablePadding>
         <Link href="/local-leagues" color="inherit">
           <ListItem button>
             <ListItemText primary="Leagues" />
           </ListItem>
         </Link>
       </List>
-      <List>
+      <List disablePadding>
         <Link href="/umpire" color="inherit">
           <ListItem button>
             <ListItemText primary="Umpires" />

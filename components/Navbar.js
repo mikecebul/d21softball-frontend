@@ -47,11 +47,11 @@ const useStyles = makeStyles((theme) => ({
   navItems: {
     flexDirection: "row",
     justifyContent: "start",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       marginLeft: theme.spacing(1.5),
       paddingLeft: theme.spacing(1),
     },
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       justifyContent: "center",
     },
   },
@@ -83,7 +83,7 @@ export default function Navbar() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const tinyMobile = useMediaQuery("(min-width:360px)");
-  const roomForLogo = useMediaQuery("(min-width:750px)");
+  const roomForLogo = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleLoginClick = (e) => {
     e.preventDefault();
