@@ -43,27 +43,15 @@ export default function BuyButton({ tournament, camp, selected }) {
 
   return (
     <>
-      {!user.isAuthenticated && (
-        <Button
-          className={classes.button}
-          variant="contained"
-          component={Link}
-          href="/login"
-        >
-          Login to Register
-        </Button>
-      )}
-      {user.isAuthenticated && (
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          disabled={camp ? !selected : false}
-          onClick={handleBuy}
-        >
-          Register
-        </Button>
-      )}
+      <Button
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        disabled={camp ? !selected : false}
+        onClick={handleBuy}
+      >
+        Register
+      </Button>
     </>
   );
 }

@@ -8,6 +8,8 @@ import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
 import Sponsors from "../../components/sponsors";
 
+import { useCurrentUser } from "../../context/CurrentUser";
+
 import Moment from "react-moment";
 import {
   Paper,
@@ -23,6 +25,7 @@ import {
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
+import { GuestCheckout } from "../../components/info/GuestCheckout";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -71,11 +74,7 @@ const Tournament = ({ tournament, sponsors }) => {
   const tournamentDate = moment(tournament.date_from).format("YYYY-MM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
 
-  // const theme = useTheme();
-  // const matches = useMediaQuery(theme.breakpoints.down("xs"));
-
-  // console.log("Matches?", matches);
-
+  const user = useCurrentUser();
   return (
     <>
       <Head>
@@ -115,9 +114,11 @@ const Tournament = ({ tournament, sponsors }) => {
           {/* Only show Price and Registration if Tournament is in the future */}
           {currentDate < tournamentDate && (
             <CardActions>
-              <Link href={`/tournaments/${tournament.slug}`}>
-                <BuyButton tournament={tournament}></BuyButton>
-              </Link>
+              {!user.isAuthenticated ? (
+                <GuestCheckout tournament={tournament} />
+              ) : (
+                <BuyButton tournament={tournament} />
+              )}
               <Typography variant="h6" className={classes.price}>
                 ${twoDecimals(tournament.price)}
               </Typography>
