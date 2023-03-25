@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BuyButton({ tournament, camp, selected }) {
+export default function BuyButton({ tournament, camp, selected, email }) {
   const classes = useStyles();
   const user = useCurrentUser();
 
@@ -26,7 +26,7 @@ export default function BuyButton({ tournament, camp, selected }) {
     await axios
       .post(
         `${API_URL}/orders`,
-        { tournament, camp },
+        { tournament, camp, email },
         { withCredentials: true }
       )
       .then((resp) => {

@@ -11,12 +11,14 @@ import {
   Paper,
   Tab,
   Tabs,
+  TextField,
   Typography,
   useTheme,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
+import Link from "../../src/Link";
 import BuyButton from "../BuyButton";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,6 +32,8 @@ export function GuestCheckout({ tournament }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [errorMsg, setErrorMsg] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,6 +48,22 @@ export function GuestCheckout({ tournament }) {
 
   const handleChangeIndex = (index) => {
     setValue(index);
+  };
+
+  // Validate email exists
+  const validateEmail = () => {
+    return new Promise((resolve, reject) => {
+      setErrorMsg({
+        email: "",
+        password: "",
+      });
+      if (!email) {
+        setErrorMsg({ email: "Please provide your email." });
+        resolve({ isValid: false });
+      } else {
+        resolve({ isValid: true });
+      }
+    });
   };
 
   return (
@@ -81,6 +101,28 @@ export function GuestCheckout({ tournament }) {
           <TabPanel value={value} index={0}>
             <DialogContent>
               <DialogContentText>Continue as Guest</DialogContentText>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                error={Boolean(errorMsg?.email)}
+                helperText={errorMsg?.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {errorMsg && (
+                <Box pt={2}>
+                  <Typography align="center" variant="subtitle2" color="error">
+                    {errorMsg?.login}
+                  </Typography>
+                </Box>
+              )}
             </DialogContent>
             <DialogActions>
               <Button
@@ -90,7 +132,7 @@ export function GuestCheckout({ tournament }) {
               >
                 Cancel
               </Button>
-              <BuyButton tournament={tournament} />
+              <BuyButton tournament={tournament} email={email} />
             </DialogActions>
           </TabPanel>
 
@@ -108,9 +150,11 @@ export function GuestCheckout({ tournament }) {
               >
                 Cancel
               </Button>
-              <Button variant="contained" color="primary">
-                Login
-              </Button>
+              <Link href="/login">
+                <Button variant="contained" color="primary">
+                  Login
+                </Button>
+              </Link>
             </DialogActions>
           </TabPanel>
 
@@ -128,9 +172,11 @@ export function GuestCheckout({ tournament }) {
               >
                 Cancel
               </Button>
-              <Button variant="contained" color="primary">
-                Sign Up
-              </Button>
+              <Link href="/signup">
+                <Button variant="contained" color="primary">
+                  Sign Up
+                </Button>
+              </Link>
             </DialogActions>
           </TabPanel>
         </SwipeableViews>
