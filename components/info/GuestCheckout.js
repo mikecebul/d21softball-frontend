@@ -51,11 +51,10 @@ export function GuestCheckout({ tournament }) {
   };
 
   // Validate email exists
-  const validateEmail = () => {
+  const validateEmail = (e) => {
     return new Promise((resolve, reject) => {
       setErrorMsg({
         email: "",
-        password: "",
       });
       if (!email) {
         setErrorMsg({ email: "Please provide your email." });
@@ -116,13 +115,6 @@ export function GuestCheckout({ tournament }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {errorMsg && (
-                <Box pt={2}>
-                  <Typography align="center" variant="subtitle2" color="error">
-                    {errorMsg?.login}
-                  </Typography>
-                </Box>
-              )}
             </DialogContent>
             <DialogActions>
               <Button
@@ -132,7 +124,9 @@ export function GuestCheckout({ tournament }) {
               >
                 Cancel
               </Button>
-              <BuyButton tournament={tournament} email={email} />
+              <div onClick={() => validateEmail()}>
+                <BuyButton tournament={tournament} email={email} />
+              </div>
             </DialogActions>
           </TabPanel>
 
