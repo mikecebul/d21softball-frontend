@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BuyButton({ tournament, camp, selected, email }) {
+export default function BuyButton({ tournament, email }) {
   const classes = useStyles();
   const user = useCurrentUser();
 
@@ -26,11 +26,10 @@ export default function BuyButton({ tournament, camp, selected, email }) {
     await axios
       .post(
         `${API_URL}/orders`,
-        { tournament, camp, email },
+        { tournament, email },
         { withCredentials: true }
       )
       .then((resp) => {
-        // console.log("handle buy respone:", resp.data);
         const session = resp.data;
         const result = stripe.redirectToCheckout({
           sessionId: session.id,
@@ -47,7 +46,6 @@ export default function BuyButton({ tournament, camp, selected, email }) {
         className={classes.button}
         variant="contained"
         color="primary"
-        disabled={camp ? !selected : false}
         onClick={handleBuy}
       >
         Register

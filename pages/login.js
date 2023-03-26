@@ -131,7 +131,7 @@ export default function Login() {
     e.preventDefault();
     validateEmail().then((response) => {
       if (response.isValid) {
-        console.log(email);
+        // console.log(email);
         axios
           .post(
             `${API_URL}/auth/forgot-password`,

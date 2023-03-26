@@ -19,7 +19,10 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import Link from "../../src/Link";
-import BuyButton from "../BuyButton";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { handleBuy } from "../../utils/handleBuy";
+import { useForm, Controller } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,8 +35,26 @@ export function GuestCheckout({ tournament }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState(null);
-  const [errorMsg, setErrorMsg] = useState();
+
+  const registerSchema = z.object({
+    email: z
+      .string()
+      .nonempty("Email field is required")
+      .email("Email is invalid"),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit = (data) => {
+    const email = data.email;
+    handleBuy(tournament, email);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,27 +63,12 @@ export function GuestCheckout({ tournament }) {
     setOpen(false);
   };
 
-  const handleChange = (event, newValue) => {
+  const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleChangeIndex = (index) => {
     setValue(index);
-  };
-
-  // Validate email exists
-  const validateEmail = (e) => {
-    return new Promise((resolve, reject) => {
-      setErrorMsg({
-        email: "",
-      });
-      if (!email) {
-        setErrorMsg({ email: "Please provide your email." });
-        resolve({ isValid: false });
-      } else {
-        resolve({ isValid: true });
-      }
-    });
   };
 
   return (
@@ -81,7 +87,7 @@ export function GuestCheckout({ tournament }) {
         <Paper className={classes.root}>
           <Tabs
             value={value}
-            onChange={handleChange}
+            onChange={handleChangeTab}
             indicatorColor="primary"
             textColor="primary"
             centered
@@ -98,36 +104,48 @@ export function GuestCheckout({ tournament }) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0}>
-            <DialogContent>
-              <DialogContentText>Continue as Guest</DialogContentText>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                error={Boolean(errorMsg?.email)}
-                helperText={errorMsg?.email}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={handleClickClose}
-                variant="outlined"
-                color="primary"
-              >
-                Cancel
-              </Button>
-              <div onClick={() => validateEmail()}>
-                <BuyButton tournament={tournament} email={email} />
-              </div>
-            </DialogActions>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <DialogContent>
+                <DialogContentText></DialogContentText>
+                <DialogContentText>
+                  To continue as a guest, enter your email to receive
+                  information throughout the payment process.
+                </DialogContentText>
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  render={({ field, fieldState: { error } }) => (
+                    <TextField
+                      {...field}
+                      variant="outlined"
+                      margin="normal"
+                      id="email"
+                      label="Email Address"
+                      autoComplete="email"
+                      fullWidth
+                      autoFocus
+                      required
+                      disabled={isSubmitting}
+                      error={!!error}
+                      helperText={errors.email ? errors.email.message : null}
+                    />
+                  )}
+                ></Controller>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={handleClickClose}
+                  variant="outlined"
+                  color="primary"
+                >
+                  Cancel
+                </Button>
+                <Button variant="contained" color="primary" type="submit">
+                  Continue
+                </Button>
+              </DialogActions>
+            </form>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
@@ -187,14 +205,10 @@ function TabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`wrapped-tabpanel-${index}`}
-      aria-labelled={`wrapped-tab-${index}`}
+      aria-labelledby={`wrapped-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
