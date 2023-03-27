@@ -4,6 +4,7 @@ import Head from "next/head";
 import { API_URL } from "../utils/urls";
 import axios from "axios";
 import Link from "../src/Link";
+import { useCurrentUser } from "../context/CurrentUser";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -54,13 +55,14 @@ const useOrder = (session_id) => {
 
 export default function Success() {
   const classes = useStyles();
+  const { isAuthenticated } = useCurrentUser();
+  console.log(isAuthenticated);
 
   const router = useRouter();
   const { session_id } = router.query;
   // console.log("Session ID:", session_id);
 
   const { order, loading } = useOrder(session_id);
-
 
   return (
     <div>
@@ -110,9 +112,19 @@ export default function Success() {
                 </Typography>
               </Box>
               <Box display="flex" justifyContent="center" mt={2}>
-                <Button variant="contained" color="primary" href="/account">
-                  Continue to Account
-                </Button>
+                {isAuthenticated ? (
+                  <Link href="/account">
+                    <Button variant="contained" color="primary">
+                      Continue to Account
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/">
+                    <Button variant="contained" color="primary">
+                      Go Back Home
+                    </Button>
+                  </Link>
+                )}
               </Box>
             </Paper>
           </Box>

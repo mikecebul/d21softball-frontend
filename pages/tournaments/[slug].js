@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
-// import Markdown from "markdown-to-jsx";
 import parse from "html-react-parser";
 import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
@@ -25,7 +24,7 @@ import {
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
-import { GuestCheckout } from "../../components/info/GuestCheckout";
+import { GuestCheckout } from "../../components/GuestCheckout";
 
 const useStyles = makeStyles((theme) => ({
   content: {
