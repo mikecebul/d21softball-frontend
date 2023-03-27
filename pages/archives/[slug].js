@@ -1,19 +1,12 @@
 import React from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
-// import Markdown from "markdown-to-jsx";
 import parse from "html-react-parser";
-import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
-import { twoDecimals } from "../../utils/format";
-import BuyButton from "../../components/BuyButton";
-
+import { fromImageToUrl, API_URL } from "../../utils/urls";
 import Moment from "react-moment";
 import {
-  // useMediaQuery,
-  // useTheme,
   Paper,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
@@ -25,13 +18,14 @@ import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import Sponsors from "../../components/sponsors";
+import { useRouter } from "next/router";
+import BackButton from "../../components/BackButton";
 
 const useStyles = makeStyles((theme) => ({
   content: {
     marginBottom: theme.spacing(8),
   },
   card: {
-    marginTop: theme.spacing(10),
     marginBottom: theme.spacing(5),
     height: "100%",
     display: "flex",
@@ -72,9 +66,7 @@ const Archives = ({ tournament, sponsors }) => {
   const classes = useStyles();
   const tournamentDate = moment(tournament.date_from).format("YYYY-MMMM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
-
-  // const theme = useTheme();
-  // const matches = useMediaQuery(theme.breakpoints.down("xs"));
+  const router = useRouter();
 
   return (
     <>
@@ -87,6 +79,7 @@ const Archives = ({ tournament, sponsors }) => {
           />
         )}
       </Head>
+      <BackButton router={router} />
       <Container className={classes.content} maxWidth="md">
         <Card className={classes.card}>
           {tournament.image && (

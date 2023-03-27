@@ -25,13 +25,14 @@ import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import { GuestCheckout } from "../../components/GuestCheckout";
+import BackButton from "../../components/BackButton";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   content: {
     paddingBottom: theme.spacing(8),
   },
   card: {
-    marginTop: theme.spacing(10),
     marginBottom: theme.spacing(5),
     height: "100%",
     display: "flex",
@@ -72,20 +73,19 @@ const Tournament = ({ tournament, sponsors }) => {
   const classes = useStyles();
   const tournamentDate = moment(tournament.date_from).format("YYYY-MM-DD");
   const currentDate = moment().format("YYYY-MM-DD");
-
   const user = useCurrentUser();
+  const router = useRouter();
+
   return (
     <>
       <Head>
         {tournament.meta_title && <title>{tournament.meta_title}</title>}
         {tournament.meta_description && (
-          <meta
-            name="description"
-            content="add {tournament.meta_description}"
-          />
+          <meta name="description" content={tournament.meta_description} />
         )}
         <base href="http//:localhost:1337" />
       </Head>
+      <BackButton router={router} />
       <Container className={classes.content} maxWidth="md">
         <Card className={classes.card}>
           {tournament.image && (
