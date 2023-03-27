@@ -18,10 +18,10 @@ import {
 import PropTypes from "prop-types";
 import { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
-import Link from "../../src/Link";
+import Link from "../src/Link";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { handleBuy } from "../../utils/handleBuy";
+import { handleBuy } from "../utils/handleBuy";
 import { useForm, Controller } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({

@@ -58,56 +58,43 @@ export default function Sponsors({ sponsors }) {
   // console.log("Sorted Sponsors:", sortedSponsors);
 
   return (
-    <React.Fragment>
-      <div className={classes.root}>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Divider className={classes.divider} />
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              Sponsors
-            </Typography>
-            {/* <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph
-            >
-              Secondary Text
-            </Typography> */}
-          </Container>
-        </div>
-        <Container maxWidth="md">
-          <Grid container spacing={4} justifyContent="center">
-            {sortedSponsors.map((sponsor) => (
-              <Grid item key={sponsor.name} xs={10} sm={5} md={4}>
-                <Card className={classes.card} raised>
-                  <CardActionArea>
-                    <Link color="textPrimary" href={sponsor.url}>
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image={fromImageToUrl(sponsor.logo)}
-                        title={sponsor.name}
-                      />
-                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h3">
-                          {sponsor.name}
-                        </Typography>
-                      </CardContent>
-                    </Link>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+    <div className={classes.root}>
+      {/* Hero unit */}
+      <div className={classes.heroContent}>
+        <Container maxWidth="sm">
+          <Divider className={classes.divider} />
+          <Typography
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+          >
+            Sponsors
+          </Typography>
         </Container>
       </div>
-    </React.Fragment>
+      <Container maxWidth="md">
+        <Grid container spacing={4} justifyContent="center">
+          {sortedSponsors.map((sponsor) => (
+            <Grid item key={sponsor.name} xs={10} sm={5} md={4}>
+              <Card className={classes.card} raised>
+                <CardActionArea>
+                  <Link color="textPrimary" href={sponsor.url}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={fromImageToUrl(sponsor.logo)}
+                      title={sponsor.name}
+                    />
+                    <Typography gutterBottom variant="h6">
+                      {sponsor.name}
+                    </Typography>
+                  </Link>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </div>
   );
 }

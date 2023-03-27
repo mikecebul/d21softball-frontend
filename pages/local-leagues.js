@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
-import { API_URL, fromImageToUrl } from "../utils/urls";
-// import Markdown from "markdown-to-jsx";
-// import parse from 'html-react-parser'
-import Image from "next/image";
+import { API_URL } from "../utils/urls";
 import Link from "../src/Link";
 import Sponsors from "../components/sponsors";
 
@@ -25,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiCardActionArea-root": {
       textAlign: "center",
     },
-    // margin: theme.spacing(0, 4, 0, 8),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -64,12 +60,6 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     marginBottom: theme.spacing(4),
-  },
-  linkButton: {
-    // margin: theme.spacing(4, 0, 0, 0),
-    //   [theme.breakpoints.down("md")]: {
-    //     alignSelf: "center",
-    //   },
   },
   link: {
     textDecoration: "none",
@@ -153,7 +143,7 @@ export default function Motel({ leagues, sponsors }) {
                           {league.contact_phone && (
                             <Link
                               href={`tel:${league.contact_phone}`}
-                              color="default"
+                              // color="default"
                             >
                               <Typography variant="body2" align={align}>
                                 {league.contact_phone}
@@ -163,7 +153,7 @@ export default function Motel({ leagues, sponsors }) {
                           {league.contact_email && (
                             <Link
                               href={`mailto:${league.contact_email}`}
-                              color="default"
+                              // color="default"
                             >
                               <Typography variant="body2" align={align}>
                                 {league.contact_email}
@@ -172,10 +162,9 @@ export default function Motel({ leagues, sponsors }) {
                           )}
                           <Box className={classes.box}>
                             {league.link.map((link) => (
-                              <>
+                              <div key={link.id}>
                                 {link.media && (
                                   <Button
-                                    className={classes.linkButton}
                                     size="small"
                                     endIcon={<ArrowRightIcon />}
                                     color="primary"
@@ -193,7 +182,6 @@ export default function Motel({ leagues, sponsors }) {
                                     className={classes.link}
                                   >
                                     <Button
-                                      className={classes.linkButton}
                                       size="small"
                                       endIcon={<ArrowRightIcon />}
                                       color="primary"
@@ -204,7 +192,7 @@ export default function Motel({ leagues, sponsors }) {
                                   </a>
                                 )}
                                 <Box p={2} />
-                              </>
+                              </div>
                             ))}
                           </Box>
                           <Box p={1} />

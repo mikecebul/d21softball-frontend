@@ -1,5 +1,4 @@
 import React from "react";
-// import Markdown from "markdown-to-jsx";
 import parse from "html-react-parser";
 import { API_URL } from "../utils/urls";
 
@@ -111,7 +110,11 @@ export default function FrontPageUpdates({ updates }) {
                       </Typography>
                     )}
                     {update.content && (
-                      <Typography className={classes.content} align={align}>
+                      <Typography
+                        component="div"
+                        className={classes.content}
+                        align={align}
+                      >
                         {parse(update.content)}
                       </Typography>
                     )}

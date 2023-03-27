@@ -1,5 +1,5 @@
 import React from "react";
-import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 import { fromImageToUrl, API_URL } from "../utils/urls";
 import Link from "../src/Link";
 
@@ -63,9 +63,10 @@ const useStyles = makeStyles((theme) => ({
   },
   updateButton: {
     margin: theme.spacing(4, 0, 0, 0),
-    // [theme.breakpoints.down("md")]: {
-    //   alignSelf: "center",
-    // },
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "center",
+    },
   },
   link: {
     textDecoration: "none",
@@ -181,41 +182,46 @@ export default function HallOfFame({ hallOfFame }) {
                           </Typography>
                         )}
                         {link.content && (
-                          <Typography>
-                            <Markdown className={classes.content} align={align}>
-                              {link.content}
-                            </Markdown>
+                          <Typography
+                            component="div"
+                            className={classes.content}
+                            align={align}
+                          >
+                            {parse(link.content)}
                           </Typography>
                         )}
                         {link.media && (
-                          <Button
-                            className={classes.updateButton}
-                            size="small"
-                            endIcon={<ArrowRightIcon />}
-                            color="primary"
-                            variant="contained"
-                            component={Link}
-                            href={API_URL + link.media.url}
-                          >
-                            Check it out
-                          </Button>
-                        )}
-                        {link.link && (
-                          <a
-                            href={link.link}
-                            target="_blank"
-                            className={classes.link}
-                          >
+                          <Box className={classes.updateButton}>
                             <Button
-                              className={classes.updateButton}
                               size="small"
                               endIcon={<ArrowRightIcon />}
                               color="primary"
                               variant="contained"
+                              component={Link}
+                              href={API_URL + link.media.url}
                             >
                               Check it out
                             </Button>
-                          </a>
+                          </Box>
+                        )}
+                        {link.link && (
+                          <Box className={classes.updateButton}>
+                            <a
+                              href={link.link}
+                              target="_blank"
+                              className={classes.link}
+                            >
+                              <Button
+                                className={classes.updateButton}
+                                size="small"
+                                endIcon={<ArrowRightIcon />}
+                                color="primary"
+                                variant="contained"
+                              >
+                                Check it out
+                              </Button>
+                            </a>
+                          </Box>
                         )}
                       </Box>
                       <Divider className={classes.divider} />

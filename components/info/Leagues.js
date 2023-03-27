@@ -1,5 +1,5 @@
 import React from "react";
-import Markdown from "markdown-to-jsx";
+import parse from "html-react-parser";
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function League({ leagues }) {
   const classes = useStyles();
-  // console.log("Leagues:", leagues);
+  console.log("Leagues:", leagues);
 
   return (
     <React.Fragment>
@@ -35,7 +35,7 @@ export default function League({ leagues }) {
             Scott.
           </Typography>
           <Divider />
-          <Markdown>{leagues}</Markdown>
+          <Box></Box>
         </Box>
       </Container>
     </React.Fragment>

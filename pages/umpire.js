@@ -132,61 +132,59 @@ export default function Motel({ umpire, sponsors }) {
               <>
                 <Paper className={classes.paper} elevation={3}>
                   <Box className={classes.outterBox}>
-                    <>
-                      <Box>
-                        {info.links.map((link) => (
-                          <>
-                            <Box className={classes.box} key={link.title}>
-                              {link.title && (
-                                <Typography variant="h6" align={align}>
-                                  {link.title}
-                                </Typography>
-                              )}
-                              {link.content && (
-                                <Typography
-                                  className={classes.linkContent}
-                                  align={align}
-                                >
-                                  {parse(link.content)}
-                                </Typography>
-                              )}
-                              <Box p={1} />
-                              {link.media && (
+                    <Box>
+                      {info.links.map((link) => (
+                        <div key={link.id}>
+                          <Box className={classes.box} key={link.title}>
+                            {link.title && (
+                              <Typography variant="h6" align={align}>
+                                {link.title}
+                              </Typography>
+                            )}
+                            {link.content && (
+                              <Typography
+                                className={classes.linkContent}
+                                align={align}
+                              >
+                                {parse(link.content)}
+                              </Typography>
+                            )}
+                            <Box p={1} />
+                            {link.media && (
+                              <Button
+                                className={classes.linkButton}
+                                size="small"
+                                endIcon={<ArrowRightIcon />}
+                                color="primary"
+                                variant="contained"
+                                component={Link}
+                                href={fromImageToUrl(link.media)}
+                              >
+                                Check it out
+                              </Button>
+                            )}
+                            {link.url && (
+                              <a
+                                href={link.url}
+                                target="_blank"
+                                className={classes.url}
+                              >
                                 <Button
                                   className={classes.linkButton}
                                   size="small"
                                   endIcon={<ArrowRightIcon />}
                                   color="primary"
                                   variant="contained"
-                                  component={Link}
-                                  href={fromImageToUrl(link.media)}
                                 >
                                   Check it out
                                 </Button>
-                              )}
-                              {link.url && (
-                                <a
-                                  href={link.url}
-                                  target="_blank"
-                                  className={classes.url}
-                                >
-                                  <Button
-                                    className={classes.linkButton}
-                                    size="small"
-                                    endIcon={<ArrowRightIcon />}
-                                    color="primary"
-                                    variant="contained"
-                                  >
-                                    Check it out
-                                  </Button>
-                                </a>
-                              )}
-                            </Box>
-                            <Divider className={classes.divider} />
-                          </>
-                        ))}
-                      </Box>
-                    </>
+                              </a>
+                            )}
+                          </Box>
+                          <Divider className={classes.divider} />
+                        </div>
+                      ))}
+                    </Box>
                   </Box>
                 </Paper>
               </>

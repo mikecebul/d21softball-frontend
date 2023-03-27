@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { API_URL, fromImageToUrlSmall } from "../utils/urls";
-// import Markdown from "markdown-to-jsx";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Sponsors from "../components/sponsors";
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiCardActionArea-root": {
       textAlign: "center",
     },
-    // margin: theme.spacing(0, 4, 0, 8),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -57,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
     // margin: theme.spacing(0, 0, 4, 0),
   },
   paper: {
-    // margin: theme.spacing(0, 0, 4, 0),
     padding: theme.spacing(4, 8, 4, 8),
     [theme.breakpoints.down("xs")]: {
       padding: theme.spacing(4, 2, 4, 2),
@@ -136,7 +133,11 @@ export default function Motel({ motel, sponsors }) {
                       <Typography variant="h4" align="center">
                         {info.title}
                       </Typography>
-                      <Typography variant="body1" align="center">
+                      <Typography
+                        component="div"
+                        variant="body1"
+                        align="center"
+                      >
                         {parse(info.content)}
                       </Typography>
                     </Box>

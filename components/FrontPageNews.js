@@ -80,7 +80,7 @@ export default function FrontPageUpdates({ news }) {
               <Typography variant="h4" className={classes.date}>
                 {moment(news.date).format("LL")}
               </Typography>
-              <Typography>{parse(news.content)}</Typography>
+              <Typography component="div">{parse(news.content)}</Typography>
               {/* <Typography variant="body1" className={classes.author}>
                 {news.from}
               </Typography> */}
