@@ -199,21 +199,17 @@ export default function PitcherClassification({ pitchers, sponsors }) {
                 className={classes.tableContainer}
               >
                 {pitchers.title ? (
-                  <>
-                    <Box p={(2, 6)}>
-                      <Typography variant="h4" align="center">
-                        {pitchers.title}
-                      </Typography>
-                    </Box>
-                  </>
+                  <Box p={(2, 6)}>
+                    <Typography variant="h4" align="center">
+                      {pitchers.title}
+                    </Typography>
+                  </Box>
                 ) : (
-                  <>
-                    <Box p={(2, 4)}>
-                      <Typography variant="h4" align="center">
-                        Fast Pitch Classification Committee Members
-                      </Typography>
-                    </Box>
-                  </>
+                  <Box p={(2, 4)}>
+                    <Typography variant="h4" align="center">
+                      Fast Pitch Classification Committee Members
+                    </Typography>
+                  </Box>
                 )}
                 <Table className={classes.table}>
                   <TableHead>

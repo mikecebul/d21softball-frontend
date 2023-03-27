@@ -1,6 +1,5 @@
 import React from "react";
 import { useCurrentUser } from "../context/CurrentUser";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import USAWideLogo from "../public/USA_MI_Logo_Header.png";
 
@@ -12,13 +11,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Link from "../src/Link";
 import {
   AppBar,
-  Box,
   Button,
-  ButtonGroup,
   Container,
   List,
   ListItem,
-  ListItemText,
   Toolbar,
   Typography,
   Slide,
@@ -92,22 +88,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
-  const router = useRouter();
   const classes = useStyles();
   const user = useCurrentUser();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("lg"));
   const roomForLogo = useMediaQuery(theme.breakpoints.up("md"));
-
-  const handleLoginClick = (e) => {
-    e.preventDefault();
-    router.push("/login");
-  };
-
-  const handleSignupClick = (e) => {
-    e.preventDefault();
-    router.push("/signup");
-  };
 
   return (
     <div>
@@ -128,24 +113,16 @@ export default function Navbar() {
               // Simple Menu
               <AccountMenu />
             ) : (
-              <ButtonGroup size="small" aria-label="verification button group">
+              <Link href="/login">
                 <Button
-                  onClick={handleLoginClick}
                   variant="contained"
-                  color="primary"
-                  aria-label="Login Button"
+                  color="default"
+                  aria-label="Login"
+                  size="small"
                 >
                   Login
                 </Button>
-                <Button
-                  onClick={handleSignupClick}
-                  variant="contained"
-                  color="default"
-                  aria-label="Sign Up Button"
-                >
-                  SIGN UP
-                </Button>
-              </ButtonGroup>
+              </Link>
             )}
           </Toolbar>
         </Container>
@@ -205,29 +182,16 @@ export default function Navbar() {
                 // Simple Menu
                 <AccountMenu />
               ) : (
-                <ButtonGroup
-                  // variant="contained"
-                  // color="primary"
-                  size="small"
-                  aria-label="verification button group"
-                >
+                <Link href="/login">
                   <Button
-                    onClick={handleLoginClick}
                     variant="contained"
-                    color="primary"
-                    aria-label="Login Button"
+                    color="default"
+                    aria-label="Login"
+                    size="small"
                   >
                     Login
                   </Button>
-                  <Button
-                    onClick={handleSignupClick}
-                    variant="contained"
-                    color="default"
-                    aria-label="Sign Up Button"
-                  >
-                    SIGN UP
-                  </Button>
-                </ButtonGroup>
+                </Link>
               )}
             </Toolbar>
           </Container>
