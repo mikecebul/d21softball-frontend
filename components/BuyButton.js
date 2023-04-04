@@ -4,7 +4,6 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PK, API_URL } from "../utils/urls";
-import Link from "../src/Link";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BuyButton({ tournament, email }) {
+export default function BuyButton({ tournament, email, selected }) {
   const classes = useStyles();
   const user = useCurrentUser();
 
@@ -47,6 +46,7 @@ export default function BuyButton({ tournament, email }) {
         variant="contained"
         color="primary"
         onClick={handleBuy}
+        disabled={!selected}
       >
         Register
       </Button>

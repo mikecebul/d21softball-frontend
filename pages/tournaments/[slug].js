@@ -1,8 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
 import parse from "html-react-parser";
-import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
+import { fromImageToUrl, API_URL } from "../../utils/urls";
 import { twoDecimals } from "../../utils/format";
 import BuyButton from "../../components/BuyButton";
 import Sponsors from "../../components/sponsors";
@@ -20,6 +20,10 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
@@ -67,6 +71,13 @@ const useStyles = makeStyles((theme) => ({
     background:
       "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
   },
+  formControl: {
+    minWidth: 200,
+    margin: theme.spacing(1),
+  },
+  inputLabel: {
+    paddingLeft: theme.spacing(2),
+  },
 }));
 
 const Tournament = ({ tournament, sponsors }) => {
@@ -75,6 +86,11 @@ const Tournament = ({ tournament, sponsors }) => {
   const currentDate = moment().format("YYYY-MM-DD");
   const user = useCurrentUser();
   const router = useRouter();
+  const [selected, setSelected] = useState(false);
+  const handleTeamSelect = (e) => {
+    setSelected(true);
+    tournament.team = e.target.value;
+  };
 
   return (
     <>
@@ -113,10 +129,29 @@ const Tournament = ({ tournament, sponsors }) => {
           {/* Only show Price and Registration if Tournament is in the future */}
           {currentDate < tournamentDate && (
             <CardActions>
+              <Box m={2}>
+                <FormControl
+                  required
+                  variant="outlined"
+                  className={classes.formControl}
+                >
+                  <InputLabel id="team-select">Team</InputLabel>
+                  <Select
+                    label="Team"
+                    labelId="team-select"
+                    value={tournament.team}
+                    onChange={handleTeamSelect}
+                  >
+                    <MenuItem value="Team 1">Team 1</MenuItem>
+                    <MenuItem value="Team 2">Team 2</MenuItem>
+                    <MenuItem value="Team 3">Team 3</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
               {!user.isAuthenticated ? (
-                <GuestCheckout tournament={tournament} />
+                <GuestCheckout tournament={tournament} selected={selected} />
               ) : (
-                <BuyButton tournament={tournament} />
+                <BuyButton tournament={tournament} selected={selected} />
               )}
               <Typography variant="h6" className={classes.price}>
                 ${twoDecimals(tournament.price)}

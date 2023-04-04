@@ -21,7 +21,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { fromImageToUrl, API_URL, fromImageToUrlSmall } from "../../utils/urls";
+import { fromImageToUrl, API_URL } from "../../utils/urls";
 import {
   filteredItems,
   uniqueYears,

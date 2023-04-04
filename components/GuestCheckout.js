@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function GuestCheckout({ tournament }) {
+export function GuestCheckout({ tournament, selected }) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -73,7 +73,12 @@ export function GuestCheckout({ tournament }) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpen}
+        disabled={!selected}
+      >
         REGISTER
       </Button>
       <Dialog
