@@ -24,6 +24,10 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormControlLabel,
+  RadioGroup,
+  FormLabel,
+  Radio,
 } from "@material-ui/core";
 import ImageCarouselTournament from "../../components/ImageCarouselTournament";
 import { makeStyles } from "@material-ui/core/styles";
@@ -86,10 +90,13 @@ const Tournament = ({ tournament, sponsors }) => {
   const currentDate = moment().format("YYYY-MM-DD");
   const user = useCurrentUser();
   const router = useRouter();
+
+  const [value, setValue] = useState(null);
+
   const [selected, setSelected] = useState(false);
-  const handleTeamSelect = (e) => {
+  const handleChange = (e) => {
+    setValue(e.target.value);
     setSelected(true);
-    tournament.team = e.target.value;
   };
 
   return (
@@ -123,14 +130,48 @@ const Tournament = ({ tournament, sponsors }) => {
               <Moment format="MMMM D, YYYY">{tournament.date_to}</Moment>
             </Typography>
             {tournament.content && (
-              <Box mt={4}>{parse(tournament.content)}</Box>
+              <Box mt={4}>
+                {parse(tournament.content)}
+                <FormControl component="fieldset" required>
+                  <FormLabel component="legend">
+                    Choose which participating team to register.
+                  </FormLabel>
+                  <RadioGroup
+                    aria-label="gender"
+                    name="gender1"
+                    value={value}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="Lightning from Marshall"
+                      control={<Radio />}
+                      label="Lightning from Marshall"
+                    />
+                    <FormControlLabel
+                      value="Gray Sox from Sawyer"
+                      control={<Radio />}
+                      label="Gray Sox from Sawyer"
+                    />
+                    <FormControlLabel
+                      value="Bombers from Saginaw"
+                      control={<Radio />}
+                      label="Bombers from Saginaw"
+                    />
+                    <FormControlLabel
+                      value="Tiffany's from Frankenmuth"
+                      control={<Radio />}
+                      label="Tiffany's from Frankenmuth"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Box>
             )}
           </CardContent>
           {/* Only show Price and Registration if Tournament is in the future */}
           {currentDate < tournamentDate && (
             <CardActions>
-              <Box m={2}>
-                <FormControl
+              {/* <Box m={2}> */}
+              {/* <FormControl
                   required
                   variant="outlined"
                   className={classes.formControl}
@@ -146,8 +187,8 @@ const Tournament = ({ tournament, sponsors }) => {
                     <MenuItem value="Team 2">Team 2</MenuItem>
                     <MenuItem value="Team 3">Team 3</MenuItem>
                   </Select>
-                </FormControl>
-              </Box>
+                </FormControl> */}
+              {/* </Box> */}
               {!user.isAuthenticated ? (
                 <GuestCheckout tournament={tournament} selected={selected} />
               ) : (
