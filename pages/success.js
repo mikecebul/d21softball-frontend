@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useOrder = (session_id) => {
+const useOrder = (session_id, tournament_id, team_id) => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +33,7 @@ const useOrder = (session_id) => {
       await axios
         .post(
           `${API_URL}/orders/confirm`,
-          { checkout_session: session_id },
+          { checkout_session: session_id, tournament_id, team_id },
           { withCredentials: true }
         )
         .then((resp) => {
@@ -48,7 +48,7 @@ const useOrder = (session_id) => {
       setLoading(false);
     };
     fetchOrder();
-  }, [session_id]);
+  }, [session_id, tournament_id, team_id]);
 
   return { order, loading };
 };
@@ -59,10 +59,10 @@ export default function Success() {
   console.log(isAuthenticated);
 
   const router = useRouter();
-  const { session_id } = router.query;
+  const { session_id, tournament_id, team_id } = router.query;
   // console.log("Session ID:", session_id);
 
-  const { order, loading } = useOrder(session_id);
+  const { order, loading } = useOrder(session_id, tournament_id, team_id);
 
   return (
     <div>

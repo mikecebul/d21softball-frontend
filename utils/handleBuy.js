@@ -4,10 +4,10 @@ import { STRIPE_PK, API_URL } from "../utils/urls";
 
 const stripePromise = loadStripe(STRIPE_PK);
 
-export const handleBuy = async (tournament, email) => {
+export const handleBuy = async (tournament, email, teamId) => {
   const stripe = await stripePromise;
   await axios
-    .post(`${API_URL}/orders`, { tournament, email }, { withCredentials: true })
+    .post(`${API_URL}/orders`, { tournament, email, teamId }, { withCredentials: true })
     .then((resp) => {
       const session = resp.data;
       const result = stripe.redirectToCheckout({

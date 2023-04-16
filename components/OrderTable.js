@@ -96,11 +96,11 @@ export default function OrderTable() {
             </TableHead>
             <TableBody>
               {orders.length < 1 ? (
-                <Box pl={2}>
-                  <Typography variant="h6">
-                    You have no orders to display
-                  </Typography>
-                </Box>
+                <TableRow>
+                  <TableCell colSpan={5} align="center">
+                    <Typography variant="h6">You have no orders to display</Typography>
+                  </TableCell>
+                </TableRow>
               ) : (
                 orders
                   .filter((order) => order.status === "paid")

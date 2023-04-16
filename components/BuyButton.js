@@ -11,11 +11,11 @@ const stripePromise = loadStripe(STRIPE_PK);
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
   },
 }));
 
-export default function BuyButton({ tournament, email, selected }) {
+export default function BuyButton({ tournament, email, selected, teamId }) {
   const classes = useStyles();
   const user = useCurrentUser();
 
@@ -25,7 +25,7 @@ export default function BuyButton({ tournament, email, selected }) {
     await axios
       .post(
         `${API_URL}/orders`,
-        { tournament, email },
+        { tournament, email, teamId },
         { withCredentials: true }
       )
       .then((resp) => {

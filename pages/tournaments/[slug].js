@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
 import parse from "html-react-parser";
@@ -21,9 +21,6 @@ import {
   Button,
   Container,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   FormControlLabel,
   RadioGroup,
   FormLabel,
@@ -53,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   price: {
-    paddingLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
   },
   bracket: {
     padding: theme.spacing(3),
@@ -92,12 +89,24 @@ const Tournament = ({ tournament, sponsors }) => {
   const router = useRouter();
 
   const [value, setValue] = useState(null);
-
+  const [teamId, setTeamId] = useState(null);
   const [selected, setSelected] = useState(false);
+
+
+  useEffect(() => {
+    if (value) {
+      const selectedTeam = tournament.teams.find((team) => team.team === value);
+      setTeamId(selectedTeam.id);
+    } else {
+      setTeamId(null);
+    }
+  }, [value, tournament.teams]);
+
   const handleChange = (e) => {
     setValue(e.target.value);
     setSelected(true);
   };
+
 
   return (
     <>
@@ -132,71 +141,48 @@ const Tournament = ({ tournament, sponsors }) => {
             {tournament.content && (
               <Box mt={4}>
                 {parse(tournament.content)}
-                <FormControl component="fieldset" required>
-                  <FormLabel component="legend">
-                    Choose which participating team to register.
-                  </FormLabel>
-                  <RadioGroup
-                    aria-label="gender"
-                    name="gender1"
-                    value={value}
-                    onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value="Lightning from Marshall"
-                      control={<Radio />}
-                      label="Lightning from Marshall"
-                    />
-                    <FormControlLabel
-                      value="Gray Sox from Sawyer"
-                      control={<Radio />}
-                      label="Gray Sox from Sawyer"
-                    />
-                    <FormControlLabel
-                      value="Bombers from Saginaw"
-                      control={<Radio />}
-                      label="Bombers from Saginaw"
-                    />
-                    <FormControlLabel
-                      value="Tiffany's from Frankenmuth"
-                      control={<Radio />}
-                      label="Tiffany's from Frankenmuth"
-                    />
-                  </RadioGroup>
-                </FormControl>
+
+                <Box mt={4}>
+                  <FormControl component="fieldset" focused required>
+                    <FormLabel component="legend">
+                      Choose which participating team to register.
+                    </FormLabel>
+                    <RadioGroup
+                      aria-label="Teams"
+                      name="Teams"
+                      value={value}
+                      onChange={handleChange}
+                    >
+                      {tournament.teams && tournament.teams.map((team) => (
+                        <FormControlLabel
+                          key={team.id}
+                          value={team.team}
+                          control={<Radio />}
+                          label={team.isPaid ? `${team.team} - Paid ` : team.team}
+                          disabled={team.isPaid}
+                        >
+                        </FormControlLabel>
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                </Box>
+
               </Box>
             )}
           </CardContent>
           {/* Only show Price and Registration if Tournament is in the future */}
           {currentDate < tournamentDate && (
             <CardActions>
-              {/* <Box m={2}> */}
-              {/* <FormControl
-                  required
-                  variant="outlined"
-                  className={classes.formControl}
-                >
-                  <InputLabel id="team-select">Team</InputLabel>
-                  <Select
-                    label="Team"
-                    labelId="team-select"
-                    value={tournament.team}
-                    onChange={handleTeamSelect}
-                  >
-                    <MenuItem value="Team 1">Team 1</MenuItem>
-                    <MenuItem value="Team 2">Team 2</MenuItem>
-                    <MenuItem value="Team 3">Team 3</MenuItem>
-                  </Select>
-                </FormControl> */}
-              {/* </Box> */}
-              {!user.isAuthenticated ? (
-                <GuestCheckout tournament={tournament} selected={selected} />
-              ) : (
-                <BuyButton tournament={tournament} selected={selected} />
-              )}
-              <Typography variant="h6" className={classes.price}>
-                ${twoDecimals(tournament.price)}
-              </Typography>
+              <Box display="flex" alignItems="center" m={1}>
+                {!user.isAuthenticated ? (
+                  <GuestCheckout tournament={tournament} selected={selected} teamId={teamId} />
+                ) : (
+                  <BuyButton tournament={tournament} selected={selected} teamId={teamId} />
+                )}
+                <Typography variant="h6" className={classes.price}>
+                  ${twoDecimals(tournament.price)}
+                </Typography>
+              </Box>
             </CardActions>
           )}
         </Card>
@@ -204,33 +190,33 @@ const Tournament = ({ tournament, sponsors }) => {
         {(tournament.resultsMedia.length > 0 ||
           tournament.finalBracket ||
           tournament.bracketResults) && (
-          <Paper>
-            <Box className={classes.bracket}>
-              {/* Carousel of Images */}
-              {tournament.resultsMedia.length > 0 && (
-                <ImageCarouselTournament tournament={tournament} />
-              )}
-              {tournament.finalBracket && (
-                <Box mt={4} mb={4}>
-                  <Link
-                    href={{
-                      pathname: `${API_URL}${tournament.finalBracket.url}`,
-                    }}
-                    target="_blank"
-                  >
-                    <Button variant="contained" color="secondary">
-                      View Final Bracket
-                    </Button>
-                  </Link>
-                </Box>
-              )}
-              {/* Markdown of Tournament Results */}
-              {tournament.bracketResults && (
-                <Box>{parse(tournament.bracketResults)}</Box>
-              )}
-            </Box>
-          </Paper>
-        )}
+            <Paper>
+              <Box className={classes.bracket}>
+                {/* Carousel of Images */}
+                {tournament.resultsMedia.length > 0 && (
+                  <ImageCarouselTournament tournament={tournament} />
+                )}
+                {tournament.finalBracket && (
+                  <Box mt={4} mb={4}>
+                    <Link
+                      href={{
+                        pathname: `${API_URL}${tournament.finalBracket.url}`,
+                      }}
+                      target="_blank"
+                    >
+                      <Button variant="contained" color="secondary">
+                        View Final Bracket
+                      </Button>
+                    </Link>
+                  </Box>
+                )}
+                {/* Markdown of Tournament Results */}
+                {tournament.bracketResults && (
+                  <Box>{parse(tournament.bracketResults)}</Box>
+                )}
+              </Box>
+            </Paper>
+          )}
         <Sponsors sponsors={sponsors} />
       </Container>
     </>

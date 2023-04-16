@@ -1,5 +1,4 @@
 import {
-  AppBar,
   Box,
   Button,
   Dialog,
@@ -12,7 +11,6 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography,
   useTheme,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -30,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function GuestCheckout({ tournament, selected }) {
+export function GuestCheckout({ tournament, selected, teamId }) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -53,7 +51,7 @@ export function GuestCheckout({ tournament, selected }) {
 
   const onSubmit = (data) => {
     const email = data.email;
-    handleBuy(tournament, email);
+    handleBuy(tournament, email, teamId);
   };
 
   const handleClickOpen = () => {
