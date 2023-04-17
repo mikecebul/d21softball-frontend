@@ -74,9 +74,6 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-  // Do I show Hall Of Fame List?
-  const [showHallOfFame, setShowHallOfFame] = useState(null);
-
   // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
   const years = uniqueYears(sortedList);
@@ -103,7 +100,7 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
         <title>Tournament Archives</title>
         <meta
           name="description"
-          content="Archives of past tournaments and Hall of Fame records for men's fastpitch softball in distrct 21 of Northern Michigan."
+          content="Archives of past tournaments for men's fastpitch softball in distrct 21 of Northern Michigan."
         />
       </Head>
       <main className={classes.root}>
@@ -125,15 +122,11 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
               color="textSecondary"
               paragraph
             >
-              {showHallOfFame ? (
-                "Viewing Hall of Fame"
-              ) : (
-                <>
-                  {"Viewing "}
-                  <Moment format="YYYY">{currentDate}</Moment>
-                  {" Archives"}
-                </>
-              )}
+              <>
+                {"Viewing "}
+                <Moment format="YYYY">{currentDate}</Moment>
+                {" Archives"}
+              </>
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
@@ -143,13 +136,12 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
                       size={mobile ? "small" : "medium"}
                       variant="contained"
                       color={
-                        currentDate === date && !showHallOfFame
+                        currentDate === date
                           ? "secondary"
                           : "default"
                       }
                       onClick={() => {
                         setCurrentDate(date);
-                        setShowHallOfFame(null);
                       }}
                     >
                       <Moment format="YYYY">{date}</Moment>{" "}
@@ -157,15 +149,15 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
                   </Grid>
                 ))}
                 <Grid item>
-                  <Button
-                    size={mobile ? "small" : "medium"}
-                    startIcon={<EmojiEventsOutlinedIcon />}
-                    variant="contained"
-                    color={showHallOfFame ? "secondary" : "default"}
-                    onClick={() => setShowHallOfFame(1)}
-                  >
-                    Hall of Fame
-                  </Button>
+                  <Link href="/hall-of-fame">
+                    <Button
+                      size={mobile ? "small" : "medium"}
+                      startIcon={<EmojiEventsOutlinedIcon />}
+                      variant="contained"
+                    >
+                      Hall of Fame
+                    </Button>
+                  </Link>
                 </Grid>
               </Grid>
             </div>
@@ -173,49 +165,45 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
         </div>
         {/* End hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
-          {showHallOfFame ? (
-            <HallOfFame hallOfFame={hallOfFame} />
-          ) : (
-            <Grid container spacing={4} justifyContent="center">
-              {filteredTournaments.map((tournament) => (
-                <Grid item key={tournament.name} xs={10} sm={5} md={4}>
-                  <Card className={classes.card} raised>
-                    <CardActionArea>
-                      <Link
-                        color="textPrimary"
-                        href={`/archives/${tournament.slug}`}
-                      >
-                        <CardMedia
-                          className={classes.cardMedia}
-                          image={fromImageToUrl(tournament.image)}
-                          title={tournament.meta_title}
-                        />
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h5" component="h3">
-                            {tournament.name}
-                          </Typography>
-                          <Divider className={classes.divider} />
-                          <Typography>{tournament.class}</Typography>
-                          <Typography variant="subtitle2">
-                            <Moment format="MMMM D, YYYY">
-                              {tournament.date_from}
-                            </Moment>
-                          </Typography>
-                        </CardContent>
-                      </Link>
-                    </CardActionArea>
-                    {/* <CardActions>
+          <Grid container spacing={4} justifyContent="center">
+            {filteredTournaments.map((tournament) => (
+              <Grid item key={tournament.name} xs={10} sm={5} md={4}>
+                <Card className={classes.card} raised>
+                  <CardActionArea>
+                    <Link
+                      color="textPrimary"
+                      href={`/archives/${tournament.slug}`}
+                    >
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={fromImageToUrl(tournament.image)}
+                        title={tournament.meta_title}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h5" component="h3">
+                          {tournament.name}
+                        </Typography>
+                        <Divider className={classes.divider} />
+                        <Typography>{tournament.class}</Typography>
+                        <Typography variant="subtitle2">
+                          <Moment format="MMMM D, YYYY">
+                            {tournament.date_from}
+                          </Moment>
+                        </Typography>
+                      </CardContent>
+                    </Link>
+                  </CardActionArea>
+                  {/* <CardActions>
                       <Link href={`/tournaments/${tournament.slug}`}>
                         <Button size="small" color="primary">
                           View
                         </Button>
                       </Link>
                     </CardActions> */}
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          )}
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
           <Sponsors sponsors={sponsors} />
         </Container>
       </main>

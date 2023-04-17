@@ -95,13 +95,6 @@ export default function NavDesktop() {
           </ListItem>
         </Link>
       </List>
-      {/* <List>
-        <Link href="/development-workshops" color="inherit">
-          <ListItem button>
-            <ListItemText primary="Development Workshops" />
-          </ListItem>
-        </Link>
-      </List> */}
       <List disablePadding>
         <Link href="/pitcher-classification" color="inherit">
           <ListItem button>
@@ -113,6 +106,13 @@ export default function NavDesktop() {
         <Link href="/archives" color="inherit">
           <ListItem button>
             <ListItemText primary="Archives" />
+          </ListItem>
+        </Link>
+      </List>
+      <List disablePadding>
+        <Link href="/hall-of-fame" color="inherit">
+          <ListItem button>
+            <ListItemText primary="Hall of Fame" />
           </ListItem>
         </Link>
       </List>

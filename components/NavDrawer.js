@@ -19,14 +19,7 @@ import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import SportsHandballOutlinedIcon from "@material-ui/icons/SportsHandballOutlined";
 import Link from "../src/Link";
-
-// import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-// import Collapse from "@material-ui/core/Collapse";
-// import InboxIcon from "@material-ui/icons/MoveToInbox";
-// import DraftsIcon from "@material-ui/icons/Drafts";
-// import SendIcon from "@material-ui/icons/Send";
-// import ExpandLess from "@material-ui/icons/ExpandLess";
-// import ExpandMore from "@material-ui/icons/ExpandMore";
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import HotelOutlinedIcon from "@material-ui/icons/HotelOutlined";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import SportsIcon from "@material-ui/icons/Sports";
@@ -111,15 +104,6 @@ const NavDrawer = () => {
               <ListItemText primary="Tournaments" />
             </ListItem>
           </Link>
-          {/* Camps */}
-          {/* <Link href="/development-workshops" color="inherit">
-            <ListItem button onClick={() => setOpen(false)}>
-              <ListItemIcon>
-                <SportsBaseballOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Development Workshops" />
-            </ListItem>
-          </Link> */}
           {/* Pitchers */}
           <Link href="/pitcher-classification" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
@@ -136,6 +120,15 @@ const NavDrawer = () => {
                 <HistoryOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Archives" />
+            </ListItem>
+          </Link>
+          {/* Hall of Fame */}
+          <Link href="/hall-of-fame" color="inherit">
+            <ListItem button onClick={() => setOpen(false)}>
+              <ListItemIcon>
+                <EmojiEventsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Hall of Fame" />
             </ListItem>
           </Link>
           {/* Motel */}

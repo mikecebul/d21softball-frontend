@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     // maxWidth: 400,
     flexGrow: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.1)", // Add a semi-transparent black background
   },
   header: {
     display: "flex",
@@ -30,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ImageCarouselTournament({ tournament }) {
+function ImageCarouselHOF({ images }) {
   const classes = useStyles();
   const myLoader = ({ src, width, quality }) => {
     return `${API_URL}${src}?w=${width}&q=${quality || 75}`;
   };
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tournament.resultsMedia.length;
+  const maxSteps = images.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -51,9 +52,9 @@ function ImageCarouselTournament({ tournament }) {
   };
 
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Typography>{tournament.resultsMedia[activeStep]?.caption}</Typography>
+        <Typography>{images[activeStep]?.caption}</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -62,7 +63,7 @@ function ImageCarouselTournament({ tournament }) {
         enableMouseEvents
         interval={5000}
       >
-        {tournament.resultsMedia.map((item, index) => (
+        {images.map((item, index) => (
           <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Link
@@ -114,8 +115,8 @@ function ImageCarouselTournament({ tournament }) {
           </Button>
         }
       />
-    </div>
+    </Paper>
   );
 }
 
-export default ImageCarouselTournament;
+export default ImageCarouselHOF;

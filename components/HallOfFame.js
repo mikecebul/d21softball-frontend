@@ -1,4 +1,3 @@
-import React from "react";
 import parse from "html-react-parser";
 import { fromImageToUrl, API_URL } from "../utils/urls";
 import Link from "../src/Link";
@@ -24,6 +23,7 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 // import NewspaperIcon from "@material-ui/icons/Newspaper";
 import { makeStyles } from "@material-ui/core/styles";
+import ImageCarouselHOF from "./ImageCarouselHOF";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -89,150 +89,135 @@ export default function HallOfFame({ hallOfFame }) {
   const align = matches ? "left" : "center";
   // console.log("Hall of Fame:", hallOfFame.table);
   return (
-    <React.Fragment>
-      <Container className={classes.fameContent} maxWidth="md">
-        {/* Table of Committee Members */}
-        {hallOfFame.table && (
-          <TableContainer
-            component={Paper}
-            elevation={3}
-            className={classes.tableContainer}
-          >
-            {hallOfFame.table.title ? (
-              <>
-                <Box p={(2, 6)}>
-                  <Typography variant="h4" align="center">
-                    {hallOfFame.table.title}
-                  </Typography>
-                </Box>
-              </>
-            ) : (
-              <>
-                <Box p={(2, 4)}>
-                  <Typography variant="h4" align="center">
-                    District 21 Hall of Fame
-                  </Typography>
-                </Box>
-              </>
-            )}
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.head}>Name</TableCell>
-                  <TableCell className={classes.head}>Position</TableCell>
-                  <TableCell className={classes.head}>Location</TableCell>
-                  <TableCell className={classes.head}>Inducted</TableCell>
-                  <TableCell className={classes.head}>Media</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {hallOfFame.table.member.map((member) => (
-                  <TableRow key={member.id}>
-                    <TableCell>{member.name}</TableCell>
-                    <TableCell>{member.position}</TableCell>
-                    <TableCell>{member.location}</TableCell>
-                    <TableCell>{member.year}</TableCell>
-                    <TableCell>
-                      {(member.url || member.media) && (
-                        <IconButton
-                          color="primary"
-                          aria-label="upload picture"
-                          component={Link}
-                          target="_blank"
-                          href={
-                            member.url
-                              ? member.url
-                              : fromImageToUrl(member.media)
-                          }
-                        >
-                          <AttachmentIcon />
-                        </IconButton>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-        <>
-          {hallOfFame.links && (
+    <Container className={classes.fameContent} maxWidth="md">
+      {/* Table of Committee Members */}
+      {hallOfFame.table && (
+        <TableContainer
+          component={Paper}
+          elevation={3}
+          className={classes.tableContainer}
+        >
+          {hallOfFame.table.title ? (
             <>
-              {/* Hero unit */}
-              {/* <div className={classes.heroContent}>
-            <Divider className={classes.divider} />
-            <Typography
-              component="h2"
-              variant={mobile ? "h4" : "h2"}
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              Updates
-            </Typography>
-          </div> */}
-              <Box className={classes.outterBox}>
-                <Paper className={classes.paper} elevation={3}>
-                  {hallOfFame.links.map((link) => (
-                    <React.Fragment key={link.id}>
-                      <Box className={classes.box}>
-                        {link.title && (
-                          <Typography variant="h6" align={align}>
-                            {link.title}
-                          </Typography>
-                        )}
-                        {link.content && (
-                          <Typography
-                            component="div"
-                            className={classes.content}
-                            align={align}
+              <Box p={(2, 6)}>
+                <Typography variant="h4" align="center">
+                  {hallOfFame.table.title}
+                </Typography>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box p={(2, 4)}>
+                <Typography variant="h4" align="center">
+                  District 21 Hall of Fame
+                </Typography>
+              </Box>
+            </>
+          )}
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.head}>Name</TableCell>
+                <TableCell className={classes.head}>Position</TableCell>
+                <TableCell className={classes.head}>Location</TableCell>
+                <TableCell className={classes.head}>Inducted</TableCell>
+                <TableCell className={classes.head}>Media</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {hallOfFame.table.member.map((member) => (
+                <TableRow key={member.id}>
+                  <TableCell>{member.name}</TableCell>
+                  <TableCell>{member.position}</TableCell>
+                  <TableCell>{member.location}</TableCell>
+                  <TableCell>{member.year}</TableCell>
+                  <TableCell>
+                    {(member.url || member.media) && (
+                      <IconButton
+                        color="primary"
+                        aria-label="upload picture"
+                        component={Link}
+                        target="_blank"
+                        href={
+                          member.url
+                            ? member.url
+                            : fromImageToUrl(member.media)
+                        }
+                      >
+                        <AttachmentIcon />
+                      </IconButton>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+      <>
+        {hallOfFame.links && (
+          <>
+            <Box className={classes.outterBox}>
+              <Paper className={classes.paper} elevation={3}>
+                {hallOfFame.links.map((link) => (
+                  <div key={link.id}>
+                    <Box className={classes.box}>
+                      {link.title && (
+                        <Typography variant="h6" align={align}>
+                          {link.title}
+                        </Typography>
+                      )}
+                      {link.content && (
+                        <Typography
+                          component="div"
+                          className={classes.content}
+                          align={align}
+                        >
+                          {parse(link.content)}
+                        </Typography>
+                      )}
+                      {link.media && (
+                        <Box className={classes.updateButton}>
+                          <Button
+                            size="small"
+                            endIcon={<ArrowRightIcon />}
+                            color="primary"
+                            variant="contained"
+                            component={Link}
+                            href={API_URL + link.media.url}
                           >
-                            {parse(link.content)}
-                          </Typography>
-                        )}
-                        {link.media && (
-                          <Box className={classes.updateButton}>
+                            Check it out
+                          </Button>
+                        </Box>
+                      )}
+                      {link.link && (
+                        <Box className={classes.updateButton}>
+                          <a
+                            href={link.link}
+                            target="_blank"
+                            className={classes.link}
+                          >
                             <Button
+                              className={classes.updateButton}
                               size="small"
                               endIcon={<ArrowRightIcon />}
                               color="primary"
                               variant="contained"
-                              component={Link}
-                              href={API_URL + link.media.url}
                             >
                               Check it out
                             </Button>
-                          </Box>
-                        )}
-                        {link.link && (
-                          <Box className={classes.updateButton}>
-                            <a
-                              href={link.link}
-                              target="_blank"
-                              className={classes.link}
-                            >
-                              <Button
-                                className={classes.updateButton}
-                                size="small"
-                                endIcon={<ArrowRightIcon />}
-                                color="primary"
-                                variant="contained"
-                              >
-                                Check it out
-                              </Button>
-                            </a>
-                          </Box>
-                        )}
-                      </Box>
-                      <Divider className={classes.divider} />
-                    </React.Fragment>
-                  ))}
-                </Paper>
-              </Box>
-            </>
-          )}
-        </>
-      </Container>
-    </React.Fragment>
+                          </a>
+                        </Box>
+                      )}
+                    </Box>
+                    <Divider className={classes.divider} />
+                  </div>
+                ))}
+              </Paper>
+            </Box>
+          </>
+        )}
+      </>
+    </Container>
   );
 }
