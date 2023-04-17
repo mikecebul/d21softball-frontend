@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import parse from "html-react-parser";
 import { fromImageToUrl, API_URL } from "../utils/urls";
 import Link from "../src/Link";
@@ -23,6 +24,11 @@ import {
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 // import NewspaperIcon from "@material-ui/icons/Newspaper";
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from "@material-ui/core/styles";
 import ImageCarouselHOF from "../components/ImageCarouselHOF";
 import Sponsors from "../components/sponsors";
@@ -94,8 +100,13 @@ export default function HOF({ hof, sponsors }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-
   const align = matches ? "left" : "center";
+
+  const [expanded, setExpanded] = useState(false);
+  const handleAccordionToggle = (event, index) => {
+    setExpanded(expanded === index ? false : index);
+  };
+
   return (
     <>
       <Head>
@@ -128,7 +139,7 @@ export default function HOF({ hof, sponsors }) {
 
 
         {/* Table of Committee Members */}
-        <Container maxWidth="md" >
+        <Container maxWidth="lg" >
           <Box p={8}>
             {hof.table && (
               <TableContainer
@@ -156,40 +167,44 @@ export default function HOF({ hof, sponsors }) {
                       <TableCell className={classes.head}>Position</TableCell>
                       <TableCell className={classes.head}>Location</TableCell>
                       <TableCell className={classes.head}>Inducted</TableCell>
-                      <TableCell className={classes.head}>Media</TableCell>
+                      <TableCell className={classes.head}>More</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {hof.table.member.map((member) => (
-                      <TableRow key={member.id}>
-                        <TableCell>{member.name}</TableCell>
-                        <TableCell>{member.position}</TableCell>
-                        <TableCell>{member.location}</TableCell>
-                        <TableCell>{member.year}</TableCell>
-                        <TableCell>
-                          {(member.url || member.media) && (
+                    {hof.table.member.map((member, index) => (
+                      <React.Fragment key={member.id}>
+                        <TableRow>
+                          <TableCell>{member.name}</TableCell>
+                          <TableCell>{member.position}</TableCell>
+                          <TableCell>{member.location}</TableCell>
+                          <TableCell>{member.year}</TableCell>
+                          <TableCell>
                             <IconButton
-                              color="primary"
-                              aria-label="upload picture"
-                              component={Link}
-                              target="_blank"
-                              href={
-                                member.url
-                                  ? member.url
-                                  : fromImageToUrl(member.media)
-                              }
+                              onClick={(event) => handleAccordionToggle(event, index)}
+                              aria-expanded={expanded === index}
+                              aria-label="show more"
                             >
-                              <AttachmentIcon />
+                              <ExpandMoreIcon />
                             </IconButton>
-                          )}
-                        </TableCell>
-                      </TableRow>
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell colSpan={5} style={{ padding: 0 }}>
+                            <Collapse in={expanded === index} timeout="auto" unmountOnExit>
+                              <Box p={2}>
+                                {/* Add the additional information you want to show here */}
+                                Additional info about {member.name}
+                              </Box>
+                            </Collapse>
+                          </TableCell>
+                        </TableRow>
+                      </React.Fragment>
                     ))}
                   </TableBody>
                 </Table>
               </TableContainer>
             )}
-            {hof.links && (
+            {/* {hof.links && (
               <Box className={classes.outterBox}>
                 <Paper className={classes.paper} elevation={3}>
                   {hof.links.map((link) => (
@@ -248,7 +263,7 @@ export default function HOF({ hof, sponsors }) {
                   ))}
                 </Paper>
               </Box>
-            )}
+            )} */}
             <Sponsors sponsors={sponsors} />
           </Box>
         </Container>
