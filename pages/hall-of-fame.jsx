@@ -253,7 +253,11 @@ export default function HOF({ hof, sponsors }) {
                                   aria-expanded={expanded === index}
                                   aria-label="show more"
                                 >
-                                  <ExpandMoreIcon />
+                                  <ExpandMoreIcon
+                                    style={{
+                                      transform: expanded === index ? "rotate(180deg)" : "rotate(0deg)",
+                                      transition: "transform 0.3s",
+                                    }} />
                                 </IconButton>
                               }
                             </TableCell>
