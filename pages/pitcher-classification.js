@@ -133,7 +133,7 @@ export default function PitcherClassification({ pitchers, sponsors }) {
             color="textSecondary"
             paragraph
           >
-            Pitcher classification list and committee members
+            Classification list and committee members
           </Typography>
         </div>
         {/* End Hero Unit */}

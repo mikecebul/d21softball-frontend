@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import parse from "html-react-parser";
-import { fromImageToUrl, API_URL } from "../utils/urls";
-import Link from "../src/Link";
+import { API_URL } from "../utils/urls";
 
 import {
   Box,
   Container,
   Typography,
   IconButton,
-  Button,
-  Divider,
   Paper,
   useMediaQuery,
   useTheme,
@@ -19,14 +16,7 @@ import {
   TableCell,
   TableHead,
   TableBody,
-  Grid,
 } from "@material-ui/core";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import AttachmentIcon from "@material-ui/icons/Attachment";
-// import NewspaperIcon from "@material-ui/icons/Newspaper";
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from "@material-ui/core/styles";
@@ -39,13 +29,12 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiCardActionArea-root": {
       textAlign: "center",
     },
-    // margin: theme.spacing(0, 4, 0, 8),
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 2, 2, 2),
-    [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(6, 2, 2, 2),
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(6, 0, 2, 0),
     },
   },
   list: {
@@ -98,9 +87,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HOF({ hof, sponsors }) {
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("md"));
-  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const align = matches ? "left" : "center";
+  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [expanded, setExpanded] = useState(false);
   const handleAccordionToggle = (event, index) => {
@@ -128,19 +115,24 @@ export default function HOF({ hof, sponsors }) {
           >
             Hall of Fame
           </Typography>
-          <Container maxWidth="md">
-
-            <Box pb={4}>
-              <ImageCarouselHOF images={hof.image_carousel} />
-            </Box>
-          </Container>
+          <Typography
+            variant={mobile ? "body1" : "h5"}
+            align="center"
+            color="textSecondary"
+            paragraph
+          >
+            Celebrating achievements and honoring excellence
+          </Typography>
         </div>
         {/* End hero unit */}
 
 
         {/* Table of Committee Members */}
-        <Container maxWidth="lg" >
-          <Box p={8}>
+        {mobile ? (
+          <Box pl={2} pr={2} pt={2} pb={2}>
+            <Box pb={4}>
+              <ImageCarouselHOF images={hof.image_carousel} />
+            </Box>
             {hof.table && (
               <TableContainer
                 component={Paper}
@@ -179,13 +171,15 @@ export default function HOF({ hof, sponsors }) {
                           <TableCell>{member.location}</TableCell>
                           <TableCell>{member.year}</TableCell>
                           <TableCell>
-                            <IconButton
-                              onClick={(event) => handleAccordionToggle(event, index)}
-                              aria-expanded={expanded === index}
-                              aria-label="show more"
-                            >
-                              <ExpandMoreIcon />
-                            </IconButton>
+                            {!!member.summary &&
+                              <IconButton
+                                onClick={(event) => handleAccordionToggle(event, index)}
+                                aria-expanded={expanded === index}
+                                aria-label="show more"
+                              >
+                                <ExpandMoreIcon />
+                              </IconButton>
+                            }
                           </TableCell>
                         </TableRow>
                         <TableRow>
@@ -193,7 +187,11 @@ export default function HOF({ hof, sponsors }) {
                             <Collapse in={expanded === index} timeout="auto" unmountOnExit>
                               <Box p={2}>
                                 {/* Add the additional information you want to show here */}
-                                Additional info about {member.name}
+                                {!!member.summary &&
+                                  <Typography>
+                                    {parse(member.summary)}
+                                  </Typography>
+                                }
                               </Box>
                             </Collapse>
                           </TableCell>
@@ -204,69 +202,88 @@ export default function HOF({ hof, sponsors }) {
                 </Table>
               </TableContainer>
             )}
-            {/* {hof.links && (
-              <Box className={classes.outterBox}>
-                <Paper className={classes.paper} elevation={3}>
-                  {hof.links.map((link) => (
-                    <div key={link.id}>
-                      <Box className={classes.box}>
-                        {link.title && (
-                          <Typography variant="h6" align={align}>
-                            {link.title}
-                          </Typography>
-                        )}
-                        {link.content && (
-                          <Typography
-                            component="div"
-                            className={classes.content}
-                            align={align}
-                          >
-                            {parse(link.content)}
-                          </Typography>
-                        )}
-                        {link.media && (
-                          <Box className={classes.updateButton}>
-                            <Button
-                              size="small"
-                              endIcon={<ArrowRightIcon />}
-                              color="primary"
-                              variant="contained"
-                              component={Link}
-                              href={API_URL + link.media.url}
-                            >
-                              Check it out
-                            </Button>
-                          </Box>
-                        )}
-                        {link.link && (
-                          <Box className={classes.updateButton}>
-                            <a
-                              href={link.link}
-                              target="_blank"
-                              className={classes.link}
-                            >
-                              <Button
-                                className={classes.updateButton}
-                                size="small"
-                                endIcon={<ArrowRightIcon />}
-                                color="primary"
-                                variant="contained"
-                              >
-                                Check it out
-                              </Button>
-                            </a>
-                          </Box>
-                        )}
-                      </Box>
-                      <Divider className={classes.divider} />
-                    </div>
-                  ))}
-                </Paper>
-              </Box>
-            )} */}
-            <Sponsors sponsors={sponsors} />
           </Box>
-        </Container>
+        ) : (
+          <Container maxWidth="md">
+            <Box pt={8} pb={2}>
+              <Box pb={4}>
+                <ImageCarouselHOF images={hof.image_carousel} />
+              </Box>
+              {hof.table && (
+                <TableContainer
+                  component={Paper}
+                  elevation={3}
+                  className={classes.tableContainer}
+                >
+                  {hof.table.title ? (
+                    <Box p={(2, 6)}>
+                      <Typography variant="h4" align="center">
+                        {hof.table.title}
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Box p={(2, 4)}>
+                      <Typography variant="h4" align="center">
+                        District 21 Hall of Fame
+                      </Typography>
+                    </Box>
+                  )}
+                  <Table className={classes.table}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell className={classes.head}>Name</TableCell>
+                        <TableCell className={classes.head}>Position</TableCell>
+                        <TableCell className={classes.head}>Location</TableCell>
+                        <TableCell className={classes.head}>Inducted</TableCell>
+                        <TableCell className={classes.head}>More</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {hof.table.member.map((member, index) => (
+                        <React.Fragment key={member.id}>
+                          <TableRow>
+                            <TableCell>{member.name}</TableCell>
+                            <TableCell>{member.position}</TableCell>
+                            <TableCell>{member.location}</TableCell>
+                            <TableCell>{member.year}</TableCell>
+                            <TableCell>
+                              {!!member.summary &&
+                                <IconButton
+                                  onClick={(event) => handleAccordionToggle(event, index)}
+                                  aria-expanded={expanded === index}
+                                  aria-label="show more"
+                                >
+                                  <ExpandMoreIcon />
+                                </IconButton>
+                              }
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell colSpan={5} style={{ padding: 0 }}>
+                              <Collapse in={expanded === index} timeout="auto" unmountOnExit>
+                                <Box p={2}>
+                                  {/* Add the additional information you want to show here */}
+                                  {!!member.summary &&
+                                    <Typography>
+                                      {parse(member.summary)}
+                                    </Typography>
+                                  }
+                                </Box>
+                              </Collapse>
+                            </TableCell>
+                          </TableRow>
+                        </React.Fragment>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            </Box>
+          </Container>
+        )}
+        <Box pb={8}>
+          <Sponsors sponsors={sponsors} />
+        </Box>
       </main >
     </>
 
