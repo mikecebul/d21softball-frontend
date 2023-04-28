@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import Link from "../../src/Link";
 import Moment from "react-moment";
@@ -23,12 +23,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import {
-  filteredItems,
-  uniqueYears,
-  sortIncrement,
-  sortDecrement,
   compareDate,
 } from "../../utils/sort";
+import { getCurrentYear, getYearRange } from "../../utils/format";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,17 +70,9 @@ const Tournaments = ({ tournaments, sponsors }) => {
 
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("xs"));
-
-  // Sorted Tournaments from earliest to latest
-  const sortedList = sortIncrement(tournaments);
-  const years = uniqueYears(sortedList);
-  const mostRecentTournamentYear = years[0];
-  const newTournamentList = sortDecrement(
-    filteredItems(sortedList, mostRecentTournamentYear)
-  );
-
-  // Compare today's date with the date of the most recent tournaments to decide whether to display them or not
-  const compared = compareDate(mostRecentTournamentYear, newTournamentList);
+  const currentYear = getCurrentYear();
+  const newTournamentList = tournaments;
+  const compared = compareDate(currentYear, newTournamentList);
 
   return (
     <React.Fragment>
@@ -183,7 +172,9 @@ const Tournaments = ({ tournaments, sponsors }) => {
 };
 
 export async function getStaticProps() {
-  const tournament_res = await fetch(`${API_URL}/tournaments/?_limit=1000`);
+  const currentYear = getCurrentYear();
+  const { startDate, endDate } = getYearRange(currentYear);
+  const tournament_res = await fetch(`${API_URL}/tournaments?_where[date_from_gte]=${startDate}&_where[date_from_lte]=${endDate}&_sort=date_from:ASC`);
   const tournaments = await tournament_res.json();
 
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);

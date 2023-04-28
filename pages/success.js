@@ -15,10 +15,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2, 6, 2, 6),
-    // paddingTop: theme.spacing(2),
-    // paddingBottom: theme.spacing(2),
-    // paddingLeft: theme.spacing(6),
-    // paddingRight: theme.spacing(6),
     margin: theme.spacing(0, 4, 8, 4),
   },
 }));
@@ -56,7 +52,7 @@ const useOrder = (session_id, tournament_id, team_id) => {
 export default function Success() {
   const classes = useStyles();
   const { isAuthenticated } = useCurrentUser();
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   const router = useRouter();
   const { session_id, tournament_id, team_id } = router.query;
@@ -87,13 +83,18 @@ export default function Success() {
         <div>
           <Box display="flex" justifyContent="center">
             <Paper className={classes.paper}>
-              <Typography display="block" variant="subtitle1" align="center">
-                Your order of{" "}
-                <strong>
-                  {order.tournament?.name}
-                  {order.camp?.name}{" "}
-                </strong>
-                with <strong>order number: {order.id}</strong> is complete!
+              <Typography variant="h6">
+                Your order was successful!
+              </Typography>
+              <Box p={2}></Box>
+              <Typography>
+                <strong>Tournament:</strong>{" "}{order.tournament.name}
+              </Typography>
+              <Typography>
+                <strong>Team:</strong>{" "}{order.team}
+              </Typography>
+              <Typography>
+                <strong>Order Number:</strong>{" "}{order.id}
               </Typography>
               {/* <Typography display="block" variant="h6" align="center">
                 {order.tournament?.name}

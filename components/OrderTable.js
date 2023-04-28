@@ -88,7 +88,8 @@ export default function OrderTable() {
             <TableHead>
               <TableRow>
                 <TableCell className={classes.head}>Date</TableCell>
-                <TableCell className={classes.head}>Name</TableCell>
+                <TableCell className={classes.head}>Tournament</TableCell>
+                <TableCell className={classes.head}>Team</TableCell>
                 <TableCell className={classes.head}>Total</TableCell>
                 <TableCell className={classes.head}>ID</TableCell>
                 <TableCell className={classes.head}>Status</TableCell>
@@ -116,6 +117,7 @@ export default function OrderTable() {
                           ? filteredOrder.tournament?.name
                           : filteredOrder.camp?.name}
                       </TableCell>
+                      <TableCell>{filteredOrder.team}</TableCell>
                       <TableCell>${filteredOrder.total}</TableCell>
                       <TableCell>{filteredOrder.id}</TableCell>
                       <TableCell>

@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "../../src/Link";
 import Moment from "react-moment";
 import Sponsors from "../../components/sponsors";
-import HallOfFame from "../../components/HallOfFame";
 
 import {
   Button,

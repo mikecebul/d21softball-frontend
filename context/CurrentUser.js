@@ -32,7 +32,7 @@ export const CurrentUserProvider = ({ children }) => {
         .get(`${API_URL}/users/me`, { withCredentials: true })
         .then((response) => {
           // Handle success.
-          console.log("Data: ", response);
+          // console.log("Data: ", response);
           if (response.data.id) {
             dispatch({ type: "LOGIN", user: response.data });
             return;
