@@ -74,6 +74,13 @@ const Tournaments = ({ tournaments, sponsors }) => {
   const newTournamentList = tournaments;
   const compared = compareDate(currentYear, newTournamentList);
 
+   // Filter tournaments for the determined year
+   const filteredTournaments = tournaments.filter(tournament => 
+    new Date(tournament.date_from).getFullYear() === compared.dateYear);
+    console.log(filteredTournaments)
+    console.log(compared.dateYear)
+
+
   return (
     <React.Fragment>
       <Head>
@@ -125,7 +132,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
             </>
           ) : (
             <Grid container spacing={4} justifyContent="center">
-              {newTournamentList.map((tournament) => (
+              {filteredTournaments.map((tournament) => (
                 <Grid item key={tournament.name} xs={10} sm={5} md={4}>
                   <Card className={classes.card} raised>
                     <CardActionArea>
@@ -173,7 +180,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
 
 export async function getStaticProps() {
   const currentYear = getCurrentYear();
-  const { startDate, endDate } = getYearRange(currentYear);
+  const { startDate } = getYearRange(currentYear);
   const tournament_res = await fetch(`${API_URL}/tournaments?_where[date_from_gte]=${startDate}&_sort=date_from:ASC`);
   const tournaments = await tournament_res.json();
 

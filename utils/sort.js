@@ -31,25 +31,26 @@ export const filteredItems = (list, date) => {
   return items;
 };
 
-export const compareDate = (mostRecentTournamentYear, tournaments = []) => {
+export const compareDate = (currentYear, tournaments = []) => {
   let date = new Date();
-  let currentYear = date.getFullYear();
+  let dateYear = date.getFullYear();
   let dateMonth = date.getMonth() + 1;
   let dateDay = date.getDate();
   let warning = false;
-  let lastTourneyYear = parseInt(mostRecentTournamentYear);
 
-  // Ensure tournaments is an array and check for next year's tournaments
-  const hasNextYearTournaments = Array.isArray(tournaments) && tournaments.some(tournament => 
-    new Date(tournament.date_from).getFullYear() > currentYear);
+  // Check if there are tournaments scheduled for the next year
+  const hasNextYearTournaments = tournaments.some(tournament => 
+    new Date(tournament.date_from).getFullYear() === currentYear + 1);
 
-  // Logic to set warning
-  if (!hasNextYearTournaments && lastTourneyYear === currentYear && dateMonth >= 9 && dateDay >= 15) {
-    warning = true;
+  // If it's past September 15th of the current year
+  if (dateYear === currentYear && (dateMonth > 9 || (dateMonth === 9 && dateDay >= 15))) {
+    // Increment the year for planning the next year's tournaments
+    currentYear = dateYear + 1;
+    // Set warning based on whether there are tournaments for the next year
+    warning = !hasNextYearTournaments;
   }
 
-  // Return the most recent tournament year or current year
-  return { warning, dateYear: lastTourneyYear > currentYear ? lastTourneyYear : currentYear };
+  return { warning, dateYear: currentYear };
 };
 
 // Sort Sponsors in order
