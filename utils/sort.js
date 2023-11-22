@@ -51,8 +51,9 @@ export const compareDate = (mostRecentTournamentYear) => {
   }
   // if we have next year's tournament list available already
   if (lastTourneyYear > dateYear) {
-    dateYear = dateYear + 1;
-    return { warning: false, dateYear };
+    // I may not need to increment the dateYear here.
+    // dateYear = dateYear + 1;
+    return { warning: false, dateYear: lastTourneyYear };
   }
   // Otherwise display most recent list of tournaments
   return { warning: false, dateYear };
