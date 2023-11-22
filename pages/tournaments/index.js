@@ -74,9 +74,6 @@ const Tournaments = ({ tournaments, sponsors }) => {
   const newTournamentList = tournaments;
   const compared = compareDate(currentYear, newTournamentList);
 
-  console.log("Compared:", compared)
-  console.log("New Tournament List:", newTournamentList)
-
   return (
     <React.Fragment>
       <Head>
