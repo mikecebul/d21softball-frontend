@@ -77,9 +77,6 @@ const Tournaments = ({ tournaments, sponsors }) => {
    // Filter tournaments for the determined year
    const filteredTournaments = tournaments.filter(tournament => 
     new Date(tournament.date_from).getFullYear() === compared.dateYear);
-    console.log(filteredTournaments)
-    console.log(compared.dateYear)
-
 
   return (
     <React.Fragment>
