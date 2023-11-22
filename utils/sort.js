@@ -32,31 +32,25 @@ export const filteredItems = (list, date) => {
 };
 
 // Compare today's date with the date of the most recent tournaments to decide whether to display them or not
-export const compareDate = (mostRecentTournamentYear) => {
+export const compareDate = (mostRecentTournamentYear, tournaments) => {
   let date = new Date();
-  let dateYear = date.getFullYear();
+  let currentYear = date.getFullYear();
   let dateMonth = date.getMonth() + 1;
   let dateDay = date.getDate();
-  let warning = true;
+  let warning = false;
   let lastTourneyYear = parseInt(mostRecentTournamentYear);
-  // If its past september 15th and no new tournaments are added for next year
-  if (lastTourneyYear === dateYear && dateMonth >= "9" && dateDay >= "15") {
-    dateYear = dateYear + 1;
-    return { warning, dateYear };
+
+  // Check if there are tournaments for next year
+  const hasNextYearTournaments = tournaments.some(tournament => 
+    new Date(tournament.date_from).getFullYear() > currentYear);
+
+   // Logic to set warning
+   if (!hasNextYearTournaments && lastTourneyYear === currentYear && dateMonth >= 9 && dateDay >= 15) {
+    warning = true;
   }
-  // if its next year and still no new tournaments have been added
-  if (lastTourneyYear < dateYear) {
-    dateYear;
-    return { warning, dateYear };
-  }
-  // if we have next year's tournament list available already
-  if (lastTourneyYear > dateYear) {
-    // I may not need to increment the dateYear here.
-    // dateYear = dateYear + 1;
-    return { warning: false, dateYear: lastTourneyYear };
-  }
-  // Otherwise display most recent list of tournaments
-  return { warning: false, dateYear };
+
+  // Return the most recent tournament year or current year
+  return { warning, dateYear: lastTourneyYear > currentYear ? lastTourneyYear : currentYear };
 };
 
 // Sort Sponsors in order

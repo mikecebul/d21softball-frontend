@@ -74,6 +74,9 @@ const Tournaments = ({ tournaments, sponsors }) => {
   const newTournamentList = tournaments;
   const compared = compareDate(currentYear, newTournamentList);
 
+  console.log("Compared:", compared)
+  console.log("New Tournament List:", newTournamentList)
+
   return (
     <React.Fragment>
       <Head>
@@ -174,7 +177,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
 export async function getStaticProps() {
   const currentYear = getCurrentYear();
   const { startDate, endDate } = getYearRange(currentYear);
-  const tournament_res = await fetch(`${API_URL}/tournaments?_where[date_from_gte]=${startDate}&_where[date_from_lte]=${endDate}&_sort=date_from:ASC`);
+  const tournament_res = await fetch(`${API_URL}/tournaments?_where[date_from_gte]=${startDate}&_sort=date_from:ASC`);
   const tournaments = await tournament_res.json();
 
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
