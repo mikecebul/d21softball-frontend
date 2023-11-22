@@ -31,8 +31,7 @@ export const filteredItems = (list, date) => {
   return items;
 };
 
-// Compare today's date with the date of the most recent tournaments to decide whether to display them or not
-export const compareDate = (mostRecentTournamentYear, tournaments) => {
+export const compareDate = (mostRecentTournamentYear, tournaments = []) => {
   let date = new Date();
   let currentYear = date.getFullYear();
   let dateMonth = date.getMonth() + 1;
@@ -40,12 +39,12 @@ export const compareDate = (mostRecentTournamentYear, tournaments) => {
   let warning = false;
   let lastTourneyYear = parseInt(mostRecentTournamentYear);
 
-  // Check if there are tournaments for next year
-  const hasNextYearTournaments = tournaments.some(tournament => 
+  // Ensure tournaments is an array and check for next year's tournaments
+  const hasNextYearTournaments = Array.isArray(tournaments) && tournaments.some(tournament => 
     new Date(tournament.date_from).getFullYear() > currentYear);
 
-   // Logic to set warning
-   if (!hasNextYearTournaments && lastTourneyYear === currentYear && dateMonth >= 9 && dateDay >= 15) {
+  // Logic to set warning
+  if (!hasNextYearTournaments && lastTourneyYear === currentYear && dateMonth >= 9 && dateDay >= 15) {
     warning = true;
   }
 
