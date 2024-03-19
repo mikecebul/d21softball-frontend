@@ -95,7 +95,7 @@ const StickyFooter = () => {
                   <ListItemIcon>
                     <LocationOnOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="208 W. Lincoln, Charlevoix, MI 49720" />
+                  <ListItemText primary="101 M-66 N, Charlevoix, MI 49720" />
                 </ListItem>
               </Link>
             </List>
