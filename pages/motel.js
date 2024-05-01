@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import { API_URL, fromImageToUrlSmall } from "../utils/urls";
+import { API_URL, fromImageToUrl, fromImageToUrlSmall } from "../utils/urls";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Sponsors from "../components/sponsors";
@@ -83,7 +83,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Motel({ motel, sponsors }) {
   const classes = useStyles();
 
-  const info = motel.info;
+  const motelInfo = motel.info;
+  const fuelInfo = motel.fuel;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const mobile = useMediaQuery(theme.breakpoints.down("xs"));
@@ -111,7 +112,7 @@ export default function Motel({ motel, sponsors }) {
             color="textPrimary"
             gutterBottom
           >
-            Motel Info
+            Fuel and Motel Info
           </Typography>
           <Typography
             variant={mobile ? "body1" : "h5"}
@@ -119,26 +120,26 @@ export default function Motel({ motel, sponsors }) {
             color="textSecondary"
             paragraph
           >
-            Wondering where you're going to stay after the event?
+            If you're traveling and looking for a convience store or a motel for the night, here is where to start.
           </Typography>
         </div>
         {/* End Hero Unit */}
         <Container className={classes.content} maxWidth="md">
-          <Box display="flex" flexDirection="column" justifyContent="center">
-            {info ? (
+          <Box display="flex" flexDirection="column" justifyContent="center" marginBottom={8}>
+            {motelInfo ? (
               <>
                 <Box className={classes.outterBox}>
                   <Paper className={classes.paper} elevation={3}>
                     <Box>
                       <Typography variant="h4" align="center">
-                        {info.title}
+                        {motelInfo.title}
                       </Typography>
                       <Typography
                         component="div"
                         variant="body1"
-                        align="center"
+                        align="left"
                       >
-                        {parse(info.content)}
+                        {parse(motelInfo.content)}
                       </Typography>
                     </Box>
                     <Box
@@ -147,15 +148,15 @@ export default function Motel({ motel, sponsors }) {
                       justifyContent="center"
                       className={classes.logo}
                     >
-                      <a target="_blank" href={info.url}>
+                      <a target="_blank" href={motelInfo.url}>
                         <Image
-                          src={fromImageToUrlSmall(info.media)}
+                          src={fromImageToUrl(motelInfo.media)}
                           alt="Link to local Motels"
-                          height={info.media.height}
-                          width={info.media.width}
+                          height={motelInfo.media.height}
+                          width={motelInfo.media.width}
                         ></Image>
-                        <Typography variant="caption">
-                          Petoskey Area Hotel Listings
+                        <Typography variant="caption" >
+                          {motelInfo.caption}
                         </Typography>
                       </a>
                     </Box>
@@ -164,7 +165,48 @@ export default function Motel({ motel, sponsors }) {
               </>
             ) : (
               <Box>
-                <Typography>Currently no motel info right now.</Typography>
+                <Typography>Currently no info right now.</Typography>
+              </Box>
+            )}
+          </Box>
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            {fuelInfo ? (
+              <>
+                <Box className={classes.outterBox}>
+                  <Paper className={classes.paper} elevation={3}>
+                    <Box>
+                      <Typography variant="h4" align="center">
+                        {fuelInfo.title}
+                      </Typography>
+                      <Typography
+                        component="div"
+                        variant="body1"
+                        align="left"
+                      >
+                        {parse(fuelInfo.content)}
+                      </Typography>
+                    </Box>
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="center"
+                      className={classes.logo}
+                    >
+                      <a target="_blank" href={fuelInfo.url}>
+                        <Image
+                          src={fromImageToUrl(fuelInfo.media)}
+                          alt="Link to Blarney Castle EZ Mart"
+                          height={fuelInfo.media.height}
+                          width={fuelInfo.media.width}
+                        ></Image>
+                      </a>
+                    </Box>
+                  </Paper>
+                </Box>
+              </>
+            ) : (
+              <Box>
+                <Typography>Currently no info right now.</Typography>
               </Box>
             )}
           </Box>

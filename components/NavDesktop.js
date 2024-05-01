@@ -119,7 +119,7 @@ export default function NavDesktop() {
       <List disablePadding>
         <Link href="/motel" color="inherit">
           <ListItem button>
-            <ListItemText primary="Motels" />
+            <ListItemText primary="Fuel/Motels" />
           </ListItem>
         </Link>
       </List>

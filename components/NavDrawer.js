@@ -10,7 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import SportsBaseballOutlinedIcon from "@material-ui/icons/SportsBaseballOutlined";
+// import SportsBaseballOutlinedIcon from "@material-ui/icons/SportsBaseballOutlined";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import IconButton from "@material-ui/core/IconButton";
@@ -20,7 +20,8 @@ import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import SportsHandballOutlinedIcon from "@material-ui/icons/SportsHandballOutlined";
 import Link from "../src/Link";
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
-import HotelOutlinedIcon from "@material-ui/icons/HotelOutlined";
+// import HotelOutlinedIcon from "@material-ui/icons/HotelOutlined";
+import TimeToLeaveOutlinedIcon from '@material-ui/icons/TimeToLeaveOutlined';
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import SportsIcon from "@material-ui/icons/Sports";
 import { Divider, ListSubheader } from "@material-ui/core";
@@ -135,9 +136,9 @@ const NavDrawer = () => {
           <Link href="/motel" color="inherit">
             <ListItem button onClick={() => setOpen(false)}>
               <ListItemIcon>
-                <HotelOutlinedIcon />
+                <TimeToLeaveOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="Motels" />
+              <ListItemText primary="Fuel/Motels" />
             </ListItem>
           </Link>
           {/* Leagues */}

@@ -38,7 +38,7 @@ export const fromImageToUrlSmall = (image) => {
     return "/logo_png.png";
   }
 
-  if (image.formats.small.url.indexOf("/") === 0) {
+  if (image.formats.small?.url.indexOf("/") === 0) {
     return `${API_URL}${image.formats.small.url}`;
   }
 
