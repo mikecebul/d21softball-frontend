@@ -131,19 +131,6 @@ const StickyFooter = () => {
                   <ListItemText primary="USA Softball MI" />
                 </ListItem>
               </Link>
-              <Link
-                href="https://basesrecoverycenter.org/wp/"
-                rel="noopener"
-                target="_blank"
-                color="inherit"
-              >
-                <ListItem button>
-                  <ListItemIcon>
-                    <LanguageOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="BASES Recovery Center" />
-                </ListItem>
-              </Link>
             </List>
           </Grid>
         </Grid>
