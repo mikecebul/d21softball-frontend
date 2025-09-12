@@ -21,21 +21,12 @@ export default function MyApp(props) {
 
   return (
     <React.Fragment>
-      {/*  Global site tag (gtag.js) - Google Analytics */}
       <Script
+        defer
+        data-website-id="1da3034a-4681-43a3-910f-312b4d9cf24f"
+        src="https://analytics.mikecebul.com/script.js"
         strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
       />
-      <Script strategy="lazyOnload">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-          page_path: window.location.pathname,
-          });
-        `}
-      </Script>
       <CurrentUserProvider>
         <Head>
           <title>D21 Softball</title>
