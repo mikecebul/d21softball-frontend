@@ -22,9 +22,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import { fromImageToUrl, API_URL } from "../../utils/urls";
-import {
-  compareDate,
-} from "../../utils/sort";
+import { compareDate } from "../../utils/sort";
 import { getCurrentYear, getYearRange } from "../../utils/format";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,19 +63,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Tournaments = ({ tournaments, sponsors }) => {
+  console.log("Tournaments props:", { tournaments });
   const classes = useStyles();
   const router = useRouter();
 
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("xs"));
   const currentYear = getCurrentYear();
-  const newTournamentList = tournaments;
+  const newTournamentList = Array.isArray(tournaments) ? tournaments : [];
   const compared = compareDate(currentYear, newTournamentList);
 
-   // Filter tournaments for the determined year
-   const filteredTournaments = tournaments.filter(tournament => 
-    new Date(tournament.date_from).getFullYear() === compared.dateYear);
+  // Filter tournaments for the determined year
+  const filteredTournaments = newTournamentList.filter(
+    (tournament) =>
+      new Date(tournament.date_from).getFullYear() === compared.dateYear
+  );
 
+  console.log("Filtered Tournaments:", filteredTournaments);
   return (
     <React.Fragment>
       <Head>
@@ -121,7 +123,7 @@ const Tournaments = ({ tournaments, sponsors }) => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={(e) => router.push("/archives")}
+                  onClick={() => router.push("/archives")}
                 >
                   View Tournament Archives
                 </Button>
@@ -178,7 +180,9 @@ const Tournaments = ({ tournaments, sponsors }) => {
 export async function getStaticProps() {
   const currentYear = getCurrentYear();
   const { startDate } = getYearRange(currentYear);
-  const tournament_res = await fetch(`${API_URL}/tournaments?_where[date_from_gte]=${startDate}&_sort=date_from:ASC`);
+  const tournament_res = await fetch(
+    `${API_URL}/tournaments?_where[date_from_gte]=${startDate}&_sort=date_from:ASC`
+  );
   const tournaments = await tournament_res.json();
 
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);

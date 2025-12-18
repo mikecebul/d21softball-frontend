@@ -108,9 +108,15 @@ const Index = ({ frontPage, sponsors }) => {
 
 export async function getStaticProps() {
   const frontPage_res = await fetch(`${API_URL}/front-page/`);
+  if (!frontPage_res.ok) {
+    throw new Error(`Failed to fetch front-page: ${frontPage_res.status} ${frontPage_res.statusText}`);
+  }
   const frontPage = await frontPage_res.json();
 
   const sponsor_res = await fetch(`${API_URL}/sponsors/`);
+  if (!sponsor_res.ok) {
+    throw new Error(`Failed to fetch sponsors: ${sponsor_res.status} ${sponsor_res.statusText}`);
+  }
   const sponsors = await sponsor_res.json();
 
   return {

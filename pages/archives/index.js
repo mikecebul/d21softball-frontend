@@ -73,24 +73,23 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-  // Sorted Tournaments from earliest to latest
   const sortedList = sortIncrement(tournaments);
-  const years = uniqueYears(sortedList);
+  const allYears = uniqueYears(sortedList);
+  const currentYear = new Date().getFullYear();
 
-  // Remove lastest year from the list if the season istn't over yet
-  const compared = () => {
-    let x = compareDate(years[0]);
-    if (x.warning === false) {
-      return years.shift();
-    }
-    return years;
-  };
-  compared();
+  // Check what the tournaments page is currently showing
+  const tournamentsPageStatus = compareDate(currentYear, tournaments);
+  const yearShownOnTournamentsPage = tournamentsPageStatus.dateYear;
+  const tournamentsPageHasContent = !tournamentsPageStatus.warning;
 
-  // set last completed season year then filter list and sort in order
-  const [currentDate, setCurrentDate] = useState(years[0]);
+  // Only exclude a year from archives if it's actively being shown on tournaments page
+  const archiveYears = tournamentsPageHasContent
+    ? allYears.filter(year => year !== String(yearShownOnTournamentsPage))
+    : allYears;
+
+  const [selectedYear, setSelectedYear] = useState(archiveYears[0]);
   const filteredTournaments = sortDecrement(
-    filteredItems(sortedList, currentDate)
+    filteredItems(sortedList, selectedYear)
   );
 
   return (
@@ -121,29 +120,19 @@ const Archives = ({ tournaments, hallOfFame, sponsors }) => {
               color="textSecondary"
               paragraph
             >
-              <>
-                {"Viewing "}
-                <Moment format="YYYY">{currentDate}</Moment>
-                {" Archives"}
-              </>
+              Viewing {selectedYear} Archives
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
-                {years.map((date, index) => (
-                  <Grid item key={index}>
+                {archiveYears.map((year) => (
+                  <Grid item key={year}>
                     <Button
                       size={mobile ? "small" : "medium"}
                       variant="contained"
-                      color={
-                        currentDate === date
-                          ? "secondary"
-                          : "default"
-                      }
-                      onClick={() => {
-                        setCurrentDate(date);
-                      }}
+                      color={selectedYear === year ? "secondary" : "default"}
+                      onClick={() => setSelectedYear(year)}
                     >
-                      <Moment format="YYYY">{date}</Moment>{" "}
+                      {year}
                     </Button>
                   </Grid>
                 ))}

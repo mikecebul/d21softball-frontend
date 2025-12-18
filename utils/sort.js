@@ -1,14 +1,23 @@
 // Sorted Tournaments from earliest to latest
 export const sortIncrement = (x) => {
+  if (!Array.isArray(x)) {
+    return [];
+  }
   const sorted = x.sort((a, b) => (a.date_from < b.date_from ? 1 : -1));
   return sorted;
 };
 export const sortDecrement = (x) => {
+  if (!Array.isArray(x)) {
+    return [];
+  }
   const sorted = x.sort((a, b) => (a.date_from > b.date_from ? 1 : -1));
   return sorted;
 };
 
 export const uniqueYears = (x) => {
+  if (!Array.isArray(x)) {
+    return [];
+  }
   let years = x.map((item) => {
     return item.date_from.substring(0, 4);
   });
@@ -16,6 +25,9 @@ export const uniqueYears = (x) => {
 };
 
 export const uniquePastYears = (x) => {
+  if (!Array.isArray(x)) {
+    return [];
+  }
   let years = x.map((item) => {
     return item.date_from.substring(0, 4);
   });
@@ -23,6 +35,9 @@ export const uniquePastYears = (x) => {
 };
 
 export const filteredItems = (list, date) => {
+  if (!Array.isArray(list)) {
+    return [];
+  }
   let items = list.filter((item) => {
     if (item.date_from.substring(0, 4) === date) {
       return item;
@@ -38,8 +53,11 @@ export const compareDate = (currentYear, tournaments = []) => {
   let dateDay = date.getDate();
   let warning = false;
 
+  // Ensure tournaments is an array
+  const tournamentArray = Array.isArray(tournaments) ? tournaments : [];
+
   // Check if there are tournaments scheduled for the next year
-  const hasNextYearTournaments = tournaments.some(tournament => 
+  const hasNextYearTournaments = tournamentArray.some(tournament =>
     new Date(tournament.date_from).getFullYear() === currentYear + 1);
 
   // If it's past September 15th of the current year
@@ -55,6 +73,9 @@ export const compareDate = (currentYear, tournaments = []) => {
 
 // Sort Sponsors in order
 export const sortSponsors = (x) => {
+  if (!Array.isArray(x)) {
+    return [];
+  }
   const sorted = x.sort((a, b) => (a.list_order > b.list_order ? 1 : -1));
   return sorted;
 };
