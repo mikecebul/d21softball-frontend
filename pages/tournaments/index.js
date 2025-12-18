@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Tournaments = ({ tournaments, sponsors }) => {
-  console.log("Tournaments props:", { tournaments });
   const classes = useStyles();
   const router = useRouter();
 
@@ -79,7 +78,6 @@ const Tournaments = ({ tournaments, sponsors }) => {
       new Date(tournament.date_from).getFullYear() === compared.dateYear
   );
 
-  console.log("Filtered Tournaments:", filteredTournaments);
   return (
     <React.Fragment>
       <Head>
